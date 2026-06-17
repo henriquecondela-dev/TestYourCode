@@ -8,3 +8,8 @@
     font-family: 'Inter';
     src: url(assets/static/Inter-Regular.ttf);
 }
+@font-face {
+    font-family: 'InterBold';
+    src: url(assets/static/Inter-Bold.ttf);
+   
+}

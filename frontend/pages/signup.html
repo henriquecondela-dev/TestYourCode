@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/frontend/css/global.css">
-    <link rel="stylesheet" href="/frontend/css/login.css">
+    <link rel="stylesheet" href="/frontend/css/signup.css">
 </head>
 <body>
     <div class="container">
-    
             <div class="left-side">
                 <div class="content">
-                    <p>Please login to continue.</p>
-                    
+                    <p>Register Your Self</p>
                 </div>
             </div>
             <div class="right-side">
                 <h1>TestYourCode</h1>
-                
                 <form action="/login">
+                    <label class="form-label" for="name">Name:</label>
+                    <input type="text" id="name" name="name"  class="form-input" placeholder="Elon musk" required>
                     <label class="form-label" for="email">Email:</label>
                     <input type="email" id="email" name="email"  class="form-input" placeholder="user@gmail.com" required>
-                    <br>
+                    
                     <label class="form-label" for="password">Password:</label>
                     <input type="password" id="password" class="form-input" name="password" required pattern="[A-Z]{1}[a-z]{4}[!@#$%^&*]{1}" maxlength="6" placeholder="!#@$#%$^$">
+                     <label class="form-label" for="password">Confirm the password:</label>
+                    <input type="password" id="password" class="form-input" name="password" required pattern="[A-Z]{1}[a-z]{4}[!@#$%^&*]{1}" placeholder="!#@$#%$^$" maxlength="6">
                 
-                    <a class="link" href="signup.html">Create Account</a>
-                    <button id="login" type="submit">Login</button>
+                    <a class="link" href="login.html">Do you alrey have an account?</a>
+                    <button id="login" type="submit">SignUp</button>
                 </form>
             </div>
     </div>
