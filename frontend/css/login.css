@@ -1,6 +1,5 @@
 
 body{
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +18,6 @@ body::before{
     z-index: 0;
     
 }
-
 .container{
     z-index: 1;
     display: flex;
@@ -41,7 +39,6 @@ body::before{
     border-bottom-left-radius: 20px;
     border-top-right-radius:30px;
     border-bottom-right-radius: 30px;
-   
 }
 .left-side::before{
     content: "";
@@ -54,7 +51,6 @@ body::before{
     filter: blur(1px);
     transform: scale(1.1);
     z-index: 0;
-    
 }
 .left-side .content{
     position: relative;
@@ -69,10 +65,8 @@ body::before{
     align-items: center;
     justify-content: center;
     font-weight: 950;
-    
     color:hsl(240, 51%, 60%);
     width: auto;
-    
 }
 .left-side .content p{
     width: fit-content;
@@ -87,7 +81,6 @@ body::before{
    text-align: center;
    padding: 20px;
  
-  
 }
 .right-side h2{
     font-family: 'InterBold';
@@ -100,14 +93,12 @@ form{
     gap: 5px;
     font-family: 'InterBold';
     margin-left: 25px;
-    
 }
 .form-label{
   text-align: left;
   font-size: 15px;
   font-weight: bold;
     color:hsl(200, 100%, 10%);
- 
   }
 a{  
    font-size: small;
@@ -123,11 +114,9 @@ h1{
     font-weight: 950;
     white-space: normal;
     overflow-wrap: break-word;
-   
 }
 h1::after{
     content:"</>";
-    text-weight: bold;
     font-size: 2rem;
     color:hsl(0, 80%, 17%);
 }
@@ -142,12 +131,10 @@ h1::after{
 form button:hover{
     cursor: pointer;
     background-color:hsl(240, 17%, 40%);
-
 }
 .form-input:hover{
     cursor: pointer;
     background-color:hsl(240, 100%, 80%);
-   
 }
 .form-input:focus{
     outline: none;

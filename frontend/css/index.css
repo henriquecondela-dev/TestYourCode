@@ -1,0 +1,132 @@
+body{
+    margin: 0;
+    background-color:hsl(240, 100%, 90%);
+    background-color: hsl(137, 47%, 97%);
+    font-family: sans-serif;
+}
+.topNavBar{
+    display: flex;
+    flex-direction: row;
+    background-color:hsl(140, 48%, 94%);
+    height:auto;
+    justify-content: space-between;
+}
+#logo{
+    margin:5px;
+}
+
+#logo::after{
+    content:"</>";
+    font-size: 2rem;
+    font-weight: 900;
+    color:hsl(252, 79%, 30%);
+}
+#profile{
+    margin:5px;
+}
+#name{
+    margin: 5px;
+    font-family:sans-serif;
+    color:hsl(200, 100%, 20%);
+    font-weight: 950;
+    font-size: 1.5rem;
+}
+#name::after{
+    content:"</>";
+    font-size: 1.5rem;
+    color:hsl(0, 80%, 17%);
+}
+.downPage{
+    display: flex;
+    flex-direction: row;
+    height: 94vh;
+}
+.left-side.collapsed .text{
+    display: none;
+}
+.left-side .text{
+    display: inline;
+}
+.left-side.collapsed{
+    width: 50px;
+}
+.left-side .icon{
+    display: none;
+}
+.left-side.collapsed .icon{
+    display: inline;
+}
+.left-side{
+    display: flex;
+    flex-direction: column;
+    width:250px;
+    background-color:hsl(140, 48%, 88%);
+    border-radius:3px;
+    transition: width 0.3s ease;
+  
+}
+a{
+    text-decoration: none;
+    color:black;
+    width: auto;
+    padding: 10px;
+}
+.link{
+    color:hsl(215, 64%, 31%);
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+#logout{
+    color:hsl(0, 75%, 44%);
+    font-size: 16px;
+
+}
+#logout:hover{
+    background-color: hsl(0, 80%, 95%);
+}
+a:hover{
+    background-color: hsl(139, 48%, 95%);
+}
+
+/* Styling the right side of the page */
+.right-side{
+    display: flex;
+    flex-direction: column;
+}
+.top-right-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:20px;
+    width: 80vw;
+    align-items: center;
+}
+.right-side a{
+    color:hsl(215, 64%, 31%);
+    font-size: 0.875rem;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px;
+    display: block;
+    margin-top: 10px;
+    background-color: hsl(214, 8%, 82%);
+}
+.right-side a:hover{
+    background-color: hsl(214, 8%, 76%);
+}
+.icon img{
+    width: 16px;
+    height: 16px;
+}
+.downPage button{
+    border: none;
+    background-color:hsl(140, 48%, 88%);
+    text-align: end;
+}
+.downPage button:hover{
+    background-color:hsl(140, 48%, 84%);
+
+}
+
