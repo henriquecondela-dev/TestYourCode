@@ -1,0 +1,10 @@
+Login
+Dashboard
+Criar Grupo
+Entrar no Grupo
+Criar Desafio
+Submeter Solução
+Resultado falso (dados inventados)
+Backend Node.js
+Banco de dados
+IA

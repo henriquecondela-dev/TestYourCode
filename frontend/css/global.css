@@ -1,0 +1,10 @@
+:root{
+    --background-color: hsl(202, 33%, 40%);
+    --primary-color: hsl(0, 0%, 100%);
+    font-family: 'Inter', sans-serif;
+
+}
+@font-face {
+    font-family: 'Inter';
+    src: url(assets/static/Inter-Regular.ttf);
+}

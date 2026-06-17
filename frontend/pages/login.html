@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/login.css">
+</head>
+<body>
+    <div class="container">
+    
+            <div class="left-side">
+                <h1></h1>
+                <p>Please login to continue.</p>
+            </div>
+            <div class="right-side">
+                <h1>TestYourCode</h1>
+                <h2>Login</h2>
+                <form action="/login">
+                    <label class="form-label" for="email">Email:</label>
+                    <input type="email" id="email" name="email"  class="form-input" placeholder="user@gmail.com" required>
+                    <br>
+                    <label class="form-label" for="password">Password:</label>
+                    <input type="password" id="password" class="form-input" name="password" required pattern="[A-Z]{1}[a-z]{4}[!@#$%^&*]{1}" maxlength="6">
+                
+                    <a class="link" href="frontend/pages/register.html">Criar conta</a>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+    </div>
+</body>
+</html> 
