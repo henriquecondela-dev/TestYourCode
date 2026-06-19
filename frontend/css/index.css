@@ -63,7 +63,6 @@ body{
     background-color:hsl(140, 48%, 88%);
     border-radius:3px;
     transition: width 0.3s ease;
-  
 }
 a{
     text-decoration: none;
@@ -130,3 +129,71 @@ a:hover{
 
 }
 
+/*Styling teh modal*/
+#modal h2{
+    text-align: center;
+    color:hsl(200, 100%, 20%);
+}
+#modal{
+    display: block;
+    background-color: hsl(0, 0%, 95%);
+    width: 280px;
+    height: 250px;
+    border-radius: 15px;
+    padding: 10px;
+}
+.btn{
+    border-radius: 5px;
+    font-weight: 900;
+    padding: 5px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    padding: 5px;
+}
+.form-input{
+    width:100%;
+    border-style: none;
+    background-color:hsl(240, 100%, 85%);
+    border-radius: 10px;
+    height: 25px;
+}
+.form-input:hover{
+    cursor: pointer;
+    background-color:hsl(240, 100%, 80%);
+}
+.form-input:focus{
+    outline: none;
+    border: 1px solid hsl(240, 100%, 45%);
+}
+.low-bar{
+    margin-top:10px;
+    display: flex;
+    justify-content: space-between;
+}
+#creatgroup-btn{
+   background-color:hsl(240, 100%, 85%);
+   width: 70px;
+   text-align: center;
+}
+#creatgroup-btn:hover{
+    background-color:hsl(240, 100%, 75%);
+}
+#cancel-btn{
+    background-color:hsl(240, 100%, 85%);
+    width: 70px;
+    text-align: center;
+}
+#cancel-btn:hover{
+    background-color:hsl(0, 61%, 56%);
+}
+.overlay{
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0,0.6);
+    justify-content: center;
+    align-items: center;
+}

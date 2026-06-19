@@ -41,11 +41,33 @@
         </div>
         <div class="right-side">
             <div class="top-right-side">
-                <a href="creatGroup.html">Creat a Group</a>
-                <a href="#">Join in a group</a>
+                <button  class="btn" id="creatGrup-btn">Creat a Group</button>
+                <div id="overlay">
+                    <div id="modal">
+                        <h2>Creat Group</h2>
+                        <form class="form">
+                            <label class="link" for="name">Name:</label>
+                            <input class="form-input"  id="creatGroup-name" type="text">
+                            <label class="link" for="language">Language</label>
+                            <select class="form-input"  name="payment" id="payment">
+                                <option value="Java">Java</option>
+                                <option value="javaScript">JavaScript</option>
+                                <option value="python">Phyton</option>
+                                <option value="paypal">C++</option>
+                                <option value="c">C</option>
+                                <option value="c#">C#</option>
+                            </select>
+                            <div class="low-bar">
+                                <button class="btn" id="creatgroup-btn" type="submit">Creat</button>
+                                <button class="btn" id="cancel-btn">Cancel</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+                <button class="btn" id="joinGroup-btn">Join in a group</button>
             </div>
             <div class="bottom-right-side">
-                
             </div>
         </div>
     </div>

@@ -42,7 +42,6 @@ body::before{
     border-bottom-left-radius: 20px;
     border-top-right-radius:30px;
     border-bottom-right-radius: 30px;
-   
 }
 .left-side::before{
     content: "";
@@ -55,7 +54,6 @@ body::before{
     filter: blur(1px);
     transform: scale(1.1);
     z-index: 0;
-    
 }
 .left-side .content{
     position: relative;
