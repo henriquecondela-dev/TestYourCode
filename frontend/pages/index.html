@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="/frontend/css/messegesAlert.css">
+    
     <title>index</title>
 </head>
 <body>
@@ -12,6 +14,7 @@
         <h1 class="top" id="name">TestYourCode</h1>
         <p class="top" id="profile"><img src="/assets/images/user.png" alt=""></p>
     </div>
+    <div class="message-box"></div>
     <div class="downPage">
         <div class="left-side">
             <button type="button" id="state-btn"><img src="/assets/images/angle-left.png" alt=""></button>
@@ -44,8 +47,9 @@
                 <button type="button" class="btn" id="creatGrup-btn">Creat a Group</button>
                 <div id="creat-overlay">
                     <div id="creat-modal">
+                        <div class="message-box"></div>
                         <h2>Creat Group</h2>
-                        <form class="form">
+                        <form class="form" novalidate>
                             <label class="link" for="name">Name:</label>
                             <input class="form-input"  id="creatGroup-name" type="text">
                             <label class="link" for="language">Language</label>
@@ -67,6 +71,7 @@
                 <button class="btn" id="joinGroup-btn">Join in a group</button>
                     <div id="join-overlay">
                         <div id="join-modal">
+                            <div id="joinMessage"></div>
                             <h2>Available Groups</h2>
                             <div id="groups-container">
                             </div>
@@ -76,15 +81,20 @@
                             </div>
                         </div>
                     </div>
-                 <button type="button" class="btn" id="creatGrup-btn">Start a challenge</button>
+                 <button type="button" class="btn" id="startGroup-btn">Start a challenge</button>
                     <div id="start-overlay">
                         <div id="start-modal">
-                            <h2>Start a chlallenge</h2>
-                            
+                            <div id="startMessage"></div>
+                            <h2>Your Groups</h2>
+                            <div id="owner-groups-container">
+                            </div>
+                            <div class="modal-buttons">
+                                <button type="button"   class="btn"           id="start-selected-btn">Start</button>
+                                <button type="button" class="btn" id="start-cancel-btn">Cancel</button>
+                            </div>
                         </div>
                     </div>
             </div>
-            
             <div id="terminal">
                   <div id="terminal-settings">
                     <div class="left-seting">
@@ -100,5 +110,6 @@
     </div>
     <script src="/frontend/js/index.js"></script>
     <script src="/frontend/js/terminal.js"></script>
+    <script src="/frontend/js/messagesAlert.js"></script>
 </body>
 </html>

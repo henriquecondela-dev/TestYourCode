@@ -1,0 +1,66 @@
+/*Styling small devices*/
+@media (max-width:480px){
+    
+    .left-side::before{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url(/assets/images/Treehouse-Stock-Images-1.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(1px);
+        transform: scale(1.1);
+        z-index: 0;
+    }
+    body{
+        height: auto;
+    }
+    .container{
+        flex-direction:column;
+        width: 350px;
+        padding: auto;
+        margin:auto;
+        display:block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .left-side{
+        width: 100%;
+        height: 200px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 120%;
+        border-top-right-radius:0px;
+        border-bottom-right-radius: 120%;
+    }
+
+    .right-side{
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+    }
+
+    form{
+        gap: 6px;
+        margin:auto;
+    }
+
+    a{  
+        font-size: small;
+        width: 300px;
+        margin:0px;
+    }
+
+    .form-input{
+        width: 300px;
+    }
+
+    form button{
+        margin-top: 5px;
+        display: block;
+        align-self: center;
+        margin-right: 45px;
+    }
+}

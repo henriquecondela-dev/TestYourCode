@@ -16,9 +16,7 @@ body::before{
     filter: blur(5px);
     transform: scale(1.1);
     z-index: 0;
-    
 }
-
 .container{
     z-index: 1;
     display: flex;

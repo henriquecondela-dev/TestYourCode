@@ -1,0 +1,24 @@
+
+#joinMessage, #startMessage,#creatMessage{
+    align-self: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+    display: none;
+}
+.success{
+    background:hsl(134, 41%, 88%);
+    color:#155724;
+}
+.error{
+    background:hsl(355, 70%, 91%);
+    color:#721c24;
+}
+.alert{
+    background:#fff3cd;
+    color:#856404;
+}
+#group-error{
+    color:red;
+    font-size:10px;
+}

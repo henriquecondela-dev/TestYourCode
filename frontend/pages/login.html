@@ -6,6 +6,8 @@
     <title>Login</title>
     <link rel="stylesheet" href="/frontend/css/global.css">
     <link rel="stylesheet" href="/frontend/css/login.css">
+    <link rel="stylesheet" href="/frontend/css/smalldevices.css">
+    <link rel="stylesheet" href="/frontend/css/messegesAlert.css">
 </head>
 <body>
     <div class="container">
@@ -13,15 +15,15 @@
             <div class="left-side">
                 <div class="content">
                     <p>Please login to continue.</p>
-                    
                 </div>
             </div>
             <div class="right-side">
                 <h1>TestYourCode</h1>
                 
-                <form action="/login">
+                <form novalidate>
                     <label class="form-label" for="email">Email:</label>
                     <input type="email" id="email" name="email"  class="form-input" placeholder="user@gmail.com" required>
+                    <small id="group-error"></small>
                     <br>
                     <label class="form-label" for="password">Password:</label>
                     <input type="password" id="password" class="form-input" name="password" required  maxlength="6" placeholder="!#@$#%$^$">
@@ -32,5 +34,6 @@
             </div>
     </div>
     <script src="/frontend/js/index.js"></script>
+    <script src="/frontend/js/messagesAlert.js"></script>
 </body>
 </html> 

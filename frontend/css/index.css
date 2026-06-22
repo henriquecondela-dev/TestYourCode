@@ -132,15 +132,13 @@ a:hover{
 
 
 /*modals*/
-#join-modal{
+#join-modal, #start-modal{
     width:400px;
     background:hsl(0, 0%, 95%);
     border-radius:15px;
-    padding:10px;
+    padding:8px;
 }
-#join-modal .modal-buttons{
-    align-items: flex-end;
-}
+
 #creat-modal{
     background-color: hsl(0, 0%, 95%);
     width: 280px;
@@ -148,11 +146,11 @@ a:hover{
     border-radius: 15px;
     padding: 10px;
 }
-#creat-modal h2, #join-modal h2{
+#creat-modal h2, #join-modal h2, #start-modal h2{
     text-align: center;
     color:hsl(200, 100%, 20%);
 }
-#groups-container{
+#groups-container,#owner-groups-container{
     display:flex;
     flex-direction:column;
     gap:10px;
@@ -160,20 +158,21 @@ a:hover{
     max-height: 400px;
     overflow-y:auto;
     scroll-behavior:smooth;
-    margin-top:20px;
-   
+    margin-top:10px;
 }
-.group-card{
+
+.group-card, .owner-group-card{
     padding:5px;
     border:1px solid hsl(0, 0%, 83%);
     border-radius:10px;
     cursor:pointer;
     background-color: hsl(214, 8%, 82%);
 }
-.group-card:hover{
+.group-card:hover, .owner-group-card:hover{
     background-color:hsl(220,30%,95%);
 }
-.selected-group{
+
+.selected-group, .owner-selected-group{
     background-color:hsl(220,70%,85%);
     border:2px solid hsl(240, 100%, 50%);
 }
@@ -208,26 +207,26 @@ form{
     display: flex;
     justify-content: space-between;
 }
-#creatgroup-btn, #join-selected-btn{
+#creatgroup-btn, #join-selected-btn, #start-selected-btn{
    background-color:hsl(240, 100%, 85%);
    width: 70px;
    text-align: center;
 }
-#creatgroup-btn:hover{
+#creatgroup-btn:hover, #join-selected-btn:hover,#start-selected-btn:hover{
     background-color:hsl(240, 100%, 75%);
 }
 /*close btns*/
 
-#creat-cancel-btn, #join-cancel-btn{
+#creat-cancel-btn, #join-cancel-btn, #start-cancel-btn{
     background-color:hsl(240, 100%, 85%);
     width: 70px;
     text-align: center;
 }
-#creat-cancel-btn:hover, #join-cancel-btn:hover{
+#creat-cancel-btn:hover, #join-cancel-btn:hover, #start-cancel-btn:hover{
     background-color:hsl(0, 61%, 56%);
 }
 /*Overlays*/
-#creat-overlay, #join-overlay{
+#creat-overlay, #join-overlay,#start-overlay{
     display: none;
     position: fixed;
     inset: 0;
@@ -276,4 +275,10 @@ form{
     display: block;
     font-weight: 900;
     font-size: 0.9rem;
+}
+
+@media (max-width:480px){
+    #join-modal, #start-modal{
+    width:300px;
+    }
 }
