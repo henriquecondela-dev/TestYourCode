@@ -42,8 +42,8 @@
         <div class="right-side">
             <div class="top-right-side">
                 <button type="button" class="btn" id="creatGrup-btn">Creat a Group</button>
-                <div id="overlay">
-                    <div id="modal">
+                <div id="creat-overlay">
+                    <div id="creat-modal">
                         <h2>Creat Group</h2>
                         <form class="form">
                             <label class="link" for="name">Name:</label>
@@ -59,17 +59,46 @@
                             </select>
                             <div class="low-bar">
                                 <button class="btn" id="creatgroup-btn" type="submit">Creat</button>
-                                <button type="button" class="btn" id="cancel-btn">Cancel</button>
+                                <button type="button" class="btn" id="creat-cancel-btn">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <button class="btn" id="joinGroup-btn">Join in a group</button>
+                    <div id="join-overlay">
+                        <div id="join-modal">
+                            <h2>Available Groups</h2>
+                            <div id="groups-container">
+                            </div>
+                            <div class="modal-buttons">
+                                <button type="button"   class="btn"           id="join-selected-btn">Join</button>
+                                <button type="button" class="btn" id="join-cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                 <button type="button" class="btn" id="creatGrup-btn">Start a challenge</button>
+                    <div id="start-overlay">
+                        <div id="start-modal">
+                            <h2>Start a chlallenge</h2>
+                            
+                        </div>
+                    </div>
             </div>
-            <div class="bottom-right-side">
+            
+            <div id="terminal">
+                  <div id="terminal-settings">
+                    <div class="left-seting">
+                        <span class="dot"><img src="/assets/images/icons8-red-circle-50.png" alt="dot red"></span>
+                        <span class="dot"><img src="/assets/images/icons8-yellow-circle-50.png" alt="dot yellow"></span>
+                        <span class="dot"><img src="/assets/images/icons8-green-circle-50.png" alt="dot green"></span>
+                    </div>
+                    <span id="file-name">main.java</span>
+                </div>
+                <p id="text"></p>
             </div>
         </div>
     </div>
     <script src="/frontend/js/index.js"></script>
+    <script src="/frontend/js/terminal.js"></script>
 </body>
 </html>

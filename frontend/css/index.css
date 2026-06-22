@@ -3,6 +3,7 @@ body{
     background-color:hsl(240, 100%, 90%);
     background-color: hsl(137, 47%, 97%);
     font-family: sans-serif;
+  
 }
 .topNavBar{
     display: flex;
@@ -12,9 +13,8 @@ body{
     justify-content: space-between;
 }
 #logo{
-    margin:5px;
+    margin:2px;
 }
-
 #logo::after{
     content:"</>";
     font-size: 2rem;
@@ -39,16 +39,13 @@ body{
 .downPage{
     display: flex;
     flex-direction: row;
-    height: 94vh;
+    height: 92vh;
 }
 .left-side.collapsed .text{
     display: none;
 }
-.left-side .text{
-    display: inline;
-}
 .left-side.collapsed{
-    width: 50px;
+    width: auto;
 }
 .left-side .icon{
     display: none;
@@ -60,6 +57,7 @@ body{
     display: flex;
     flex-direction: column;
     width:250px;
+    
     background-color:hsl(140, 48%, 88%);
     border-radius:3px;
     transition: width 0.3s ease;
@@ -91,6 +89,7 @@ a:hover{
 .right-side{
     display: flex;
     flex-direction: column;
+    margin-top: 5px;
 }
 .top-right-side {
     display: flex;
@@ -99,6 +98,7 @@ a:hover{
     gap:20px;
     width: 80vw;
     align-items: center;
+    margin-bottom: 100px;
 }
 .right-side a{
     color:hsl(215, 64%, 31%);
@@ -129,18 +129,53 @@ a:hover{
 
 }
 
-/*Styling teh modal*/
-#modal h2{
-    text-align: center;
-    color:hsl(200, 100%, 20%);
+
+
+/*modals*/
+#join-modal{
+    width:400px;
+    background:hsl(0, 0%, 95%);
+    border-radius:15px;
+    padding:10px;
 }
-#modal{
-    display: none;
+#join-modal .modal-buttons{
+    align-items: flex-end;
+}
+#creat-modal{
     background-color: hsl(0, 0%, 95%);
     width: 280px;
     height: 250px;
     border-radius: 15px;
     padding: 10px;
+}
+#creat-modal h2, #join-modal h2{
+    text-align: center;
+    color:hsl(200, 100%, 20%);
+}
+#groups-container{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    min-height:200px;
+    max-height: 400px;
+    overflow-y:auto;
+    scroll-behavior:smooth;
+    margin-top:20px;
+   
+}
+.group-card{
+    padding:5px;
+    border:1px solid hsl(0, 0%, 83%);
+    border-radius:10px;
+    cursor:pointer;
+    background-color: hsl(214, 8%, 82%);
+}
+.group-card:hover{
+    background-color:hsl(220,30%,95%);
+}
+.selected-group{
+    background-color:hsl(220,70%,85%);
+    border:2px solid hsl(240, 100%, 50%);
 }
 .btn{
     border-radius: 5px;
@@ -168,12 +203,12 @@ form{
     outline: none;
     border: 1px solid hsl(240, 100%, 45%);
 }
-.low-bar{
+.low-bar, .modal-buttons{
     margin-top:10px;
     display: flex;
     justify-content: space-between;
 }
-#creatgroup-btn{
+#creatgroup-btn, #join-selected-btn{
    background-color:hsl(240, 100%, 85%);
    width: 70px;
    text-align: center;
@@ -181,15 +216,18 @@ form{
 #creatgroup-btn:hover{
     background-color:hsl(240, 100%, 75%);
 }
-#cancel-btn{
+/*close btns*/
+
+#creat-cancel-btn, #join-cancel-btn{
     background-color:hsl(240, 100%, 85%);
     width: 70px;
     text-align: center;
 }
-#cancel-btn:hover{
+#creat-cancel-btn:hover, #join-cancel-btn:hover{
     background-color:hsl(0, 61%, 56%);
 }
-#overlay{
+/*Overlays*/
+#creat-overlay, #join-overlay{
     display: none;
     position: fixed;
     inset: 0;
@@ -197,4 +235,45 @@ form{
     backdrop-filter: blur(5px);
     justify-content: center;
     align-items: center;
+}
+
+#terminal{
+    background-color: #0D1117;
+    color: #58A6FF;
+    border-radius: 10px;
+    overflow-y:auto;
+    scroll-behavior:smooth;
+    height: 666px;
+}
+#terminal p{
+    margin: 0;
+}
+#text{
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    line-height:2;
+    font-weight: 550;
+    font-family: monospace;
+    font-size: 0.8rem;
+    padding: 15px;
+}
+#terminal-settings{
+    display:flex;
+    align-items:center;
+    width: auto;
+    padding: 5px;
+    border-bottom: 0.5px solid ;
+    box-shadow: #0D1117;
+    justify-content: space-between;
+}
+.dot img{
+    width: 16px;
+}
+.left-seting{
+    display: flex;
+}
+#file-name{
+    display: block;
+    font-weight: 900;
+    font-size: 0.9rem;
 }
