@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup                                                                                                                       </title>
+    <title>Signup</title>
     <link rel="stylesheet" href="/frontend/css/global.css">
     <link rel="stylesheet" href="/frontend/css/signup.css">
     <link rel="stylesheet" href="/frontend/css/smalldevices.css">
+    <link rel="stylesheet" href="/frontend/css/messegesAlert.css">
 </head>
 <body>
     <div class="container">
@@ -17,21 +18,29 @@
             </div>
             <div class="right-side">
                 <h1>TestYourCode</h1>
-                <form novalidate>
-                    <label class="form-label" for="name">Name:</label>
-                    <input type="text" id="name" name="name"  class="form-input" placeholder="Elon musk" required>
-                    <label class="form-label" for="email">Email:</label>
-                    <input type="email" id="email" name="email"  class="form-input" placeholder="user@gmail.com" required>
-                    
-                    <label class="form-label" for="password">Password:</label>
-                    <input type="password" id="password" class="form-input" name="password" required  maxlength="6" placeholder="!#@$#%$^$">
-                     <label class="form-label" for="password">Confirm the password:</label>
-                    <input type="password" id="password" class="form-input" name="password" required  placeholder="!#@$#%$^$" maxlength="6">
-                
-                    <a class="link" href="login.html">Do you alrey have an account?</a>
-                    <button id="login" type="submit">SignUp</button>
+                <form novalidate id="sign-form">
+                    <label class="form-label" for="username">Name<sup style="color: red;">*</sup>:</label>
+                    <input type="text" id="username" name="username"  class="form-input" placeholder="username" >
+                    <small class="form-error" id="username-error"></small>
+
+                    <label class="form-label" for="sign-email">Email<sup style="color: red;">*</sup>:</label>
+                    <input type="email" id="sign-email" name="email"  class="form-input" placeholder="user@gmail.com" >
+                    <small class="form-error"  id="signemail-error"></small>
+
+                    <label class="form-label" for="sign-password">Password<sup style="color: red;">*</sup>:</label>
+                    <input type="password" id="sign-password" class="form-input" name="password" minlength="4" maxlength="6" >
+                    <small class="form-error" id="signpassword-error"></small>
+
+                    <label class="form-label" for="password-confirmation">Confirm the password<sup style="color: red;">*</sup>:</label>
+                    <input type="password" id="password-confirmation" class="form-input">
+                    <small class="form-error" id="confirmpassword-error"></small>
+                    <a class="link" href="login.html">I hava an Account!<b>Login</b></a>
+                    <button id="signup" type="submit">SignUp</button>
                 </form>
-            </div>
+           </div>
     </div>
+    <script src="/frontend/js/index.js"></script>
+    <script src="/frontend/js/messagesAlert.js"></script>
+    <script src="/frontend/js/signup.js"></script>
 </body>
 </html> 

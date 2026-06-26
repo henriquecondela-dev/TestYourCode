@@ -54,7 +54,7 @@ const groups = [
     {
         id:5,
         name:"Python Masters"
-    },
+    }
    
 ];
 
@@ -98,7 +98,6 @@ function loadGroups(){
             card.addEventListener("click", function(){
                 document.querySelectorAll(".group-card").forEach((element)=>{
                     element.classList.remove("selected-group");
-
                     //console.log(element);
                 });
                 card.classList.add("selected-group");

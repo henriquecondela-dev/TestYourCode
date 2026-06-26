@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge</title>
+    <link rel="stylesheet" href="/frontend/css/challenge.css">
+</head>
+<body>
+    <div id="top-bar">
+        <span id="logo-name">TestYourCode</span>
+        <button id="submitSolution-btn" type="submit">Submit Solution</button>
+        <span id="userName"><img style="margin-top:2px;" src="/assets/images/user.png" alt="userImage">username</span>
+    </div>
+    <div class="challenge-section">
+        <aside class="challenge-info">
+            <div id="challenge-timer">
+                <p id="timer">00:00:00</p>
+                <div class="timer-btns">
+                    <button id="pause-btn"><img class="pause-play" src="/assets/images/pause (1).png" alt="pause-btn"></button>
+                    <button id="play-btn"><img class="pause-play" src="/assets/images/play.png" alt="play-btn"></button>
+                </div>
+            </div>
+            <div class="content">
+                <div class="challenge-info-card">
+                    <h2>Problem: </h2>
+                    <p id="problem">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem magnam tempore error, dolorum necessitatibus nihil libero aut quaerat veritatis sitamet consectetur adipisicing elit. Voluptatem magnam tempore error, </p>
+                    <h3 id="exemple-header">Exemple:</h3>
+                    <p id="exemple">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet nisi praesentium atque sint, illo necessitatibus omnis </p>
+                </div>
+                <div >
+                    <h3>Programming Language: </h3>
+                    <ul>
+                        <li class="challenge-language">Java</li>
+                    </ul>
+                </div>
+                <div class="participants-card">
+                    <h2>Participants: </h2>
+                    <div id="participants-container">
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-side">
+                <div class="user-status">
+                    <p id="status-header"><b>Your Status: </b></p>
+                    <p id="status">Waiting for submission</p>
+                </div>
+                <div class="upload-card">
+                    <label for="file">You can upload your solution here<br><img id="upload-icon" src="/assets/images/upload.png" alt="file icon"></label>
+                    <input type="file" id="file" accept=".txt,.java,.py,.c,.cpp,.js">
+                    <span id = "file-name">No file</span>
+                </div>
+            </div>
+        </aside>
+        <div class="divider">
+            <div id="dot"></div>
+        </div>
+        <section class="editor-section">
+            <div id="editor-header">Code
+            </div>
+            <div id="editor-language">
+                <span class="challenge-language">Java</span>
+            </div>
+            <div class="editor">
+                <div id="line-numbers"></div>
+                <textarea spellcheck="false" name="solution" id="code">You can also write your solution here</textarea>
+            </div>
+        </section>
+        <script src="/frontend/js/challenge.js"></script>
+        <script src="/frontend/js/resizer.js"></script>
+        <script src="/frontend//js/timer.js"></script>
+    </div>
+</body>
+</html>

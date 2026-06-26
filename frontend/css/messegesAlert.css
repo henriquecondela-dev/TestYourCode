@@ -18,7 +18,8 @@
     background:#fff3cd;
     color:#856404;
 }
-#group-error{
+.form-error{
+    margin-top: 0px;
     color:red;
-    font-size:10px;
+    font-size:11px;
 }

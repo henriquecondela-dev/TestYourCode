@@ -89,8 +89,8 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
     font-family: 'InterBold';
+    gap:5px;
     margin-left: 25px;
 }
 .form-label{
