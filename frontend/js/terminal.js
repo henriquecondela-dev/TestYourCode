@@ -1,6 +1,11 @@
 const terminal=document.getElementById("text");
 const terminalBox = document.getElementById("terminal");
-const texts=["",
+
+let actualrow=0;
+let indice=0;
+
+function write(){
+    const texts=[
     "    import java.util.Scanner;",
     "    public static void main(String[] args) {",
     "        int[] armazem=new int[10];",
@@ -17,10 +22,6 @@ const texts=["",
     "        System.out.println('Soma = '+soma);",
     "    }",
     "}"];
-let actualrow=0;
-let indice=0;
-
-function write(){
     const currentText= texts[actualrow];
     if(indice<currentText.length){
           terminal.textContent +=currentText[indice];
@@ -40,5 +41,5 @@ function write(){
         }
     }
 }
-write();
+setTimeout(write(),12000);
 

@@ -6,10 +6,14 @@ const play=document.getElementById("play-btn");
 
 let hours = 0;
 let minutes = 1;
-let seconds = 10;
+let seconds = 35;
+
 let running=false;
 let intervalcheck=null;
-
+timer.textContent =
+                `${String(hours).padStart(2, "0")}:` +
+                `${String(minutes).padStart(2, "0")}:` +
+                `${String(seconds).padStart(2, "0")}`;
 play.addEventListener("click", ()=>{
     if(running) return;
     running=true;
@@ -17,18 +21,21 @@ play.addEventListener("click", ()=>{
         if (hours === 0 && minutes === 0 && seconds === 0
         ) {
             clearInterval(intervalcheck);
-            console.log("Tempo esgotado!");
             timesrInfo.style.fontWeight="800";
             timesrInfo.style.fontSize="1.8rem";
             timesrInfo.style.fontFamily="monospace";
             timesrInfo.style.color=" hsl(0, 100%, 57%)";
-            timesrInfo.textContent="Tempo esgotado";
+            timesrInfo.textContent="Time Expired";
             timer.textContent="00:00:00";
+            currentUser.submitted=true;
+            submitButton.disabled=true;
+            textarea.disabled=true;
+            fileInput.disabled=true;
             running=false;
             return;
         }
-        if(hours===0 && minutes===0 && seconds < 30){
-            timer.style.color="hsl(0, 100%, 57%)";
+        if(hours===0 && minutes <= 1 && seconds < 60){
+            timer.classList.add("timer-ending");
         }
         if (seconds > 0) {
             seconds--;
@@ -49,5 +56,6 @@ play.addEventListener("click", ()=>{
 });
 pause.addEventListener("click", ()=>{
     clearInterval(intervalcheck);
+    timer.classList.remove("timer-ending");
     running=false;
 });

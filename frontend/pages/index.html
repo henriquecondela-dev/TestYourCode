@@ -12,12 +12,12 @@
     <div class="topNavBar">
         <p class="top" id="logo"></p>
         <h1 class="top" id="name">TestYourCode</h1>
-        <p class="top" id="profile"><img src="/assets/images/user.png" alt=""></p>
+        <p class="top" id="userName"><img src="/assets/images/user.png" alt=""></p>
     </div>
     <div class="message-box"></div>
     <div class="downPage">
         <div class="left-side">
-            <button type="button" id="state-btn"><img src="/assets/images/angle-left.png" alt=""></button>
+            <button type="button" id="state-btn"><img src="/assets/images/angle-left.png" alt="#"></button>
             <a class="link" href="dashboard.html">
                 <span class="icon"><img src="/assets/images/menu.png" alt="menu"></span>
                 <span class="text">Dashboard</span>
@@ -44,11 +44,11 @@
         </div>
         <div class="right-side">
             <div class="top-right-side">
-                <button type="button" class="btn" id="creatGrup-btn">Creat a Group</button>
+                <button type="button" class="btn" id="creatGrup-btn">Creat a Group challenge</button>
                 <div id="creat-overlay">
                     <div id="creat-modal">
                         <div class="message-box"></div>
-                        <h2>Creat Group</h2>
+                        <h2>Creat Group challenge</h2>
                         <form class="form" novalidate>
                             <label class="link" for="name">Name:</label>
                             <input class="form-input"  id="creatGroup-name" type="text">
@@ -68,7 +68,7 @@
                         </form>
                     </div>
                 </div>
-                <button class="btn" id="joinGroup-btn">Join in a group</button>
+                <button class="btn" id="joinGroup-btn">Join in a group challenge</button>
                     <div id="join-overlay">
                         <div id="join-modal">
                             <div id="joinMessage"></div>
@@ -108,6 +108,7 @@
             </div>
         </div>
     </div>
+    <script src="/frontend/js/challenge.js"></script>
     <script src="/frontend/js/index.js"></script>
     <script src="/frontend/js/terminal.js"></script>
     <script src="/frontend/js/messagesAlert.js"></script>

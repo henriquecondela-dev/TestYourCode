@@ -6,6 +6,13 @@
     margin: 10px 0;
     display: none;
 }
+#challege-message{
+    padding: 8px;
+    border-radius: 5px;
+    display: none;
+    background:hsl(0, 0%, 12%);
+}
+
 .success{
     background:hsl(134, 41%, 88%);
     color:#155724;
@@ -17,6 +24,11 @@
 .alert{
     background:#fff3cd;
     color:#856404;
+}
+.challengeAlert{
+
+    color:hsl(45, 94%, 42%);
+    text-align: center;
 }
 .form-error{
     margin-top: 0px;

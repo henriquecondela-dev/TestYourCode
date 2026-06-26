@@ -3,7 +3,7 @@ html, body {
     margin: 0;
 }
 body{
-    background-color: hsl(0, 0%, 5%);
+    background-color: hsl(0, 0%, 9%);
     font-family: sans-serif;
     color: hsl(208, 100%, 97%);
     display: flex;
@@ -76,7 +76,6 @@ body{
 }
 .bottom-side{
     margin-top: auto;
-    
 }
 #problem, #exemple{
     color: hsl(0, 0%, 100%);
@@ -235,16 +234,26 @@ body{
     background-color: hsl(0, 0% ,16%);
     border-bottom-right-radius: 10px;
 }
+.timer-btns{
+    display: flex;
+    justify-content: center;
+   
+}
 #timer{
     font-family: monospace;
     font-size: 1.9rem;
     font-weight: 900;
     color: hsl(212, 100%, 67%);
+  
     margin: auto;
 }
 .pause-play{
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
+}
+#pause{
+    height: 24px;
+    width: 24px;
 }
 #play-btn,#pause-btn{
     background: none;
@@ -262,6 +271,7 @@ body{
     gap:6px;
     height: auto;
     width: auto;
+    flex-wrap: wrap;
 }
 .participant-card{
     padding:5px;
@@ -271,10 +281,25 @@ body{
     font-family: monospace;
     background-color: hsl(0, 0%, 17%);
 }
+#profile{
+    display: flex;
+
+}
 .participant-card:hover{
     background-color: hsl(0, 0%, 25%);
 }
 .submitted {
     border-color: #22c55e;
     box-shadow: 0 0 5px rgba(34,197,94,.4);
+}
+.timer-ending{
+    animation: colorChange;
+    animation-duration: 1s;
+    animation-play-state: running;
+    animation-iteration-count: infinite;
+}
+@keyframes colorChange{
+    50%{color: hsl(212, 100%, 67%);}
+    50%{color: hsl(0, 100%, 57%)}
+    
 }

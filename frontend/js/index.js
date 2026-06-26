@@ -22,6 +22,7 @@ const startSelectedButton=document.getElementById("start-selected-btn");
 const cancelS=document.getElementById("start-cancel-btn");
 const ownerGroupsContainer=document.getElementById("owner-groups-container");
 const startModal= document.getElementById("start-modal");
+
 let ownerSelectedGroup=null;
 const ownerGroups = [
     {
