@@ -1,0 +1,105 @@
+1. User
+Representa uma pessoa registada na plataforma.
+
+User
+-------------------------
+id
+username
+email
+password
+avatar
+createdAt
+updatedAt
+
+Relações
+Um User pode criar vários Groups.
+Um User pode participar em vários Groups.
+Um User pode enviar várias Submissions.
+
+2. Group
+Representa um grupo onde desafios são realizados.
+
+Group
+-------------------------
+id
+name
+ownerId
+createdAt
+updatedAt
+
+Relações
+Um Group possui vários Participants.
+Um Group possui vários Challenges.
+Um User é o dono (owner) do grupo.
+
+3. Participant
+Ela não representa uma pessoa.
+Ela representa:
+"O utilizador X faz parte do grupo Y."
+
+Participant
+-------------------------
+id
+userId
+groupId
+joinedAt
+Relações
+pertence a um User
+pertence a um Group
+
+fiz assim porqeu posso conseguir resolver o problema de relacao muitos para muitos 
+
+4. Challenge
+Representa um desafio criado para um grupo.
+
+Challenge
+-------------------------
+id
+groupId
+title
+problem
+difficulty
+category
+language
+maxParticipants
+durationSeconds
+status{
+	WAITING
+	RUNNING
+	FINISHED
+	EVALUATING
+}
+createdAt
+
+5. Submission
+Representa a solução enviada por um utilizador.
+
+Submission
+-------------------------
+id
+challengeId
+userId
+type{TEXT or FILE}
+content
+submittedAt
+
+6. Result
+Esta entidade só existe depois da IA terminar.
+
+Result
+-------------------------
+id
+submissionId
+score
+ranking
+correctness
+efficiency
+readability
+bestPractices
+feedback
+approved
+evaluatedAt
+
+
+https://www.prisma.io/docs/orm/prisma-schema/overview#vs-code
+https://www.prisma.io/docs/prisma-orm/quickstart/mysql
