@@ -18,10 +18,7 @@
     <div class="downPage">
         <div class="left-side">
             <button type="button" id="state-btn"><img src="/assets/images/angle-left.png" alt="#"></button>
-            <a class="link" href="dashboard.html">
-                <span class="icon"><img src="/assets/images/menu.png" alt="menu"></span>
-                <span class="text">Dashboard</span>
-            </a>
+           
             <a class="link" href="historie.html">
                 <span class="icon"><img src="/assets/images/history.png" alt="historie"></span>
                 <span class="text">Historics</span>
@@ -32,7 +29,7 @@
                 <span class="text">Settings</span>
             </a>
 
-            <a class="link" href="chat.html">
+            <a class="link" href="chat.html"> 
                 <span class="icon"><img src="/assets/images/comment.png" alt="chating"></span>
                 <span class="text">Chat</span>  
             </a>
@@ -46,57 +43,116 @@
             <div class="top-right-side">
                 <button type="button" class="btn" id="creatGrup-btn">Creat a Group challenge</button>
                 <div id="creat-overlay">
+                    <div class="message-box"></div>
                     <div id="creat-modal">
-                        <div class="message-box"></div>
-                        <h2>Creat Group challenge</h2>
-                        <form class="form" novalidate>
+                        <h2 class="headLink">Creat Group challenge</h2>
+                        <div>
                             <label class="link" for="name">Name:</label>
                             <input class="form-input"  id="creatGroup-name" type="text">
-                            <label class="link" for="language">Language</label>
-                            <select class="form-input"  name="payment" id="payment">
-                                <option value="Java">Java</option>
-                                <option value="javaScript">JavaScript</option>
-                                <option value="python">Phyton</option>
-                                <option value="paypal">C++</option>
-                                <option value="c">C</option>
-                                <option value="c#">C#</option>
-                            </select>
-                            <div class="low-bar">
+                        </div>                      
+                        <div class="modal-buttons">
                                 <button class="btn" id="creatgroup-btn" type="submit">Creat</button>
                                 <button type="button" class="btn" id="creat-cancel-btn">Cancel</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <button class="btn" id="joinGroup-btn">Join in a group challenge</button>
                     <div id="join-overlay">
+                        <div id="joinMessage"></div>
                         <div id="join-modal">
-                            <div id="joinMessage"></div>
-                            <h2>Available Groups</h2>
+                            <h2 class="headLink">Available Groups</h2>
                             <div id="groups-container">
                             </div>
                             <div class="modal-buttons">
-                                <button type="button"   class="btn"           id="join-selected-btn">Join</button>
+                                <button type="button" class="btn" id="join-selected-btn">Join</button>
                                 <button type="button" class="btn" id="join-cancel-btn">Cancel</button>
                             </div>
                         </div>
                     </div>
-                 <button type="button" class="btn" id="startGroup-btn">Start a challenge</button>
+                <button type="button" class="btn" id="startGroup-btn">Start a challenge</button>
                     <div id="start-overlay">
+                         <div id="startMessageAlert"></div>
                         <div id="start-modal">
-                            <div id="startMessage"></div>
-                            <h2>Your Groups</h2>
+                            <div class="cancelModel"><button type="button" class="btn" id="start-cancel-btn1">X</button></div>
+                            <h2 class="headLink">Your Groups</h2>
                             <div id="owner-groups-container">
                             </div>
                             <div class="modal-buttons">
-                                <button type="button"   class="btn"           id="start-selected-btn">Start</button>
-                                <button type="button" class="btn" id="start-cancel-btn">Cancel</button>
+                                <button type="button" class="btn" id="next1-btn">Next</button>
+                            </div>
+                        </div>
+                        <div id="start-settings-modal">
+                            <div class="cancelModel"><button type="button" class="btn" id="start-cancel-btn2">X</button></div>
+                            <h2 class="headLink">Preferences</h2>
+                            <div>
+                                <label
+                                class="link"
+                                for="NOfPartipants">N<sup><small>o</small></sup> of Participants: </label>
+                                <input type="number" value="5" id="NOfPartipants" min="2" max="8"><br>
+                            </div>
+                            <div>
+                                <label class="link" for="DurationTime">Duration Time: </label>
+                                <input type="number" class="time" id="hours" min="0" value="01"><small>h</small> :
+                                <input type="number" class="time" id="minutes" min="0" value="30"><small>m</small> :
+                                <input type="number" class="time" id="seconds" min="0" value="00"><small>s</small>
+                            </div>
+                            <div>
+                                <label  class="link" for="difficulty">Difficulty Level: </label>
+                                <select name="difficulty" id="difficulty">
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label  class="link" for="category">Challenge Category: </label>
+                                <select name="category" id="category">
+                                    <option value="Fundamentals">Fundamentals</option>
+                                    <option value="Arrays">Arrays</option>
+                                    <option value="POO">POO</option>
+                                    <option value="strings">Strings</option>
+                                    <option value="Algorithms">Algorithms</option>
+                                    <option value="Problem Solving">Problem Solving</option>
+                                    <option value="Random">Random</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="link" for="language">Language</label>
+                                <select  name="language" id="language">
+                                    <option value="Java">Java</option>
+                                    <option value="javaScript">JavaScript</option>
+                                    <option value="python">Phyton</option>
+                                    <option value="paypal">C++</option>
+                                    <option value="c">C</option>
+                                    <option value="c#">C#</option>
+                                </select>
+                            </div>
+                            <div id="challegeGenerator">
+                                <button id="generateProblem-btn">
+                                    <img id="spinner-icon" src="/assets/images/loading.png" alt="Loading...">
+                                    <span id="textProblem">Generate Problem</span>
+                                </button>
+                            </div>
+                            <div class="modal-buttons">
+                                <button type="button" class="btn" id="back1-btn">Back</button>
+                                <button type="button" class="btn" id="next2-btn">Next</button>
+                            </div>
+
+                        </div>
+
+                        <div id="start-summary-modal">
+                            <div class="cancelModel"><button type="button" class="btn" id="start-cancel-btn3">X</button></div>
+                            <h2 class="headLink">Preferences</h2>
+                            <div class="modal-buttons">
+                                <button type="button" class="btn" id="back2-btn">Back</button>
+                                <button type="button"   class="btn" id="start-selected-btn">Start</button>
                             </div>
                         </div>
                     </div>
             </div>
             <div id="terminal">
                   <div id="terminal-settings">
+
                     <div class="left-seting">
                         <span class="dot"><img src="/assets/images/icons8-red-circle-50.png" alt="dot red"></span>
                         <span class="dot"><img src="/assets/images/icons8-yellow-circle-50.png" alt="dot yellow"></span>
@@ -107,10 +163,10 @@
                 <p id="text"></p>
             </div>
         </div>
+
     </div>
-    <script src="/frontend/js/challenge.js"></script>
-    <script src="/frontend/js/index.js"></script>
     <script src="/frontend/js/terminal.js"></script>
     <script src="/frontend/js/messagesAlert.js"></script>
+    <script src="/frontend/js/index.js"></script>
 </body>
 </html>

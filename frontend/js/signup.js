@@ -10,7 +10,7 @@ const signEmailError = document.getElementById("signemail-error");
 const signPasswordError = document.getElementById("signpassword-error");
 const signPasswordConfirmError = document.getElementById("confirmpassword-error");
 
-console.log("Signform: ",signform);
+console.log("Signform: ", signform);
 signform.addEventListener("submit", function (event) {
     event.preventDefault();
     let valid = true;
@@ -35,7 +35,6 @@ signform.addEventListener("submit", function (event) {
         signPasswordError.textContent = "Please provide the password";
         setTimeout(() => { signPasswordError.textContent = "" }, 5000);
         valid = false;
-        
     } else if (signpassword.value.length < 4) {
         signPasswordError.textContent = "Mininum 4 characters";
         valid = false;
@@ -56,6 +55,5 @@ signform.addEventListener("submit", function (event) {
     if (!valid) {
         return;
     }
-
-    console.log("Form valid");
+    // console.log("Form valid");
 });

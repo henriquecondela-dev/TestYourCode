@@ -138,21 +138,34 @@ a:hover{
 
 
 /*modals*/
-#join-modal, #start-modal{
+#join-modal, #start-modal,#start-settings-modal,#start-summary-modal{
+    display: flex;
+    flex-direction: column;
     width:400px;
+    gap: 8px;
     background:hsl(0, 0%, 95%);
     border-radius:15px;
     padding:8px;
+    min-height: 350px;
+    max-height: 350px;
 }
-
+ #start-modal,#start-settings-modal,#start-summary-modal{
+    display: none;
+ }
+#start-modal.active,#start-settings-modal.active,#start-summary-modal.active{
+    display: flex;
+}
 #creat-modal{
+    display: flex;
+    flex-direction: column;
     background-color: hsl(0, 0%, 95%);
     width: 280px;
-    height: 250px;
+    height: 200px;
     border-radius: 15px;
     padding: 10px;
 }
-#creat-modal h2, #join-modal h2, #start-modal h2{
+.headLink{
+   
     text-align: center;
     color:hsl(200, 100%, 20%);
 }
@@ -160,11 +173,11 @@ a:hover{
     display:flex;
     flex-direction:column;
     gap:10px;
-    min-height:200px;
-    max-height: 400px;
+    min-height:180px;
+    max-height: 180px;
     overflow-y:auto;
     scroll-behavior:smooth;
-    margin-top:10px;
+    margin-top:5px;
 }
 
 .group-card, .owner-group-card{
@@ -208,8 +221,61 @@ form{
     outline: none;
     border: 1px solid hsl(240, 100%, 45%);
 }
-.low-bar, .modal-buttons{
-    margin-top:10px;
+#start-modal .modal-buttons{
+    justify-content: end;
+    margin-top: auto;
+}
+.time:hover,#NOfPartipants:hover,#difficulty:hover,#category:hover,#language:hover,#generateProblem-btn:hover{
+    background-color:hsl(240, 100%, 80%);
+    cursor: pointer;
+}
+.time,#NOfPartipants,#difficulty,#category,#language,#generateProblem-btn{
+    border-style: none;
+    background-color:hsl(240, 100%, 85%);
+    border-radius: 6px;
+    height: 20px;
+    width: 30px;
+    outline: none;
+    text-align: center;
+}
+#challegeGenerator{
+    display: flex;
+    justify-content: center;
+}
+#generateProblem-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+    height: 40px;
+    font-weight: 900;
+    width: 140px;
+    text-align: center;
+    border: 1px solid hsl(140, 48%, 88%);
+    border-radius: 5px;
+      background-color:hsl(240, 100%, 90%);
+}
+#generateProblem-btn:active{
+    background-color:hsl(240, 100%, 60%);
+}
+#generateProblem-btn.spinning{
+    background-color:hsl(240, 100%, 85%);
+}
+#generateProblem-btn.genarated{
+    background-color:hsl(143, 47%, 44%);
+}
+#difficulty, #category,#language{
+    width: auto;
+}
+.disable{
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+.modal-buttons{
+    margin-top:auto;
     display: flex;
     justify-content: space-between;
 }
@@ -223,18 +289,37 @@ form{
 }
 /*close btns*/
 
-#creat-cancel-btn, #join-cancel-btn, #start-cancel-btn{
+#creat-cancel-btn, #join-cancel-btn, #start-cancel-btn1,#start-cancel-btn2,#start-cancel-btn3,#next1-btn,#next2-btn,#back1-btn,#back2-btn{
     background-color:hsl(240, 100%, 85%);
     width: 70px;
     text-align: center;
 }
-#creat-cancel-btn:hover, #join-cancel-btn:hover, #start-cancel-btn:hover{
+#next1-btn:hover,#next2-btn:hover,#back1-btn:hover,#back2-btn:hover{
+    background-color:hsl(240, 100%, 70%);
+}
+#start-cancel-btn1,#start-cancel-btn2,#start-cancel-btn3{
+    display: flex;
+    margin-left: auto;
+    width: 30px;
+    justify-content: center;
+
+}
+#creat-cancel-btn:hover, #join-cancel-btn:hover, #start-cancel-btn1:hover,#start-cancel-btn2:hover,#start-cancel-btn3:hover{
     background-color:hsl(0, 61%, 56%);
 }
+/*Spinner*/
+#spinner-icon{
+   width: 20px;
+   height: 20px;
+   animation: spin 1.5s linear infinite;
+   display: none;
+}
+
 /*Overlays*/
 #creat-overlay, #join-overlay,#start-overlay{
     display: none;
     position: fixed;
+    flex-direction: column;
     inset: 0;
     background: rgba(0, 0, 0,0.6);
     backdrop-filter: blur(5px);
@@ -282,7 +367,14 @@ form{
     font-weight: 900;
     font-size: 0.9rem;
 }
-
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
 @media (max-width:480px){
     #join-modal, #start-modal{
     width:300px;

@@ -1,0 +1,7 @@
+PORT=
+
+DATABASE_URL="mysql://localhost:3306/testyourcode"
+
+JWT_SECRET=""
+
+OPENAI_KEY=""
