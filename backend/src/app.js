@@ -1,0 +1,62 @@
+
+import express from "express";
+import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import authMiddleware from "./middlewares/authMidldlewares.js";
+import logger from "./middlewares/logger.js";
+
+const app = express();
+
+app.use(express.json());
+//app.use(newrequest);
+app.use(logger);
+app.use("/api/users", authMiddleware, userRoutes);
+app.use("/api/auth", authRoutes);
+
+export default app;
+/*
+app.get("/", (request, response) => {
+    //console.log("Requisição recebida na rota /");
+    response.send("Bem vindo ao TestYourCode");
+});
+app.get("/users", (request, response) => {
+   // console.log("Requisição recebida na rota /users");
+    //response.send("lista de usuraios");
+    response.json(
+        {
+            message: "Lista de usuários",
+            users: [
+                {
+                    id: 1,
+                    name: "João",
+                    email: "joao@example.com"
+                },
+                {
+                    id: 2,
+                    name: "Maria",
+                    email: "maria@example.com"
+                }
+            ]
+        }
+    );
+});
+app.post("/users", (request, response) => {
+    response.json(
+        {
+            message: "Usuário criado com sucesso"
+        }
+    );
+})*/
+/*const http = require("http")
+const server = http.createServer((request, response) => {
+    if (request.url === "/users") {
+        response.write("/frontend/pages/challenge.html");
+        response.end();
+    } else if (request.url === "/") {
+        response.write("Welcome to the home  page");
+        response.end();
+    }
+});
+server.listen(3000, () => {
+    console.log("Server running on port 3000");
+});*/

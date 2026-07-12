@@ -6,7 +6,12 @@ export  async function getUsers(req, res){
        res.json(
         {
             message: `Total de usuários: ${users.numberOfUsers}`,
-            users: users.users
+            users: users.users.map(user => ({
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                createdAt: user.createdAt          
+            }))
         });
     }catch(error){
         res.status(500).json({  

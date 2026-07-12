@@ -9,10 +9,10 @@ export async function login(email, password) {
     if (!user){
         throw new Error("Erro: Email ou senha invalidos");
     }
-    const correctPassword= await bcrypt.compare(password, user.password);
-    if(!correctPassword){
+    const isPasswordCorrect= await bcrypt.compare(password, user.password);
+    if(!isPasswordCorrect){
         throw new Error("Erro: Email ou senha invalidos");
     }
-    const token= jwt.sign({id:user.id, email:user.email}, process.env.JWT_SECRET,{expiresIn:"1h"});
-    return token;
+    const token= jwt.sign({id:user.id, username:user.username}, process.env.JWT_SECRET,{expiresIn:"1h"});
+    return {token:token, user:{id:user.id, username:user.username, email:user.email}};
 }
