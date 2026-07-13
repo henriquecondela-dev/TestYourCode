@@ -10,7 +10,7 @@ export default function validateUser(req, res, next) {
             message: "Senha deve ter pelo menos 6 caracteres"
         });
     }
-    const passwordPattern = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,}$/;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,}$/;
     if (!passwordPattern.test(password)) {
         return res.status(400).json({
             message: "Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula e um número"
@@ -22,6 +22,5 @@ export default function validateUser(req, res, next) {
             message: "Email inválido"
         });
     }
-
     next();
 }

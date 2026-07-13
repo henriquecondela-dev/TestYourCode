@@ -4,10 +4,13 @@ import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import authMiddleware from "./middlewares/authMidldlewares.js";
 import logger from "./middlewares/logger.js";
-
+import cors from "cors";
 const app = express();
 
 app.use(express.json());
+app.use(cors({
+    origin: "http://127.0.0.1:5500"
+}));
 //app.use(newrequest);
 app.use(logger);
 app.use("/api/users", authMiddleware, userRoutes);

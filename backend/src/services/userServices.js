@@ -10,17 +10,7 @@ export async function getUsers() {
     });
     return { users, numberOfUsers };
 }
-export async function createUser(username, email, password) {
-    const hashedpasword = await bcrypt.hash(password, 10);
-    const user = await prisma.user.create({
-        data: {
-            username,
-            email,
-            password: hashedpasword
-        }
-    });
-    return user;
-}
+
 export async function getUserProfile(id) {
     const user = await prisma.user.findUnique({
         where: { id: Number(id) }
