@@ -4,6 +4,7 @@ import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import authMiddleware from "./middlewares/authMidldlewares.js";
 import logger from "./middlewares/logger.js";
+import groupRoutes from "./routes/groupRoutes.js"
 import cors from "cors";
 const app = express();
 
@@ -13,8 +14,9 @@ app.use(cors({
 }));
 //app.use(newrequest);
 app.use(logger);
-app.use("/api/users", authMiddleware, userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", authMiddleware, userRoutes);
+app.use("/api/groups",authMiddleware, groupRoutes);
 
 export default app;
 /*

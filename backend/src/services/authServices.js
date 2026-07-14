@@ -13,7 +13,7 @@ export async function login(email, password) {
     if(!isPasswordCorrect){
         throw new Error("Erro: Email ou senha invalidos");
     }
-    const token= jwt.sign({id:user.id, username:user.username}, process.env.JWT_SECRET,{expiresIn:"1h"});
+    const token= jwt.sign({id:user.id, username:user.username}, process.env.JWT_SECRET,{expiresIn:"24h"});
     return {token, user:{id:user.id, username:user.username, email:user.email}};
 }
 export async function signup(email, password, username) {

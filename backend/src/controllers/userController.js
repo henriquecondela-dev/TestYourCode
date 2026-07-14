@@ -67,7 +67,7 @@ export async function deleteUser(req,res){
             message: "Usuário deletado com sucesso"
         });
     }catch(error){
-        res.status(500).json({
+        res.status(401).json({
             message: "Erro ao deletar usuário"
         });
     }
