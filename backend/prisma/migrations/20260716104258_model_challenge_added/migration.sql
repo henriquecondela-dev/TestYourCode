@@ -1,0 +1,22 @@
+-- CreateTable
+CREATE TABLE `Challenge` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `groupId` INTEGER NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `problem` VARCHAR(191) NOT NULL,
+    `difficulty` ENUM('EASY', 'MEDIUM', 'HARD') NOT NULL DEFAULT 'EASY',
+    `category` ENUM('FUNDAMENTALS', 'ARRAYS', 'POO', 'STRINGS', 'ALGORITHMS', 'PROBBLEM_SOLVING', 'RANDOM') NOT NULL DEFAULT 'FUNDAMENTALS',
+    `durationSeconds` INTEGER NOT NULL,
+    `status` ENUM('WAITING', 'RUNNING', 'FINISHED', 'EVALUATING', 'CANCELLED') NOT NULL DEFAULT 'WAITING',
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `startedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `finishedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `maxParticipants` INTEGER NOT NULL DEFAULT 10,
+
+    UNIQUE INDEX `Challenge_title_key`(`title`),
+    UNIQUE INDEX `Challenge_problem_key`(`problem`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Challenge` ADD CONSTRAINT `Challenge_groupId_fkey` FOREIGN KEY (`groupId`) REFERENCES `Grupos`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
- 
 }
 
 datasource db {
@@ -14,19 +13,142 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum GroupRole {
+  OWNER
+  MEMBER
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum Category {
+  FUNDAMENTALS
+  ARRAYS
+  POO
+  STRINGS
+  ALGORITHMS
+  PROBBLEM_SOLVING
+  RANDOM
+}
+
+enum Language {
+  JAVA
+  JAVASCRIPT
+  C
+  CPP
+  C_CHARP
+  PHYTON
+}
+
+enum Type {
+  TEXT
+  FILE
+}
+
+enum Status {
+  WAITING
+  READY
+  FAILED
+  GENERATING
+  RUNNING
+  FINISHED
+  EVALUATING
+  CANCELLED
+  COMPLETED
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
+  id                      Int                     @id @default(autoincrement())
+  username                String                  @unique
+  email                   String                  @unique
+  password                String
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
+  memberships             GroupMember[]
+  groups                  Grupos[]
+  submissions             Submission[]
+  challengeParticipations ChallengeParticipants[]
 }
-model Grupos{
-  id Int @id @default(autoincrement())
-  name String @unique
-  ownerId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+model Grupos {
+  id         Int           @id @default(autoincrement())
+  name       String        @unique
+  ownerId    Int
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  member     GroupMember[]
+  owner      User          @relation(fields: [ownerId], references: [id])
+  challenges Challenge[]
 }
+
+model GroupMember {
+  id       Int       @id @default(autoincrement())
+  userId   Int
+  groupId  Int
+  role     GroupRole @default(MEMBER)
+  joinedAt DateTime  @default(now())
+  user     User      @relation(fields: [userId], references: [id])
+  groups   Grupos    @relation(fields: [groupId], references: [id])
+
+  @@unique([userId, groupId])
+}
+
+model Challenge {
+  id                Int                     @id @default(autoincrement())
+  groupId           Int
+  title             String?
+  problem           String?                 @db.LongText
+  difficulty        Difficulty              @default(EASY)
+  language          Language                @default(CPP)
+  category          Category                @default(FUNDAMENTALS)
+  referenceSolution String?                 @db.LongText
+  durationSeconds   Int
+  status            Status                  @default(WAITING)
+  createdAt         DateTime                @default(now())
+  startedAt         DateTime?
+  finishedAt        DateTime?
+  group             Grupos                  @relation(fields: [groupId], references: [id])
+  submissions       Submission[]
+  participants      ChallengeParticipants[]
+  result            Result[]
+}
+
+model Submission {
+  id              Int       @id @default(autoincrement())
+  challengeId     Int
+  userId          Int
+  type            Type
+  solution        String    @db.LongText
+  submitted       Boolean   @default(false)
+  submittedAt     DateTime  @default(now())
+  user            User      @relation(fields: [userId], references: [id])
+  challenge       Challenge @relation(fields: [challengeId], references: [id])
+  result          Result?
+
+  @@unique([userId, challengeId])
+}
+
+model ChallengeParticipants {
+  id          Int       @id @default(autoincrement())
+  challengeId Int
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+
+  @@unique([challengeId, userId])
+}
+
+  model Result {
+    id           Int        @id @default(autoincrement())
+    submissionId Int        @unique
+    challengeId  Int
+    score        Float
+    rank         Int
+    feedback     String
+    approved     Boolean
+    submission   Submission @relation(fields: [submissionId], references: [id])
+    challenge Challenge @relation(fields: [challengeId], references: [id])
+  }

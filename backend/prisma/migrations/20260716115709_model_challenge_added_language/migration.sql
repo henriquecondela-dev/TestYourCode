@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Challenge` ADD COLUMN `language` ENUM('JAVA', 'JAVASCRIPT', 'C', 'CPP', 'C_CHARP', 'PHYTON') NOT NULL DEFAULT 'CPP';
