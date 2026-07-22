@@ -35,14 +35,17 @@ Um User é o dono (owner) do grupo.
 3. Participant
 Ela não representa uma pessoa.
 Ela representa:
+e uma relacao entre a tabela user e a tabela grupo
 "O utilizador X faz parte do grupo Y."
 
-Participant
+GroupMember
 -------------------------
 id
 userId
 groupId
 joinedAt
+position
+
 Relações
 pertence a um User
 pertence a um Group
@@ -58,8 +61,8 @@ id
 groupId
 title
 problem
-difficulty
-category
+difficulty {EASY,MEDIUM, HARD}
+category{}
 language
 maxParticipants
 durationSeconds

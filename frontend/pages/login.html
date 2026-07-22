@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="/frontend/css/messegesAlert.css">
 </head>
 <body>
+    <div id="login-error-message"></div>
     <div class="container">
+          
             <div class="left-side">
                 <div class="content">
                     <p>Please login to continue.</p>
@@ -19,13 +21,13 @@
             <div class="right-side">
                 <h1>TestYourCode</h1>
                 <div id="loginmessage"></div>
-                <form novalidate id="login-form">
+                <form novalidate id="login-form" >
                     <label class="form-label" for="email">Email:</label>
                     <input type="email" id="email" name="email"  class="form-input" placeholder="user@gmail.com">
                     <small class="form-error" id="email-error"></small>
                    
                     <label class="form-label" for="password">Password:</label>
-                    <input type="password" id="password" class="form-input" name="password" minlength="4" maxlength="6" >
+                    <input type="password" id="password" class="form-input" name="password"  >
                     <small class="form-error" id="password-error"></small>
                
                     <a class="link" href="signup.html">Don't Have Account? <b>Create</b></a>
@@ -33,8 +35,7 @@
                 </form>
             </div>
     </div>
-    <script src="/frontend/js/index.js"></script>
-    <script src="/frontend/js/messagesAlert.js"></script>
-    <script src="/frontend/js/login.js"></script>
+    <script type="module" src="/frontend/js/messagesAlert.js"></script>
+    <script type="module" src="/frontend/js/login.js"></script>
 </body>
 </html> 

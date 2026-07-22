@@ -1,4 +1,4 @@
-function showMessage(message, type, local) {
+export default function showMessage(message, type, local) {
     const box = document.getElementById(`${local}`);
     box.textContent = message;
     box.className = type;

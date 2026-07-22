@@ -12,7 +12,7 @@
     <div class="topNavBar">
         <p class="top" id="logo"></p>
         <h1 class="top" id="name">TestYourCode</h1>
-        <p class="top" id="userName"><img src="/assets/images/user.png" alt=""></p>
+        <p class="top" ><img src="/assets/images/user.png" alt=""><span id="userName"></span></p>
     </div>
     <div class="message-box"></div>
     <div class="downPage">
@@ -99,32 +99,32 @@
                             <div>
                                 <label  class="link" for="difficulty">Difficulty Level: </label>
                                 <select name="difficulty" id="difficulty">
-                                    <option value="easy">Easy</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="hard">Hard</option>
+                                    <option value="EASY">Easy</option>
+                                    <option value="MEDIUM">Medium</option>
+                                    <option value="HARD">Hard</option>
                                 </select>
                             </div>
                             <div>
                                 <label  class="link" for="category">Challenge Category: </label>
                                 <select name="category" id="category">
-                                    <option value="Fundamentals">Fundamentals</option>
-                                    <option value="Arrays">Arrays</option>
+                                    <option value="FUNDAMENTALS">Fundamentals</option>
+                                    <option value="ARRAYS">Arrays</option>
                                     <option value="POO">POO</option>
-                                    <option value="strings">Strings</option>
-                                    <option value="Algorithms">Algorithms</option>
-                                    <option value="Problem Solving">Problem Solving</option>
-                                    <option value="Random">Random</option>
+                                    <option value="STRINGS">Strings</option>
+                                    <option value="ALGORITHMS">Algorithms</option>
+                                    <option value="PROBLEM_SOLVING">Problem Solving</option>
+                                    <option value="RANDOM">Random</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="link" for="language">Language</label>
                                 <select  name="language" id="language">
-                                    <option value="Java">Java</option>
-                                    <option value="javaScript">JavaScript</option>
-                                    <option value="python">Phyton</option>
-                                    <option value="paypal">C++</option>
-                                    <option value="c">C</option>
-                                    <option value="c#">C#</option>
+                                    <option value="JAVA">Java</option>
+                                    <option value="JAVASCRIPT">JavaScript</option>
+                                    <option value="PHYTON">Phyton</option>
+                                    <option value="CPP">C++</option>
+                                    <option value="C">C</option>
+                                    <option value="C_CHARP">C#</option>
                                 </select>
                             </div>
                             <div id="challegeGenerator">
@@ -166,7 +166,7 @@
 
     </div>
     <script src="/frontend/js/terminal.js"></script>
-    <script src="/frontend/js/messagesAlert.js"></script>
-    <script src="/frontend/js/index.js"></script>
+    <script type="module" src="/frontend/js/messagesAlert.js"></script>
+    <script type="module" src="/frontend/js/index.js"></script>
 </body>
 </html>

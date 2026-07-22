@@ -1,3 +1,4 @@
+import showMessage from "./messagesAlert.js";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const signform = document.getElementById("sign-form");
@@ -11,7 +12,7 @@ const signPasswordError = document.getElementById("signpassword-error");
 const signPasswordConfirmError = document.getElementById("confirmpassword-error");
 
 console.log("Signform: ", signform);
-signform.addEventListener("submit", function (event) {
+signform.addEventListener("submit", async function (event) {
     event.preventDefault();
     let valid = true;
     usernameError.textContent = "";
@@ -35,8 +36,8 @@ signform.addEventListener("submit", function (event) {
         signPasswordError.textContent = "Please provide the password";
         setTimeout(() => { signPasswordError.textContent = "" }, 5000);
         valid = false;
-    } else if (signpassword.value.length < 4) {
-        signPasswordError.textContent = "Mininum 4 characters";
+    } else if (signpassword.value.length < 6) {
+        signPasswordError.textContent = "Mininum 6 characters";
         valid = false;
     } else if (!/[A-Z]/.test(signpassword.value)) {
         signPasswordError.textContent = "Passwor must contain a upper case";
@@ -54,6 +55,31 @@ signform.addEventListener("submit", function (event) {
     }
     if (!valid) {
         return;
+    }
+    try{
+        const response = await fetch("http://localhost:3000/api/auth/signup",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email:signemail.value,
+                password:signpassword.value,
+                username:username.value
+            })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            alert(data.message);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        alert("registro realizado com sucesso");
+        window.location.href ="../pages/login.html";
+    }catch (error){
+        console.error("Error during signup:", error);
+        //alert("An error occurred during signup. Please try again later.");
     }
     // console.log("Form valid");
 });

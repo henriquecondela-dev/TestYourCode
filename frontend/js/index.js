@@ -1,3 +1,4 @@
+import showMessage from "./messagesAlert.js";
 //left side consts
 const leftSide = document.querySelector(".left-side");
 const button = document.getElementById("state-btn");
@@ -41,6 +42,7 @@ const category=document.getElementById("category");
 
 const spinner=document.getElementById("spinner-icon");
 const genarateProblemBtn=document.getElementById("generateProblem-btn");
+const username=document.getElementById("userName");
 
 let ownerSelectedGroup = null;
 const ownerGroups = [
@@ -141,6 +143,12 @@ const groups = [
     }
 
 ];
+const token=localStorage.getItem("token");
+if(token){
+    const user=JSON.parse(localStorage.getItem("user"));
+    username.textContent=user.username;
+    console.log(token);
+}
 button.addEventListener("click", function () {
 
     leftSide.classList.toggle("collapsed");
