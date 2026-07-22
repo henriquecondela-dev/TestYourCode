@@ -18,7 +18,7 @@ export async function createChallenge(data, userId) {
     const AIproblem = await generateProblem(dataProblem);
     console.log(AIproblem)
 
-    const challengeGenerated = await prisma.challenge.create({
+    const challenge = await prisma.challenge.create({
         data: {
             groupId: Number(groupId),
             language: language.toUpperCase(),
@@ -31,7 +31,7 @@ export async function createChallenge(data, userId) {
             status: "READY"
         }
     })
-    if (!challengeGenerated) throw new Error("Error while creating challenge")
+    if (!challenge) throw new Error("Error while creating challenge")
 
     return {
         id: challenge.id,
@@ -96,6 +96,7 @@ export function hasChallengeEnded(challenge) {
 async function allParticipantsSubmitted(challengeId) {
     const totalParticipants = await prisma.challengeParticipants.count({ where: { challengeId } });
     const totalSubmissions = await prisma.submission.count({ where: { challengeId } });
+    //console.log(totalSubmissions, totalParticipants)
     return totalParticipants === totalSubmissions;
 }
 export async function finishChallenge(userId, challengeId) {
@@ -115,8 +116,10 @@ export async function finishChallenge(userId, challengeId) {
     if (!group) throw new Error("YOU ARE NOT THE OWNER");
     if (challenge.status === "FINISHED") throw new Error("Challenge alredy Finished");
     const isTimeout = hasChallengeEnded(challenge);
+    //console.log(isTimeout)
     const allsubmitted = await allParticipantsSubmitted(challengeId);
-    if (!isTimeout || !allsubmitted) throw new Error("Out of Time or missing participants to submit");
+    //console.log(allsubmitted)
+    if (isTimeout || !allsubmitted) throw new Error("Out of Time or missing participants to submit");
     const startedChalllenge = await prisma.challenge.update({
         where: {
             id: challengeId

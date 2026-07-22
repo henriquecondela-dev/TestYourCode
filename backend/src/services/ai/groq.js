@@ -15,6 +15,7 @@ async function callGroq(prompt) {
                 }
             ]
         });
+        console.log(response.choices[0].message.content)
         return JSON.parse(
             response.choices[0].message.content
         );
