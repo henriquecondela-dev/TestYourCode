@@ -1097,6 +1097,40 @@ const openapiDocument = {
                 }
             }
         },
+        "/api/challenges/{challengeId}/participants": {
+            "get": {
+                "tags": ["Challenges"],
+                "summary": "Get challenge participants",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "challengeId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the challenge",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Challenge participants returned"
+                    },
+                    /*"409": {
+                        "description": "No participants found"
+                    }*/
+                   "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
         "/api/challenges/{challengeId}/start": {
             "post": {
                 "tags": ["Challenges"],

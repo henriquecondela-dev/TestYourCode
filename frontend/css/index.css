@@ -8,6 +8,7 @@ body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 .topNavBar{
@@ -135,26 +136,41 @@ a:hover{
 
 }
 
-
-
 /*modals*/
 #join-modal, #start-modal,#start-settings-modal,#start-summary-modal{
     display: flex;
     flex-direction: column;
-    width:400px;
+    width:600px;
     gap: 8px;
     background:hsl(0, 0%, 95%);
     border-radius:15px;
     padding:8px;
-    min-height: 350px;
-    max-height: 350px;
+    min-height: 600px;
+    max-height: 600px;
+}
+.wait-modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#wait-timer{
+    color: hsl(0, 0%, 100%);
+    font-size: 5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+}
+#wait-title{
+    color: hsl(0, 80%, 51%);
+    text-align: center;
 }
  #start-modal,#start-settings-modal,#start-summary-modal{
     display: none;
  }
 #start-modal.active,#start-settings-modal.active,#start-summary-modal.active{
     display: flex;
-}
+}   
 #creat-modal{
     display: flex;
     flex-direction: column;
@@ -173,8 +189,8 @@ a:hover{
     display:flex;
     flex-direction:column;
     gap:10px;
-    min-height:180px;
-    max-height: 180px;
+    min-height:300px;
+    max-height: 400px;
     overflow-y:auto;
     scroll-behavior:smooth;
     margin-top:5px;
@@ -279,17 +295,17 @@ form{
     display: flex;
     justify-content: space-between;
 }
-#creatgroup-btn, #join-selected-btn, #start-selected-btn{
+#creatgroup-btn, #join-selected-btn, #start-selected-btn,#go-in-chalenge-btn{
    background-color:hsl(240, 100%, 85%);
    width: 70px;
    text-align: center;
 }
-#creatgroup-btn:hover, #join-selected-btn:hover,#start-selected-btn:hover{
+#creatgroup-btn:hover, #join-selected-btn:hover,#start-selected-btn:hover,#go-in-chalenge-btn:hover{
     background-color:hsl(240, 100%, 75%);
 }
 /*close btns*/
 
-#creat-cancel-btn, #join-cancel-btn, #start-cancel-btn1,#start-cancel-btn2,#start-cancel-btn3,#next1-btn,#next2-btn,#back1-btn,#back2-btn{
+#creat-cancel-btn, #getOut-btn,#join-cancel-btn, #start-cancel-btn1,#start-cancel-btn2,#start-cancel-btn3,#next1-btn,#next2-btn,#back1-btn,#back2-btn{
     background-color:hsl(240, 100%, 85%);
     width: 70px;
     text-align: center;
@@ -297,14 +313,14 @@ form{
 #next1-btn:hover,#next2-btn:hover,#back1-btn:hover,#back2-btn:hover{
     background-color:hsl(240, 100%, 70%);
 }
-#start-cancel-btn1,#start-cancel-btn2,#start-cancel-btn3{
+#start-cancel-btn1,#start-cancel-btn2,#start-cancel-btn3,#join-cancel-btn1{
     display: flex;
     margin-left: auto;
     width: 30px;
     justify-content: center;
 
 }
-#creat-cancel-btn:hover, #join-cancel-btn:hover, #start-cancel-btn1:hover,#start-cancel-btn2:hover,#start-cancel-btn3:hover{
+#creat-cancel-btn:hover,#join-cancel-btn1:hover, #join-cancel-btn:hover, #start-cancel-btn1:hover,#start-cancel-btn2:hover,#start-cancel-btn3:hover,#getOut-btn:hover{
     background-color:hsl(0, 61%, 56%);
 }
 /*Spinner*/
@@ -316,7 +332,7 @@ form{
 }
 
 /*Overlays*/
-#creat-overlay, #join-overlay,#start-overlay{
+#creat-overlay, #join-overlay,#start-overlay, #wait-overlay{
     display: none;
     position: fixed;
     flex-direction: column;
@@ -356,6 +372,15 @@ form{
     box-shadow: #0D1117;
     justify-content: space-between;
 }
+.participant-card{
+    padding:5px;
+    border:1px solid hsl(143, 47%, 69%);
+    box-shadow: hsl(39, 100%, 50%);
+    border-radius:20px;
+    cursor:pointer;
+    font-family: monospace;
+    background-color: hsl(0, 80%, 95%);
+}
 .dot img{
     width: 16px;
 }
@@ -366,6 +391,52 @@ form{
     display: block;
     font-weight: 900;
     font-size: 0.9rem;
+}
+#wait-participants-container{
+    display:flex;
+    gap:6px;
+    height: auto;
+    width: auto;
+    flex-wrap: wrap;
+}
+.wait-participant-card{
+    padding:5px;
+    border:1px solid hsl(39, 100%, 35%);;
+    border-radius:20px;
+    cursor:pointer;
+    font-family: monospace;
+    background-color: hsl(0, 0%, 17%);
+}
+.wait-modal {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+.challenge-list{
+    margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    
+}
+
+.challenge-card{
+    margin-top:8px;
+    padding:10px;
+    border-radius:8px;
+    background:hsl(0, 0%, 30%);
+    color:white;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.challenge-card:hover{
+    background:#333;
+    transform:translateX(4px);
+}
+
+.challenge-card.selected{
+   background-color: hsl(240, 100%, 70%);
+    color:black;
 }
 @keyframes spin{
     from{

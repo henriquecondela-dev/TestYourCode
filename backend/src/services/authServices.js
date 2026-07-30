@@ -7,17 +7,16 @@ export async function login(email, password) {
         where:{email}
     });
     if (!user){
-        throw new Error("Erro: Email ou senha invalidos");
+        throw new Error("Email ou senha invalidos");
     }
     const isPasswordCorrect= await bcrypt.compare(password, user.password);
     if(!isPasswordCorrect){
-        throw new Error("Erro: Email ou senha invalidos");
+        throw new Error("Email ou senha invalidos");
     }
     const token= jwt.sign({id:user.id, username:user.username}, process.env.JWT_SECRET,{expiresIn:"24h"});
     return {token, user:{id:user.id, username:user.username, email:user.email}};
 }
 export async function signup(email, password, username) {
-    
     const hashedpasword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
         data: {

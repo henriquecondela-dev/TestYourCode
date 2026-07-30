@@ -16,8 +16,7 @@ export async function createChallenge(data, userId) {
         difficulty: difficulty
     }
     const AIproblem = await generateProblem(dataProblem);
-    console.log(AIproblem)
-
+    //console.log(AIproblem)
     const challenge = await prisma.challenge.create({
         data: {
             groupId: Number(groupId),
@@ -31,8 +30,8 @@ export async function createChallenge(data, userId) {
             status: "READY"
         }
     })
-    if (!challenge) throw new Error("Error while creating challenge")
-
+    if (!challenge) throw new Error("Error while creating challenge");
+    const partipate = await joinChallenge(userId, challenge.id);
     return {
         id: challenge.id,
         groupId: challenge.groupId,
@@ -48,6 +47,18 @@ export async function getChallengeDetails(challengId) {
     const challenge = await prisma.challenge.findUnique({
         where: {
             id: challengId
+        },select:{
+            id:true,
+            groupId:true,
+            language:true,
+            difficulty:true,
+            problem:true,
+            category:true,
+            status:true,
+            createdAt:true,
+            startedAt:true,
+            finishedAt:true,
+            durationSeconds:true
         }
     })
     if (!challenge) throw new Error("Challenge Not Found");
@@ -219,4 +230,24 @@ export async function joinChallenge(userid, challengeid) {
         }
     })
     return joinchallenge
+}
+export async function getChallengeParticipants(challengeId) {
+    const participants = await prisma.challengeParticipants.findMany({
+        where: {
+            challengeId: Number(challengeId)
+        },select:{
+            user:{
+                select:{
+                    id:true,
+                    username:true,
+                    submissions:{
+                        where:{
+                            challengeId:Number(challengeId)
+                        }
+                    }
+                }
+            }
+        }
+    })
+    return participants.map(participant=>participant.user);
 }

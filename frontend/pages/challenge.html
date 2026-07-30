@@ -10,7 +10,11 @@
 <body>
     <div id="top-bar">
         <span id="logo-name">TestYourCode</span>
-        <button id="submitSolution-btn" type="submit">Submit Solution</button>
+        <div class="butons">
+            <button id="submitSolution-btn" type="submit">Submit Solution</button>
+            <button class="submitType" type="button" id="file-type-btn">FILE</button>
+            <button class="submitType" type="button" id="text-type-btn">TEXT</button>
+        </div>
         <span id="userName"><img style="margin-top:2px;" src="/assets/images/user.png" alt="userImage">username</span>
     </div>
     <div id="challege-message"></div>
@@ -19,7 +23,7 @@
             <div id="challenge-timer">
                 <p id="timer">00:00:00</p>
                 <div class="timer-btns">
-                    <button id="pause-btn"><img id="pause" class="pause-play" src="/assets/images/pause (1).png" alt="pause-btn"></button>
+                   <!-- <button id="pause-btn"><img id="pause" class="pause-play" src="/assets/images/pause (1).png" alt="pause-btn"></button> -->
                     <button id="play-btn"><img class="pause-play" src="/assets/images/play.png" alt="play-btn"></button>
                 </div>
             </div>
@@ -27,13 +31,11 @@
                 <div class="challenge-info-card">
                     <h2>Problem: </h2>
                     <p id="problem">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem magnam tempore error, dolorum necessitatibus nihil libero aut quaerat veritatis sitamet consectetur adipisicing elit. Voluptatem magnam tempore error, </p>
-                    <h3 id="exemple-header">Exemple:</h3>
-                    <p id="exemple">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet nisi praesentium atque sint, illo necessitatibus omnis </p>
                 </div>
                 <div >
                     <h3>Programming Language: </h3>
                     <ul>
-                        <li class="challenge-language">Java</li>
+                        <li class="challenge-language" id="progaming-language">Java</li>
                     </ul>
                 </div>
                 <div class="participants-card">
@@ -61,18 +63,17 @@
             <div id="editor-header">Code
             </div>
             <div id="editor-language">
-                <span class="challenge-language">Java</span>
+                <span id="challenge-language">Java</span>
             </div>
             <div class="editor">
                 <div id="line-numbers"></div>
                 <textarea spellcheck="false" name="solution" id="code"></textarea>
             </div>
         </section>
-        <script src="/frontend/js/messagesAlert.js"></script>
-        <script src="/frontend/js/challenge.js"></script>
+        <script type="module" src="/frontend/js/messagesAlert.js"></script>
+        <script type="module" src="/frontend/js/challenge.js"></script>
         <script src="/frontend/js/resizer.js"></script>
-        <script src="/frontend//js/timer.js"></script>
-        
+        <script type="module" src="/frontend//js/timer.js"></script>
     </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+import API_URL from "../config/api_url.js";
 import showMessage from "./messagesAlert.js";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,7 +31,7 @@ loginform.addEventListener("submit", async function (event) {
     }
     //console.log("Form valid");
     try{
-        const response = await fetch("http://localhost:3000/api/auth/login",{
+        const response = await fetch(`${API_URL}/api/auth/login`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -42,14 +43,20 @@ loginform.addEventListener("submit", async function (event) {
         });
         const data = await response.json();
         if (!response.ok) {
-            alert(data.message);
-            //showMessage(`${data.message}`, "error", "login-error-message")
+            //alert(data.message);
+            showMessage(`${data.message}`, "error", "login-error-message")
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        alert("Login realizado com sucesso");
-        window.location.href ="../pages/index.html";
+        //alert("Login realizado com sucesso");
+        
+        showMessage(`${data.message}`, "success", "login-error-message")
+        setTimeout(()=>{
+            window.location.href ="../pages/index.html";
+        },1000)
+        
     }catch (error){
         console.error("Error during login:", error);
         //alert("An error occurred during login. Please try again later.");

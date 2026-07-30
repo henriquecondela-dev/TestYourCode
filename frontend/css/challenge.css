@@ -28,7 +28,7 @@ body{
     font-weight: 1000;
     color:hsl(252, 54%, 24%);
 }
-#submitSolution-btn{
+#submitSolution-btn, .submitType{
     background-color: hsl(0, 0%, 30%);
     color: aliceblue;
     padding: 5px;
@@ -36,10 +36,16 @@ body{
     font-weight: 900;
     border-radius: 5px;
 }
-#submitSolution-btn:hover{
+#file-type-btn.active, #text-type-btn.active{
+     background-color: hsl(125, 90%, 15%);
+}
+.submitType{
+     background-color: hsl(0, 0%, 50%);
+}
+#submitSolution-btn:hover,.submitType:hover{
     background-color: hsl(0, 0%, 20%);
 }
-#submitSolution-btn:active{
+#submitSolution-btn:active,.submitType:active{
     background-color: hsl(125, 90%, 15%);
 }
 .content{
@@ -298,6 +304,7 @@ body{
     animation-play-state: running;
     animation-iteration-count: infinite;
 }
+
 @keyframes colorChange{
     50%{color: hsl(212, 100%, 67%);}
     50%{color: hsl(0, 100%, 57%)}

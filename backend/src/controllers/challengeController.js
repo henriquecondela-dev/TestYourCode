@@ -48,10 +48,6 @@ export async function getChallengeDetails(req, res) {
             return res.status(404).json({
                 message: error.message
             })
-        } else if (error.message.trim() === "YOU ARE NOT THE OWNER") {
-            return res.status(403).json({
-                message: error.message
-            })
         }
         res.status(500).json({
             message: error.message
@@ -212,5 +208,24 @@ export async function getChallengeResults(req, res) {
             message: error.message
         })
     }
-
+}
+export async function getChallengeParticipants(req,res) {
+    try {
+        const challengeId = Number(req.params.challengeId);
+        const challenge = await challengeService.getChallengeParticipants(challengeId);
+        res.status(200).json({
+            participants:challenge
+        })
+       
+    } catch (error){
+        /*if (error.message.trim() === "No participants") {
+            return res.status(409).json({
+                message: error.message,
+                participants:
+            })
+        }*/
+        res.status(500).json({
+            message: error.message
+        })
+    }
 }

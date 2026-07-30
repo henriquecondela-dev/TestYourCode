@@ -1,18 +1,24 @@
 
-#joinMessage, #startMessageAlert,#creatMessage,#startSettingsMessage{
+#joinMessage, #message-box-create,#startMessageAlert,#creatMessage,#startSettingsMessage,#login-error-message,#signup-error-message{
     align-self: center;
     padding: 10px;
     border-radius: 10px;
     margin: 5px 0;
     display: none;
 }
-#challege-message, #login-error-message{
+#challege-message{
     padding: 8px;
     border-radius: 5px;
     display: none;
     background:hsl(0, 0%, 12%);
 }
-
+#message-box{
+    text-align: center;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 5px;
+    display: none;
+}
 .success{
     background:hsl(134, 41%, 88%);
     color:#155724;
@@ -26,8 +32,11 @@
     color:#856404;
 }
 .challengeAlert{
-
     color:hsl(45, 94%, 42%);
+    text-align: center;
+}
+.challengeSuccess{
+    color:hsl(134, 61%, 40%);
     text-align: center;
 }
 .form-error{

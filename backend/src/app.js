@@ -7,25 +7,25 @@ import authMiddleware from "./middlewares/authMidldlewares.js";
 import logger from "./middlewares/logger.js";
 import groupRoutes from "./routes/groupRoutes.js"
 import cors from "cors";
-import {apiReference} from "@scalar/express-api-reference"
+import { apiReference } from "@scalar/express-api-reference"
 import openapiDocument from "./docs/openAPI.js";
 
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-    origin: "http://127.0.0.1:5500"
-}));
+app.use(cors());
 //app.use(newrequest);
 
 app.use(logger);
-app.use("/api-docs",apiReference({spec:{
-    content:openapiDocument
-}}));
+app.use("/api-docs", apiReference({
+    spec: {
+        content: openapiDocument
+    }
+}));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", authMiddleware, userRoutes);
-app.use("/api/groups",authMiddleware, groupRoutes);
-app.use("/api/challenges", authMiddleware,challengeRoutes);
+app.use("/api/groups", authMiddleware, groupRoutes);
+app.use("/api/challenges", authMiddleware, challengeRoutes);
 export default app;
 /*
 app.get("/", (request, response) => {
