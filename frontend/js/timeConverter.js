@@ -8,3 +8,9 @@ export function secondsToHours(totalSeconds) {
     const seconds = (totalSeconds % 3600) % 60;
     return { hours, minutes, seconds };
 }
+export function getRemainingSeconds(startedAt, durationSeconds) {
+    const startTime = new Date(startedAt).getTime();
+    const now = Date.now();
+    const passedSeconds = Math.floor((now - startTime) / 1000);
+    return Math.max(0, durationSeconds - passedSeconds);
+}

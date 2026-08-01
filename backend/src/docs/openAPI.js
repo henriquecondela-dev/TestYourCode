@@ -7,7 +7,8 @@ const openapiDocument = {
     },
     "servers": [
         {
-            "url": "http://localhost:3000"
+            //"url": "http://localhost:3000"
+            "url": "http://10.153.230.113:3000"
         }
     ],
     "paths": {

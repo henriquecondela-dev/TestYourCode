@@ -177,6 +177,17 @@ export async function joinChallenge(req, res) {
             joinchallenge
         })
     } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code === "P2002") {
+                return res.status(409).json({
+                    message: "Alredy Participating"
+                })
+            } else if (error.code === "P2012") {
+                return res.status(400).json({
+                    message: "Data Missing"
+                })
+            }
+        }
         if (error.message.trim() === "Challenge Not Found") {
             return res.status(404).json({
                 message: error.message
@@ -209,15 +220,15 @@ export async function getChallengeResults(req, res) {
         })
     }
 }
-export async function getChallengeParticipants(req,res) {
+export async function getChallengeParticipants(req, res) {
     try {
         const challengeId = Number(req.params.challengeId);
         const challenge = await challengeService.getChallengeParticipants(challengeId);
         res.status(200).json({
-            participants:challenge
+            participants: challenge
         })
-       
-    } catch (error){
+
+    } catch (error) {
         /*if (error.message.trim() === "No participants") {
             return res.status(409).json({
                 message: error.message,

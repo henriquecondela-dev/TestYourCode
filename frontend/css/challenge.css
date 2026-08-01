@@ -310,3 +310,272 @@ body{
     50%{color: hsl(0, 100%, 57%)}
     
 }
+
+@media (max-width: 700px) {
+    html,
+    body {
+        height: 100%;
+        min-height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    #top-bar {
+        min-height: 45px;
+        padding: 5px 8px;
+        align-items: center;
+        gap: 2px;
+    }
+    #logo-name {
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+    #logo-name::before {
+        font-size: 0.9rem;
+    }
+    #userName {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        white-space: nowrap;
+        display: none;
+    }
+    #userName img {
+        width: 16px;
+        height: 16px;
+    }
+    .butons {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+    #submitSolution-btn,
+    .submitType {
+        padding: 5px 6px;
+        font-size: 10px;
+    }
+    .challenge-section {
+        flex-direction: column;
+        height: calc(100vh - 45px);
+        overflow: hidden;
+    }
+    .challenge-info {
+        width: auto;
+        min-width: 0;
+        height: 42%;
+        min-height: 220px;
+        margin: 4px;
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+    .content {
+        padding: 8px;
+        overflow-y: auto;
+    }
+    .challenge-info-card h2 {
+        font-size: 1.05rem;
+        margin: 5px 0;
+    }
+
+    #problem {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-top: 5px;
+    }
+
+    .content h3 {
+        font-size: 14px;
+        margin: 10px 0 5px;
+    }
+
+    .challenge-language {
+        font-size: 13px;
+    }
+
+    #challenge-timer {
+        padding: 2px;
+        flex-shrink: 0;
+    }
+
+    #timer {
+        font-size: 1.5rem;
+    }
+
+    #participants-container {
+        gap: 4px;
+    }
+
+    .participant-card {
+        padding: 4px 7px;
+        font-size: 11px;
+        border-radius: 15px;
+    }
+
+    .bottom-side {
+        flex-shrink: 0;
+    }
+
+    #status-header {
+        font-size: 13px;
+        margin: 5px 0 2px;
+    }
+
+    #status {
+        font-size: 12px;
+        margin: 3px 0;
+    }
+
+    .upload-card {
+        margin: 4px;
+        padding: 5px;
+        border-radius: 8px;
+    }
+
+    .upload-card label {
+        font-size: 12px;
+        margin: 3px;
+    }
+
+    #upload-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    #file-name {
+        font-size: 11px;
+        max-width: 90%;
+    }
+    .divider {
+        display: none;
+    }
+
+    .editor-section {
+        width: auto;
+        min-width: 0;
+        min-height: 0;
+        flex: 1;
+        margin: 4px;
+        border-radius: 8px;
+    }
+
+    #editor-header {
+        padding: 5px 8px;
+        font-size: 13px;
+    }
+
+    #editor-header::before {
+        font-size: 12px;
+    }
+
+    #editor-language {
+        padding: 4px;
+        font-size: 12px;
+    }
+
+    .editor {
+        gap: 4px;
+        min-height: 0;
+    }
+
+    #line-numbers {
+        width: 28px;
+        padding: 8px 5px;
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    #code {
+        padding: 8px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    #challege-message {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 400px) {
+
+    #top-bar {
+        padding: 4px 5px;
+    }
+
+    #logo-name {
+        font-size: 0.85rem;
+    }
+
+    #logo-name::before {
+        font-size: 0.75rem;
+    }
+
+    #userName {
+        font-size: 10px;
+    }
+
+    #submitSolution-btn,
+    .submitType {
+        padding: 4px 5px;
+        font-size: 9px;
+    }
+
+    .challenge-info {
+        height: 44%;
+    }
+
+    #timer {
+        font-size: 1.35rem;
+    }
+
+    #problem {
+        font-size: 12px;
+    }
+
+    .content h3 {
+        font-size: 13px;
+    }
+
+    .participant-card {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+
+    #status-header {
+        font-size: 12px;
+    }
+
+    #status {
+        font-size: 11px;
+    }
+
+    .upload-card label {
+        font-size: 11px;
+    }
+
+    #upload-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    #editor-header {
+        font-size: 12px;
+    }
+
+    #editor-language {
+        font-size: 11px;
+    }
+
+    #line-numbers {
+        width: 25px;
+        font-size: 10px;
+    }
+
+    #code {
+        font-size: 11px;
+    }
+}
+

@@ -411,32 +411,44 @@ form{
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
 }
-.challenge-list{
-    margin-top:10px;
-    display:flex;
-    flex-direction:column;
-    gap:1px;
-    
+.challenge-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
 }
 
-.challenge-card{
-    margin-top:8px;
-    padding:10px;
-    border-radius:8px;
+.challenge-card {
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: .2s;
     background:hsl(0, 0%, 30%);
-    color:white;
-    cursor:pointer;
-    transition:.2s;
 }
 
-.challenge-card:hover{
-    background:#333;
-    transform:translateX(4px);
+/* READY */
+.challenge-ready {
+    background: hsl(120, 40%, 30%);
 }
 
-.challenge-card.selected{
-   background-color: hsl(240, 100%, 70%);
-    color:black;
+/* RUNNING */
+.challenge-running {
+    background: hsl(45, 60%, 35%);
+}
+
+/* COMPLETED */
+.challenge-completed {
+    background: hsl(0, 40%, 35%);
+}
+.challenge-card:hover {
+    background: #333;
+    transform: translateX(4px);
+}
+.challenge-card.selected {
+    background-color: hsl(240, 100%, 70%);
+    color: black;
 }
 @keyframes spin{
     from{
@@ -446,8 +458,378 @@ form{
         transform:rotate(360deg);
     }
 }
-@media (max-width:480px){
-    #join-modal, #start-modal{
-    width:300px;
+
+
+@media (max-width: 600px){
+
+    html,
+    body{
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+    }
+
+    body{
+        font-size: 14px;
+    }
+
+    .topNavBar{
+        height: 52px;
+        min-height: 52px;
+        padding: 0 10px;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    #logo{
+        margin: 0;
+    }
+
+    #logo::after{
+        font-size: 1.4rem;
+    }
+
+    #name{
+        margin: 0;
+        font-size: 1.05rem;
+    }
+    #userName{
+        display: none;
+    }
+    #name::after{
+        font-size: 1rem;
+    }
+
+    #profile{
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        display: none;
+    }
+
+    #profile img{
+        width: 20px;
+        height: 20px;
+    }
+
+    .downPage{
+        flex-direction: column;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .left-side{
+        width: 100%;
+        height: 44px;
+        min-height: 44px;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 0;
+    }
+
+    .left-side button{
+        height: 44px;
+        padding: 0 10px;
+    }
+
+    .left-side a{
+        height: 44px;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .left-side .text{
+        display: none;
+    }
+
+    .left-side .icon{
+        display: inline;
+    }
+
+    .left-side .icon img{
+        width: 18px;
+        height: 18px;
+    }
+
+    #logout{
+        margin-top: 0;
+        margin-left: auto;
+    }
+    .right-side{
+        width: 100%;
+        margin-top: 0;
+        box-sizing: border-box;
+    }
+
+    .top-right-side{
+        width: 100%;
+        margin: 0;
+        padding: 12px 10px 14px;
+        gap: 8px;
+        box-sizing: border-box;
+    }
+
+    .top-right-side > .btn{
+        width: 100%;
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 0.85rem;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+    #creat-overlay,
+    #join-overlay,
+    #start-overlay,
+    #wait-overlay{
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    #join-modal,
+    #start-modal,
+    #start-settings-modal,
+    #start-summary-modal{
+        width: 100%;
+        max-width: 390px;
+        min-height: 0;
+        max-height: calc(100vh - 30px);
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        overflow-y: auto;
+    }
+    #creat-modal{
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        min-height: 190px;
+        box-sizing: border-box;
+    }
+
+    .headLink{
+        font-size: 1.2rem;
+        margin: 8px 0 12px;
+    }
+
+    #groups-container,
+    #owner-groups-container{
+        width: 100%;
+        min-height: 150px;
+        max-height: 42vh;
+        margin-top: 5px;
+        box-sizing: border-box;
+    }
+
+    .group-card,
+    .owner-group-card{
+        padding: 9px;
+        font-size: 0.85rem;
+    }
+
+
+    .challenge-list{
+        margin-top: 7px;
+        gap: 1px;
+    }
+
+    .challenge-card{
+        margin-top: 6px;
+        padding: 9px;
+        font-size: 0.82rem;
+        line-height: 1.3;
+    }
+
+    .modal-buttons{
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .modal-buttons .btn{
+        min-height: 36px;
+        padding: 7px 10px;
+    }
+
+    #creatgroup-btn,
+    #join-selected-btn,
+    #start-selected-btn,
+    #go-in-chalenge-btn,
+    #creat-cancel-btn,
+    #getOut-btn,
+    #join-cancel-btn,
+    #start-cancel-btn1,
+    #start-cancel-btn2,
+    #start-cancel-btn3,
+    #next1-btn,
+    #next2-btn,
+    #back1-btn,
+    #back2-btn{
+        width: auto;
+        min-width: 65px;
+    }
+
+    form{
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-input{
+        width: 100%;
+        height: 32px;
+        box-sizing: border-box;
+    }
+
+    #start-settings-modal > div{
+        margin-bottom: 6px;
+    }
+
+    #difficulty,
+    #category,
+    #language{
+        width: auto;
+        max-width: 100%;
+        min-height: 30px;
+    }
+
+    .time{
+        width: 42px;
+        height: 28px;
+    }
+
+    #NOfPartipants{
+        width: 48px;
+        height: 28px;
+    }
+
+    #generateProblem-btn{
+        width: 135px;
+        height: 40px;
+        margin-top: 8px;
+    }
+
+    .wait-modal{
+        width: 100%;
+        padding: 10px 5px;
+        box-sizing: border-box;
+    }
+
+    #wait-title{
+        font-size: 1.15rem;
+        padding: 0 10px;
+        margin: 10px 0;
+    }
+
+    #wait-timer{
+        font-size: 3.2rem;
+        line-height: 1.1;
+        margin: 10px 0 20px;
+    }
+    .wait-participants-card{
+        width: 100%;
+    }
+    .wait-participants-card h2{
+        font-size: 1rem;
+    }
+    #wait-participants-container{
+        justify-content: center;
+        width: 100%;
+    }
+    .wait-participant-card{
+        font-size: 0.78rem;
+        padding: 5px 8px;
+    }
+    #terminal{
+        margin: 2px;
+        flex: 1;
+        box-sizing: border-box;
+    }
+
+    #terminal-settings{
+        min-height: 34px;
+        padding: 5px 8px;
+        box-sizing: border-box;
+    }
+
+    #file-name{
+        font-size: 0.75rem;
+    }
+
+    .dot img{
+        width: 13px;
+        height: 13px;
+    }
+    #text{
+        padding: 10px;
+        font-size: 0.75rem;
+        line-height: 1.7;
+    }
+
+    .btn,
+    .group-card,
+    .owner-group-card,
+    .challenge-card,
+    .left-side a{
+        -webkit-tap-highlight-color: transparent;
+    }
+    .btn{
+        min-height: 36px;
+    }
+
+    .challenge-card,
+    .group-card,
+    .owner-group-card{
+        touch-action: manipulation;
+    }
+    #groups-container,
+    #owner-groups-container,
+    #terminal,
+    #join-modal,
+    #start-modal,
+    #start-settings-modal,
+    #start-summary-modal{
+        scrollbar-width: thin;
     }
 }
+@media (max-width: 380px){
+    #userName{
+        display: none;
+    }
+    #name{
+        font-size: 0.95rem;
+    }
+
+    #name::after{
+        font-size: 0.85rem;
+    }
+
+    .topNavBar{
+        padding: 0 6px;
+    }
+
+    .left-side a{
+        padding: 0 9px;
+    }
+
+    .left-side button{
+        padding: 0 7px;
+    }
+
+    #wait-timer{
+        font-size: 2.7rem;
+    }
+
+    #wait-title{
+        font-size: 1rem;
+    }
+    #terminal{
+        height: 40vh;
+    }
+    .time{
+        width: 38px;
+    }
+}
+
+

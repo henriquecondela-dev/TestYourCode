@@ -1,5 +1,5 @@
 /*Styling small devices*/
-@media (max-width:480px){
+@media (max-width:600px){
     
     .left-side::before{
         content: "";

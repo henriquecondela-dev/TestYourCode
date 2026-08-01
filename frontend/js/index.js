@@ -3,7 +3,8 @@ import { getGroups } from "../data/groups.js";
 import { getMyGroups } from "../data/mygroups.js";
 import { getToken, saveChallenge } from "../data/store.js";
 import { getUsers } from "../data/users.js";
-import API_URL from "../config/api_url.js"
+import API_URL from "../config/api_url.js";
+
 sessionStorage.removeItem("challenge");
 sessionStorage.removeItem("challengeID");
 const token = getToken();
@@ -23,6 +24,7 @@ const overlayG = document.getElementById("creat-overlay");
 const groupName = document.getElementById("creatGroup-name")
 
 //Join a groput consts
+const participateInChallengeBtn = document.getElementById("join-in-challenge");
 const joinButton = document.getElementById("joinGroup-btn");
 const overlayJ = document.getElementById("join-overlay");
 const groupsContainer = document.getElementById("groups-container");
@@ -67,10 +69,6 @@ const waitparticipantContainer = document.getElementById("wait-participants-cont
 
 const waitTimer = document.getElementById("wait-timer");
 
-
-const ownerGroups = await getMyGroups();
-const groups = await getGroups();
-
 export const user = JSON.parse(localStorage.getItem("user"));
 username.textContent = user.username;
 setTimeout(function () {
@@ -83,10 +81,15 @@ button.addEventListener("click", function () {
 creatgroupBtn.addEventListener("click", function () {
     overlayG.style.display = "flex";
 });
-joinButton.addEventListener("click", function () {
+joinButton.addEventListener("click", async function () {
+    groupsContainer.textContent = "";
+    await loadGroups();
     overlayJ.style.display = "flex";
+
 });
-startChallengebutton.addEventListener("click", function () {
+startChallengebutton.addEventListener("click", async function () {
+    ownerGroupsContainer.textContent = "";
+    await loadOwnerGroups();
     overlayS.style.display = "flex";
     startModal1.classList.add("active");
     startModal2.classList.remove("active");
@@ -103,6 +106,7 @@ startChallengebutton.addEventListener("click", function () {
     ownerGroupsContainer.classList.remove("disable");
 });
 genarateProblemBtn.addEventListener("click", async () => {
+    selectedChallenge = null;
     const durationsSeconds = hoursToSeconds(hours.value, minutes.value, seconds.value);
     document.getElementById("textProblem").style.display = "none";
     genarateProblemBtn.classList.add("spinning")
@@ -134,6 +138,7 @@ genarateProblemBtn.addEventListener("click", async () => {
         <p>click START to start the challenge</p>`
         //localStorage.setItem("challenge",JSON.stringify(challenge.challenge));
         sessionStorage.setItem("challengeID", challenge.challenge.id);
+        selectedChallenge = challenge.challenge.id;
         saveChallenge(challenge.challenge);
         //console.log(challenge.challenge);
     } catch (error) {
@@ -153,37 +158,40 @@ genarateProblemBtn.addEventListener("click", async () => {
 });
 goInChallengeBtn.addEventListener("click", async function () {
     waitparticipantContainer.textContent = ""
-    if (selectedGroup === null) {
-        showMessage("Plese select a group first", "error", "joinMessage");
+    if (selectedChallenge === null) {
+        showMessage("Plese select a  challenge first", "error", "joinMessage");
         return;
-    } else {
-        try {
-            const response = await fetch(`${API_URL}/api/groups/${selectedGroup}/join`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            const data = await response.json();
-            if (!response.ok) {
-                if (response.status !== 409 && response.status !== 500) {
-                    showMessage(`You are not a member of the group, please join in the group first`, "error", "joinMessage");
-                    return;
-                }
-            }
-        } catch (error) {
-            console.log(error.message)
-            return;
-        }
     }
-    sessionStorage.setItem("challengeID", selectedGroup)
-    await loadUsers(Number(sessionStorage.getItem("challengeID")));
+    try {
+        const response = await fetch(`${API_URL}/api/groups/${selectedGroup}/join`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const data = await response.json();
+        if (!response.ok) {
+            if (response.status !== 409) {
+                showMessage(`You are not a member of the group, please join in the group first`, "error", "joinMessage");
+                return;
+            }
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+    sessionStorage.setItem("challengeID", selectedChallenge)
+    await loadParticipants(Number(sessionStorage.getItem("challengeID")));
     console.log("seleccted challenge at Groups: ", selectedChallenge)
     overlaygetout.style.display = "block";
     let waithours = 0;
     let waitminutes = 0;
     let waitseconds = 0;
     const interval = setInterval(() => {
+        /*if (waitseconds===15) {
+                clearInterval(interval);
+                //clearInterval(statusInterval);
+                window.location.href = "challenge.html";
+            }*/
         waitseconds++;
         if (waitseconds === 59) {
             waitminutes++;
@@ -197,12 +205,62 @@ goInChallengeBtn.addEventListener("click", async function () {
             `${String(waithours).padStart(2, "0")}:` +
             `${String(waitminutes).padStart(2, "0")}:` +
             `${String(waitseconds).padStart(2, "0")}`;
+
         cancelgetOut.addEventListener("click", () => {
             clearInterval(interval);
+            clearInterval(statusInterval);
             overlaygetout.style.display = "none"
             waitTimer.textContent = "00:00:00"
         })
     }, 1000)
+    const statusInterval = setInterval(async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/challenges/${selectedChallenge}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const challenge = await response.json();
+            if (!response.ok) {
+                console.error("Could not check challenge:", challenge.message);
+                return;
+            }
+            console.log("Challenge status:", challenge.challenge.status);
+            if (challenge.challenge.status === "RUNNING") {
+                clearInterval(interval);
+                clearInterval(statusInterval);
+                window.location.href = "challenge.html";
+            } else if (challenge.challenge.status === "FINISHED" || challenge.challenge.status === "COMPLETED") {
+                clearInterval(interval);
+                clearInterval(statusInterval);
+                document.getElementById("wait-title").textContent = `Challenge finished`;
+                return;
+            }
+        } catch (error) {
+            console.error("Error checking challenge status:", error.message);
+        }
+    }, 2000);
+}
+)
+participateInChallengeBtn.addEventListener("click", async () => {
+    try {
+        const response = await fetch(`${API_URL}/api/challenges/${selectedChallenge}/join`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const res = await response.json();
+        if (!response.ok) {
+            showMessage(`${res.message}`, "error", "joinMessage");
+            return;
+        }
+        showMessage(`${res.message}`, "success", "joinMessage");
+    } catch (error) {
+        console.log(error.message);
+        return;
+    }
 })
 createGroup.addEventListener("click", async () => {
     try {
@@ -216,7 +274,6 @@ createGroup.addEventListener("click", async () => {
                 name: `${groupName.value}`
             })
         })
-
         const group = await response.json()
         if (!response.ok) {
             showMessage(`${group.message}`, "error", "message-box-create")
@@ -242,9 +299,9 @@ moveModalForward(back1Btn, startModal2, startModal1);
 moveModalForward(back2Btn, startModal3, startModal2);
 
 startchallenge.addEventListener("click", () => {
-    if(selectedChallenge===null) {
+    if (selectedChallenge === null) {
         showMessage("Plese select a challengefirst", "error", "startMessageAlert");
-    }else{
+    } else {
         console.log("Starting a challenge", selectedChallenge);
         window.location.href = "challenge.html";
     }
@@ -272,25 +329,12 @@ joinSelectedButton.addEventListener("click", async function () {
         } catch (error) {
             console.log(error.message)
         }
-            sessionStorage.setItem("challengeID", selectedChallenge)
+        sessionStorage.setItem("challengeID", selectedChallenge)
         console.log("seleccted challenge at ownerGroup: ", selectedChallenge)
     }
 });
-loadGroups();
-loadOwnerGroups();
-
-function closeModal(btn, overlay) {
-    btn.addEventListener("click", () => {
-        overlay.style.display = "none";
-    });
-}
-function moveModalForward(btn, prevModal, actModal) {
-    btn.addEventListener("click", () => {
-        prevModal.classList.remove("active");
-        actModal.classList.add("active");
-    })
-}
-function loadOwnerGroups() {
+async function loadOwnerGroups() {
+    const ownerGroups = await getMyGroups();
     if (ownerGroups.length === 0) {
         ownerGroupsContainer.innerHTML = "<p>You have no groups created yet.</p>";
         ownerGroupsContainer.style.textAlign = "center";
@@ -302,6 +346,8 @@ function loadOwnerGroups() {
             card.style.fontSize = "14px";
             card.style.fontWeight = "bold";
             card.addEventListener("click", async () => {
+                selectedChallenge = null;
+                ownerSelectedGroup = null;
                 document.querySelectorAll(".owner-group-card").forEach(card => {
                     card.classList.remove("selected-group");
                     const list = card.querySelector(".challenge-list");
@@ -345,7 +391,7 @@ function loadOwnerGroups() {
         });
     }
 }
-async function loadUsers(challengeid) {
+async function loadParticipants(challengeid) {
     const AllUsers = await getParticipants(challengeid);
     if (AllUsers.length === 0) {
         waitparticipantContainer.innerHTML = "<p>No participants yet</p>";
@@ -359,69 +405,131 @@ async function loadUsers(challengeid) {
         })
     }
 }
-function loadGroups() {
+async function loadGroups() {
+    const groups = await getGroups();
+
     if (groups.length === 0) {
-        groupsContainer.innerHTML = "<p>No groups availible yet.</p>";
+        groupsContainer.innerHTML = "No groups availible yet.";
         groupsContainer.style.textAlign = "center";
     } else {
         groups.forEach((group) => {
+
             if (group.ownerId !== user.id) {
-                //console.log(group.ownerId)
+
                 const card = document.createElement("div");
                 card.classList.add("group-card");
+
                 card.textContent = group.name;
                 card.style.fontSize = "14px";
                 card.style.fontWeight = "bold";
+
                 card.addEventListener("click", async () => {
+
+                    selectedChallenge = null;
+                    selectedGroup = null;
+
                     document.querySelectorAll(".group-card").forEach(card => {
                         card.classList.remove("selected-group");
+
                         const list = card.querySelector(".challenge-list");
+
                         if (list) {
                             list.remove();
                         }
                     });
+
                     card.classList.add("selected-group");
                     selectedGroup = group.id;
-                    const response = await fetch(`${API_URL}/api/groups/${group.id}/challenges`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
+
+                    console.log("selected group", selectedGroup);
+
+                    const response = await fetch(
+                        `${API_URL}/api/groups/${group.id}/challenges`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
                         }
-                    });
-                    const data = await response.json();
-                    const readyChallenges = data.challenges.filter(
-                        challenge => challenge.status === "READY"
                     );
+
+                    const data = await response.json();
+
+                    // Apenas READY, RUNNING e COMPLETED
+                    const challenges = data.challenges.filter(
+                        challenge =>
+                            challenge.status === "READY" ||
+                            challenge.status === "RUNNING" ||
+                            challenge.status === "COMPLETED"
+                    );
+
                     const list = document.createElement("div");
                     list.classList.add("challenge-list");
-                    readyChallenges.forEach(challenge => {
+
+                    challenges.forEach(challenge => {
+
                         const item = document.createElement("div");
                         item.classList.add("challenge-card");
-                        item.textContent = `${challenge.title} | ${challenge.language}`;
+
+                        // Adiciona a classe correspondente ao status
+                        item.classList.add(
+                            `challenge-${challenge.status.toLowerCase()}`
+                        );
+
+                        // Mantém exatamente o formato anterior
+                        item.textContent =
+                            `${challenge.title} | ${challenge.language}(${challenge.status})`;
+
                         item.addEventListener("click", (e) => {
-                            document.querySelectorAll(".challenge-card").forEach(element => {
-                                element.classList.remove("selected");
-                            })
-                            item.classList.add("selected")
+
+                            document
+                                .querySelectorAll(".challenge-card")
+                                .forEach(element => {
+                                    element.classList.remove("selected");
+                                });
+
+                            item.classList.add("selected");
+
                             e.stopPropagation();
+
                             selectedChallenge = challenge.id;
-                            sessionStorage.setItem("challengeID", selectedChallenge)
-                            console.log("seleccted challenge at Groups: ", sessionStorage.getItem("challengeID"))
+
+                            sessionStorage.setItem(
+                                "challengeID",
+                                selectedChallenge
+                            );
+
+                            console.log(
+                                "seleccted challenge at Groups: ",
+                                sessionStorage.getItem("challengeID")
+                            );
                         });
+
                         list.appendChild(item);
                     });
+
                     card.appendChild(list);
                 });
-                groupsContainer.appendChild(card);
 
+                groupsContainer.appendChild(card);
             }
         });
     }
-};
+}
 
 function disable(element) {
     element.disabled = true;
 }
-
 function enable(element) {
     element.disabled = false;
+}
+function closeModal(btn, overlay) {
+    btn.addEventListener("click", () => {
+        overlay.style.display = "none";
+    });
+}
+function moveModalForward(btn, prevModal, actModal) {
+    btn.addEventListener("click", () => {
+        prevModal.classList.remove("active");
+        actModal.classList.add("active");
+    })
 }

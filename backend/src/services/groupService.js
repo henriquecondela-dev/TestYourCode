@@ -19,7 +19,11 @@ export async function createGroup(name, id) {
     return group;
 }
 export async function getGroups() {
-    const groups = await prisma.grupos.findMany();
+    const groups = await prisma.grupos.findMany({
+        orderBy:{
+            createdAt:"desc"
+        }
+    });
     //console.log(groups)
     if (groups.length === 0) {
         throw new Error("No groups availible")
@@ -56,6 +60,8 @@ export async function getMyGroups(ownerId) {
     const mygroups = await prisma.grupos.findMany({
         where: {
             ownerId: Number(ownerId)
+        },orderBy:{
+            createdAt:"desc"
         }
     })
     return mygroups;

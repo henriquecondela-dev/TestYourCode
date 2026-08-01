@@ -24,21 +24,32 @@ export async function submitSolutionsToAI(challengeId) {
     const dataToAI = {
         problem: challenge.problem,
         referenceSolution: challenge.referenceSolution,
-        language:challenge.language,
+        language: challenge.language,
         submissions: solutions.map(solution => ({
             submissionId: solution.id,
             solution: solution.solution
         }))
     };
-    const prompt=submitScript(dataToAI);
-    const results =  await callAI(prompt);
+    const prompt = submitScript(dataToAI);
+    const results = await callAI(prompt);
     if (!results) throw new Error("Results Not Provide by AI");
-    console.log(results);
-    console.log(typeof results)
+    //console.log(results);
+    //console.log(typeof results)
     for (const element of results) {
+        const existingResult = await prisma.result.findUnique({
+            where: {
+                submissionId: element.submissionId
+            }
+        });
+        if (existingResult) {
+            console.log(
+                `Submission ${element.submissionId} já foi avaliada.`
+            );
+            continue;
+        }
         await prisma.result.create({
             data: {
-                challengeId:Number(challengeId),
+                challengeId: Number(challengeId),
                 submissionId: element.submissionId,
                 score: element.score,
                 rank: element.rank,
@@ -47,5 +58,6 @@ export async function submitSolutionsToAI(challengeId) {
             }
         });
     }
+
     return results;
 }

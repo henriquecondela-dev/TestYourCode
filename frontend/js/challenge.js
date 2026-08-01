@@ -4,6 +4,7 @@ import { getChallenge, getToken } from "../data/store.js";
 import { finishChallenge } from "../data/finishchallenge.js";
 import API_URL from "../config/api_url.js";
 import showMessage from "./messagesAlert.js";
+import { finishAndEvaluate } from "../data/finishAndEvaluate.js";
 const token = getToken();
 const currentUser = JSON.parse(localStorage.getItem("user"));
 const upload = document.getElementById("file");
@@ -101,13 +102,14 @@ if (challengedetail) {
 } else {
     id = Number(sessionStorage.getItem("challengeID"));
 }
-const challengeDetails = await challengeDetail(id)
+const challengeDetails = await challengeDetail(id);
+console.log(challengeDetails)
 const users = await getParticipants(id);
 let solution = "";
 //console.log(users)
 //console.log(challengeDetails)
 problem.textContent = `${challengeDetails.problem}`
-problem.style.color = "hsl(0, 0% ,18%)"
+
 programlanguage.textContent = `${challengeDetails.language}`
 document.getElementById("challenge-language").textContent = `${challengeDetails.language}`
 document.getElementById("userName").textContent = currentUser.username;
@@ -174,57 +176,54 @@ submitButton.addEventListener("click", async () => {
     fileInput.disabled = true;
     status.textContent = "SOLUTION SUBMITTED";
     status.style.color = "green";
-    loadUsers();
+    await loadUsers();
 })
 const interval = setInterval(async () => {
     const participants = await getParticipants(challengeDetails.id)
+    renderParticipants(participants);
     const allSubmitted = participants.every(user =>
         user.submissions.length > 0 &&
         user.submissions[0].submitted
     );
     if (allSubmitted) {
-        await finishChallenge(challengeDetails.id);
+        //await finishChallenge(challengeDetails.id);
         clearInterval(interval);
-        try {
-            const response = await fetch(`${API_URL}/api/challenges/${challengeDetails.id}/submissions/all`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            const submit = await response.json()
-            if (!response.ok) {
-                if (response.status !== 403) {
-                    showMessage(`${submit.message}`, "challengeAlert", "challege-message");
-                    console.error(`Stastus: ${response.status}`);
-                } throw new Error(`${submit.message}`)
-            }
-            showMessage(`${submit.message}`, "challengeSuccess", "challege-message");
-            //return submit.message
-        } catch (error) {
-            if (error.message.trim() !== "YOU ARE NOT THE OWNER") {
-                console.error("ERRO: was not possible to submit solution", error.message)
-            }
-        }
+        renderParticipants(participants);
+        await finishAndEvaluate(
+            challengeDetails.id,
+            token
+        );
+        document.getElementById("challenge-timer").textContent = `challenge finished, all participants submitted!`;
+        document.getElementById("challenge-timer").style.fontWeight = "800";
+        document.getElementById("challenge-timer").style.fontSize = "16px";
+        document.getElementById("challenge-timer").style.fontFamily = "monospace";
+        document.getElementById("challenge-timer").style.color = "hsl(0, 100%, 57%)";
+
     }
     //console.log("not yet")
 }, 10000);
-
-function loadUsers() {
-    if (users.length === 0) {
-        participantContainer.innerHTML = "<p>No user yet</p>";
-    } else {
-        users.forEach((user) => {
-            const card = document.createElement("div");
-            card.classList.add("participant-card");
-            card.textContent = user.username;
-            card.style.fontSize = "12px";
-            if (user.submissions.length > 0 && user.submissions[0].submitted) {
-                card.classList.add("submitted");
-            }
-            participantContainer.appendChild(card);
-        })
+async function loadUsers() {
+    const participants = await getParticipants(challengeDetails.id);
+    renderParticipants(participants);
+} function renderParticipants(participants) {
+    participantContainer.innerHTML = "";
+    if (participants.length === 0) {
+        participantContainer.textContent = "No user yet";
+        return;
     }
+    participants.forEach((user) => {
+        const card = document.createElement("div");
+        card.classList.add("participant-card");
+        card.textContent = user.username;
+        card.style.fontSize = "12px";
+        const submitted =
+            user.submissions.length > 0 &&
+            user.submissions[0].submitted;
+        if (submitted) {
+            card.classList.add("submitted");
+        }
+        participantContainer.appendChild(card);
+    });
 }
 upload.addEventListener("change", () => {
     fileName.textContent = upload.files[0]?.name || "No file";

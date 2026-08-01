@@ -47,18 +47,18 @@ export async function getChallengeDetails(challengId) {
     const challenge = await prisma.challenge.findUnique({
         where: {
             id: challengId
-        },select:{
-            id:true,
-            groupId:true,
-            language:true,
-            difficulty:true,
-            problem:true,
-            category:true,
-            status:true,
-            createdAt:true,
-            startedAt:true,
-            finishedAt:true,
-            durationSeconds:true
+        }, select: {
+            id: true,
+            groupId: true,
+            language: true,
+            difficulty: true,
+            problem: true,
+            category: true,
+            status: true,
+            createdAt: true,
+            startedAt: true,
+            finishedAt: true,
+            durationSeconds: true
         }
     })
     if (!challenge) throw new Error("Challenge Not Found");
@@ -165,6 +165,8 @@ export async function submitAllSolutions(userId, challengeId) {
     if (challenge.status !== "FINISHED") throw new Error("challenge completed or not finished");
     const results = await submitSolutionsToAI(challengeId);
     if (!results) throw new Error("Failed to subtmit solutions")
+    console.log("1 - AI terminou");
+    console.log("2 - results:", results);
     const completeChallenge = await prisma.challenge.update({
         where: {
             id: challengeId
@@ -172,6 +174,7 @@ export async function submitAllSolutions(userId, challengeId) {
             status: "COMPLETED"
         }
     })
+    console.log("3 - Challenge atualizado:", completeChallenge);
     return results;
 }
 export async function submitSolution(submission, challengeid, userid) {
@@ -223,6 +226,7 @@ export async function joinChallenge(userid, challengeid) {
     })
     if (!challenge) throw new Error("Challenge Not Found");
     if (challenge.status !== "READY") throw new Error("Challenge not redy or finished");
+
     const joinchallenge = await prisma.challengeParticipants.create({
         data: {
             userId: userid,
@@ -235,19 +239,19 @@ export async function getChallengeParticipants(challengeId) {
     const participants = await prisma.challengeParticipants.findMany({
         where: {
             challengeId: Number(challengeId)
-        },select:{
-            user:{
-                select:{
-                    id:true,
-                    username:true,
-                    submissions:{
-                        where:{
-                            challengeId:Number(challengeId)
+        }, select: {
+            user: {
+                select: {
+                    id: true,
+                    username: true,
+                    submissions: {
+                        where: {
+                            challengeId: Number(challengeId)
                         }
                     }
                 }
             }
         }
     })
-    return participants.map(participant=>participant.user);
+    return participants.map(participant => participant.user);
 }
