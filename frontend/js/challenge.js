@@ -189,26 +189,26 @@ const interval = setInterval(async () => {
         //await finishChallenge(challengeDetails.id);
         clearInterval(interval);
         renderParticipants(participants);
-        await finishAndEvaluate(
-            challengeDetails.id,
-            token
-        );
         document.getElementById("challenge-timer").textContent = `challenge finished, all participants submitted!`;
         document.getElementById("challenge-timer").style.fontWeight = "800";
         document.getElementById("challenge-timer").style.fontSize = "16px";
         document.getElementById("challenge-timer").style.fontFamily = "monospace";
         document.getElementById("challenge-timer").style.color = "hsl(0, 100%, 57%)";
-
+        await finishAndEvaluate(
+            challengeDetails.id,
+            token
+        );
     }
     //console.log("not yet")
 }, 10000);
 async function loadUsers() {
     const participants = await getParticipants(challengeDetails.id);
     renderParticipants(participants);
-} function renderParticipants(participants) {
+} 
+function renderParticipants(participants) {
     participantContainer.innerHTML = "";
     if (participants.length === 0) {
-        participantContainer.textContent = "No user yet";
+        participantContainer.textContent = "No users yet";
         return;
     }
     participants.forEach((user) => {
@@ -221,6 +221,7 @@ async function loadUsers() {
             user.submissions[0].submitted;
         if (submitted) {
             card.classList.add("submitted");
+            
         }
         participantContainer.appendChild(card);
     });
@@ -228,7 +229,6 @@ async function loadUsers() {
 upload.addEventListener("change", () => {
     fileName.textContent = upload.files[0]?.name || "No file";
 });
-
 textarea.addEventListener("input", () => {
     updateLines();
     const lastChar = textarea.value[textarea.value.length - 1];

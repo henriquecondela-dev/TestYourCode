@@ -41,12 +41,13 @@ export default function submitScript(data) {
     IMPORTANTE:
     Para cada objeto, preserve exatamente o submissionId recebido na entrada.
     Nunca invente ou altere os IDs.
+    Lembrar que nunca deve ter dois usuarios com o mesmo rank cada rank deve ser unico para cada submisao pois irei usar eles para determinar quem esta em priemrio ou segundo lugar, etc.
     
     [
         {
         "submissionId": (...),
         "score": (...),
-        "rank": 1,
+        "rank": (...),
         "approved": true,
         "feedback": "Explicação curta sobre a avaliação."
         },

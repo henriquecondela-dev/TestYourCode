@@ -7,6 +7,7 @@ import { finishChallenge } from "../data/finishchallenge.js";
 import { finishAndEvaluate } from "../data/finishAndEvaluate.js";
 const token = getToken();
 let id;
+
 const challengedetail = getChallenge();
 if (challengedetail) {
     id = Number(challengedetail.id);
@@ -18,11 +19,14 @@ console.log(challengedetails)
 const timer = document.getElementById("timer");
 const timesrInfo = document.getElementById("challenge-timer");
 const problem = document.getElementById("problem");
-
-let running = false;
+const submitButton = document.getElementById("submitSolution-btn");
+const fileInput = document.getElementById("file");
+const textarea = document.getElementById("code");
+//let running = false;
 let hours;
 let minutes;
 let seconds;
+let reloaded = true;
 problem.style.color = "transparent";
 function showProblem() {
     problem.style.color = "hsl(0, 0%, 91%)";
@@ -34,7 +38,7 @@ function updateTimer() {
         `${String(seconds).padStart(2, "0")}`;
 }
 function startTimer() {
-    //if (running) return;
+
     const remainingSeconds = getRemainingSeconds(
         challengedetails.startedAt,
         challengedetails.durationSeconds
@@ -44,14 +48,10 @@ function startTimer() {
     minutes = time.minutes;
     seconds = time.seconds;
     updateTimer();
-    //running = true;
     const intervalcheck = setInterval(async () => {
         if (hours === 0 && minutes === 0 && seconds === 0) {
+            console.log("chegou aqui");
             clearInterval(intervalcheck);
-            await finishAndEvaluate(
-                challengedetails.id,
-                token
-            );
             timesrInfo.style.fontWeight = "800";
             timesrInfo.style.fontSize = "16px";
             timesrInfo.style.fontFamily = "monospace";
@@ -61,7 +61,10 @@ function startTimer() {
             submitButton.disabled = true;
             textarea.disabled = true;
             fileInput.disabled = true;
-            running = false;
+            await finishAndEvaluate(
+                challengedetails.id,
+                token
+            );
             return;
         }
         if (hours === 0 && minutes <= 1 && seconds < 60) {
@@ -117,20 +120,18 @@ async function startChallenge() {
             error.message
         );
     }
-
 }
 async function initializeChallenge() {
     if (challengedetails.status === "RUNNING") {
         showProblem();
-        //problem.style.color = "hsl(0, 0%, 91%)";
         startTimer();
         return;
     }
     if (challengedetails.status === "READY") {
         problem.style.color = "transparent";
         timer.textContent =
-            "Challenge will start in 10 seconds...";
-        let countdown = 60;
+            "Challenge will start in 30 seconds...";
+        let countdown = 30;
         const countdownInterval = setInterval(async () => {
             countdown--;
             timer.textContent =
@@ -145,6 +146,8 @@ async function initializeChallenge() {
                     showProblem();
                     startTimer();
                 }
+                window.location.reload();
+                console.log("fez reload");
             }
         }, 1000);
         return;

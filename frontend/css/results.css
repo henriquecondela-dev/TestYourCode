@@ -1,0 +1,37 @@
+body{
+    margin: 0;
+    box-sizing: border-box;
+    background-color: hsl(249, 36%, 11%);
+    color: hsl(0, 0%, 90%);
+}
+.icon{
+    background-color: hsl(208, 100%, 97%);
+    border-radius: 100%;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.userName{
+    display: flex;
+    flex-direction: row;
+}
+#logo-name{
+    font-size: 1.4rem;
+    font-weight: 900;
+    color:hsl(255, 10%, 85%);
+}
+#logo-name::before{
+    content:"</>";
+    font-size: 1.2rem;
+    font-weight: 1000;
+    color:hsl(252, 100%, 55%);
+}
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: hsl(249, 36%, 20%);
+}

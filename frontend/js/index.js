@@ -13,6 +13,7 @@ if (!token) {
 }
 import showMessage from "./messagesAlert.js";
 import { hoursToSeconds } from "./timeConverter.js";
+import { challengeDetail } from "../data/challengedetail.js";
 //left side consts
 const leftSide = document.querySelector(".left-side");
 const button = document.getElementById("state-btn");
@@ -22,7 +23,7 @@ const createGroup = document.getElementById("creatgroup-btn");
 const cancelG = document.getElementById("creat-cancel-btn");
 const overlayG = document.getElementById("creat-overlay");
 const groupName = document.getElementById("creatGroup-name")
-
+let generated = false;
 //Join a groput consts
 const participateInChallengeBtn = document.getElementById("join-in-challenge");
 const joinButton = document.getElementById("joinGroup-btn");
@@ -85,7 +86,6 @@ joinButton.addEventListener("click", async function () {
     groupsContainer.textContent = "";
     await loadGroups();
     overlayJ.style.display = "flex";
-
 });
 startChallengebutton.addEventListener("click", async function () {
     ownerGroupsContainer.textContent = "";
@@ -99,13 +99,13 @@ startChallengebutton.addEventListener("click", async function () {
     enable(document.getElementById("difficulty"));
     enable(document.getElementById("language"));
     enable(document.getElementById("category"));
-    enable(document.getElementById("NOfPartipants"));
     document.getElementById("textProblem").style.display = "block";
     document.getElementById("textProblem").textContent = "Generate Problem";
-
     ownerGroupsContainer.classList.remove("disable");
+
 });
 genarateProblemBtn.addEventListener("click", async () => {
+    generated = false;
     selectedChallenge = null;
     const durationsSeconds = hoursToSeconds(hours.value, minutes.value, seconds.value);
     document.getElementById("textProblem").style.display = "none";
@@ -140,6 +140,7 @@ genarateProblemBtn.addEventListener("click", async () => {
         sessionStorage.setItem("challengeID", challenge.challenge.id);
         selectedChallenge = challenge.challenge.id;
         saveChallenge(challenge.challenge);
+
         //console.log(challenge.challenge);
     } catch (error) {
         console.error("ERRO: was not possible to get the groups", error.message)
@@ -149,13 +150,13 @@ genarateProblemBtn.addEventListener("click", async () => {
     disable(document.getElementById("difficulty"));
     disable(document.getElementById("language"));
     disable(document.getElementById("category"));
-    disable(document.getElementById("NOfPartipants"));
     document.getElementById("textProblem").style.display = "block";
     document.getElementById("textProblem").textContent = "Problem Generated";
     spinner.style.display = "none";
     ownerGroupsContainer.classList.add("disable");
 
 });
+
 goInChallengeBtn.addEventListener("click", async function () {
     waitparticipantContainer.textContent = ""
     if (selectedChallenge === null) {
@@ -380,6 +381,7 @@ async function loadOwnerGroups() {
                         item.classList.add("selected")
                         e.stopPropagation();
                         selectedChallenge = challenge.id;
+
                         sessionStorage.setItem("challengeID", selectedChallenge)
                         console.log("seleccted challenge at ownerGroup: ", selectedChallenge)
                     });
@@ -390,6 +392,7 @@ async function loadOwnerGroups() {
             ownerGroupsContainer.appendChild(card);
         });
     }
+
 }
 async function loadParticipants(challengeid) {
     const AllUsers = await getParticipants(challengeid);
@@ -407,14 +410,13 @@ async function loadParticipants(challengeid) {
 }
 async function loadGroups() {
     const groups = await getGroups();
-
     if (groups.length === 0) {
         groupsContainer.innerHTML = "No groups availible yet.";
         groupsContainer.style.textAlign = "center";
     } else {
         groups.forEach((group) => {
 
-            if (group.ownerId !== user.id) {
+            //if (group.ownerId !== user.id) {
 
                 const card = document.createElement("div");
                 card.classList.add("group-card");
@@ -437,12 +439,9 @@ async function loadGroups() {
                             list.remove();
                         }
                     });
-
                     card.classList.add("selected-group");
                     selectedGroup = group.id;
-
                     console.log("selected group", selectedGroup);
-
                     const response = await fetch(
                         `${API_URL}/api/groups/${group.id}/challenges`,
                         {
@@ -451,10 +450,7 @@ async function loadGroups() {
                             }
                         }
                     );
-
                     const data = await response.json();
-
-                    // Apenas READY, RUNNING e COMPLETED
                     const challenges = data.challenges.filter(
                         challenge =>
                             challenge.status === "READY" ||
@@ -464,58 +460,43 @@ async function loadGroups() {
 
                     const list = document.createElement("div");
                     list.classList.add("challenge-list");
-
                     challenges.forEach(challenge => {
-
                         const item = document.createElement("div");
                         item.classList.add("challenge-card");
-
-                        // Adiciona a classe correspondente ao status
                         item.classList.add(
                             `challenge-${challenge.status.toLowerCase()}`
                         );
-
-                        // Mantém exatamente o formato anterior
                         item.textContent =
                             `${challenge.title} | ${challenge.language}(${challenge.status})`;
-
                         item.addEventListener("click", (e) => {
-
                             document
                                 .querySelectorAll(".challenge-card")
                                 .forEach(element => {
                                     element.classList.remove("selected");
                                 });
-
                             item.classList.add("selected");
-
                             e.stopPropagation();
-
                             selectedChallenge = challenge.id;
-
                             sessionStorage.setItem(
                                 "challengeID",
                                 selectedChallenge
                             );
-
                             console.log(
                                 "seleccted challenge at Groups: ",
                                 sessionStorage.getItem("challengeID")
                             );
                         });
-
                         list.appendChild(item);
                     });
-
                     card.appendChild(list);
                 });
-
                 groupsContainer.appendChild(card);
             }
-        });
+       // }
+    );
     }
-}
 
+}
 function disable(element) {
     element.disabled = true;
 }
