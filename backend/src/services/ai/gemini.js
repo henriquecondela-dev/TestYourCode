@@ -8,9 +8,17 @@ async function callGemini(prompt) {
             model: "gemini-3.5-flash",
             contents: prompt,
         });
-        return JSON.parse(response.text)
+        console.log(response.text)
+        const cleanedResponse=cleanAIResponse(response.text);
+        return JSON.parse(cleanedResponse)
     } catch (error) {
         throw new Error(`AI Error: ${error.message}`);
     }
+}
+function cleanAIResponse(response) {
+    let text = response.trim();
+    text = text.replace(/^```(?:json)?\s*/i, "");
+    text = text.replace(/\s*```$/i, "");
+    return text.trim();
 }
 export default callGemini;

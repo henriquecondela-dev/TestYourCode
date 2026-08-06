@@ -70,7 +70,7 @@ const waitparticipantContainer = document.getElementById("wait-participants-cont
 
 const waitTimer = document.getElementById("wait-timer");
 
-export const user = JSON.parse(localStorage.getItem("user"));
+export const user = JSON.parse(sessionStorage.getItem("user"));
 username.textContent = user.username;
 setTimeout(function () {
     showMessage(`Seja Bem vindo de volta ${user.username}`, "success", "message-box")
@@ -136,7 +136,7 @@ genarateProblemBtn.addEventListener("click", async () => {
         <p>Group name:....</p>
         <p>Title:${challenge.challenge.title}</p>
         <p>click START to start the challenge</p>`
-        //localStorage.setItem("challenge",JSON.stringify(challenge.challenge));
+        //sessionStorage.setItem("challenge",JSON.stringify(challenge.challenge));
         sessionStorage.setItem("challengeID", challenge.challenge.id);
         selectedChallenge = challenge.challenge.id;
         saveChallenge(challenge.challenge);

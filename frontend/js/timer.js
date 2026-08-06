@@ -38,7 +38,6 @@ function updateTimer() {
         `${String(seconds).padStart(2, "0")}`;
 }
 function startTimer() {
-
     const remainingSeconds = getRemainingSeconds(
         challengedetails.startedAt,
         challengedetails.durationSeconds
@@ -65,6 +64,8 @@ function startTimer() {
                 challengedetails.id,
                 token
             );
+            sessionStorage.setItem("challengeID", challengeId);
+            window.location.href = "../pages/results.html";
             return;
         }
         if (hours === 0 && minutes <= 1 && seconds < 60) {
@@ -82,6 +83,7 @@ function startTimer() {
         }
         updateTimer();
     }, 1000);
+     
 }
 async function startChallenge() {
     try {

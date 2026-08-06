@@ -8,16 +8,47 @@
     </head>
     <body>
         <header class="header" id="header">
-            <div classs="rank" id=" rank">Rank</div>
+            <div classs="content" id="content"><button id="groups-btn"><img src="/assets/images/menu-burger.png" alt=""></button><span class="logo">Rank</span></div>
             <div class="logo-name" id="logo-name">TestYourCode</div>
-            <div class="userName" id=" userName">Anonimo
+            <div class="user" >
+                <div id="userName">Anonimo</div>
                 <img class="icon" style="width: 20px; height: 20px;" src="/assets/images/programmer.png" alt=""></div>
             </div>
         </header>
-        <div class="down-slide">
-            <nav class="nav-bar" id="nav-bar">
-            </nav>
-            <div class="rigth-side"></div>
+        <div class="down-side">
+            <div class="nav-bar" id="nav-bar">
+                <h1>Groups</h1>
+                <div class="groups-container" id="groups-container">
+                </div>
+            </div>
+            <div class="rigth-side">
+                <div class="best-ranking">
+                    <div class="rank" id="rank_2">
+                        <div class="position" id="second-position">2<small><sup>th</sup></small></div><img class="icon"  src="/assets/images/programmer.png" alt="">
+                        <div class="name" id="second-name"></div>
+                        <div class="score" id="second-score"></div>
+                    </div>
+                    <div class="rank" id="rank_1">
+                        <div class="position" id="first-position">1<small><sup>th</sup></small></div><img class="icon"  src="/assets/images/programmer.png" alt="">
+                        <div class="name" id="first-name"></div>
+                        <div class="score" id="first-score"></div>
+                    </div>
+                    <div class="rank" id="rank_3">
+                        <div class="position" id="third-position">3<small><sup>th</sup></small></div>
+                        <img class="icon"  src="/assets/images/programmer.png" alt="">
+                        <div class="name" id="third-name"></div>
+                        
+                        <div class="score" id="third-score"></div>
+                    </div>
+                </div>
+                <div class="ranking-container" id="ranking-container">
+                    <div class="rank-result"></div>
+                    <div class="rank-result"></div>
+                    <div class="rank-result"></div>
+                    <div class="rank-result"></div>                    
+                </div>
+            </div>
         </div>
+        <script type="module" src="../js/results.js"></script>
     </body>
 </html>

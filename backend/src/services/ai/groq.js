@@ -15,12 +15,18 @@ async function callGroq(prompt) {
                 }
             ]
         });
-        //console.log(response.choices[0].message.content)
-        return JSON.parse(
-            response.choices[0].message.content
+        console.log(response.choices[0].message.content)
+        const cleanedResponse=cleanAIResponse(response.choices[0].message.content);
+        return JSON.parse(cleanedResponse
         );
     } catch (error) {
         throw new Error(`AI Error: ${error.message}`);
     }
+}
+function cleanAIResponse(response) {
+    let text = response.trim();
+    text = text.replace(/^```(?:json)?\s*/i, "");
+    text = text.replace(/\s*```$/i, "");
+    return text.trim();
 }
 export default callGroq;

@@ -6,7 +6,7 @@ import API_URL from "../config/api_url.js";
 import showMessage from "./messagesAlert.js";
 import { finishAndEvaluate } from "../data/finishAndEvaluate.js";
 const token = getToken();
-const currentUser = JSON.parse(localStorage.getItem("user"));
+const currentUser = JSON.parse(sessionStorage.getItem("user"));
 const upload = document.getElementById("file");
 const fileName = document.getElementById("file-name");
 const participantContainer = document.getElementById("participants-container");
@@ -198,6 +198,8 @@ const interval = setInterval(async () => {
             challengeDetails.id,
             token
         );
+        sessionStorage.setItem("challengeID", challengeDetails.id);
+        window.location.href="../pages/results.html";
     }
     //console.log("not yet")
 }, 10000);
@@ -271,4 +273,27 @@ function updateLines() {
     lineNumbers.innerHTML = numbers;
 }
 updateLines();
-
+const Interval = setInterval(async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/challenges/${challengeDetails.id}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const challenge = await response.json();
+            if (!response.ok) {
+                console.error("Could not check challenge:", challenge.message);
+                return;
+            }
+            console.log("Challenge status:", challenge.challenge.status);
+            if (challenge.challenge.status === "COMPLETED") {
+                clearInterval(Interval);
+                sessionStorage.setItem("challengeID", challengeDetails.id);
+                window.location.href = "../pages/results.html";
+                return;
+            }
+        } catch (error) {
+            console.error("Error checking challenge status:", error.message);
+        }
+    }, 2000);

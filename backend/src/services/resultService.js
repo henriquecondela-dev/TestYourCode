@@ -28,7 +28,7 @@ export async function getChallengeResults(challengeId) {
             }
         },
         orderBy: {
-            score: "desc"
+            rank: "asc"
         }
     });
     const ranking = results.map(result => ({

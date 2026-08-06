@@ -75,8 +75,8 @@ signform.addEventListener("submit", async function (event) {
             showMessage(`${data.message}`, "error", "signup-error-message")
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("user", JSON.stringify(data.user));
         if (response.status !== 500) {
             showMessage(`${data.message}`, "success", "signup-error-message")
         }

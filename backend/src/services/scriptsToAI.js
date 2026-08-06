@@ -42,6 +42,7 @@ export default function submitScript(data) {
     Para cada objeto, preserve exatamente o submissionId recebido na entrada.
     Nunca invente ou altere os IDs.
     Lembrar que nunca deve ter dois usuarios com o mesmo rank cada rank deve ser unico para cada submisao pois irei usar eles para determinar quem esta em priemrio ou segundo lugar, etc.
+     e os ranks devem ser sequenciais nao pode sair de rank 1 para 5 por exemplo deve ser mesmo em sequencia se existe5 e porque existiu rank 4, 3, 2, 1  nos resultados ...
     
     [
         {

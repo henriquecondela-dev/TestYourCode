@@ -47,9 +47,8 @@ loginform.addEventListener("submit", async function (event) {
             showMessage(`${data.message}`, "error", "login-error-message")
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("user", JSON.stringify(data.user));
         //alert("Login realizado com sucesso");
         
         showMessage(`${data.message}`, "success", "login-error-message")

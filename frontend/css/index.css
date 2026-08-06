@@ -426,22 +426,19 @@ form{
     background:hsl(0, 0%, 30%);
 }
 
-/* READY */
 .challenge-ready {
     background: hsl(120, 40%, 30%);
 }
 
-/* RUNNING */
 .challenge-running {
     background: hsl(45, 60%, 35%);
 }
 
-/* COMPLETED */
 .challenge-completed {
     background: hsl(0, 40%, 35%);
 }
 .challenge-card:hover {
-    background: #333;
+    background: hsl(0, 0%, 20%);
     transform: translateX(4px);
 }
 .challenge-card.selected {

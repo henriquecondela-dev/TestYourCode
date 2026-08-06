@@ -3,6 +3,9 @@ body{
     box-sizing: border-box;
     background-color: hsl(249, 36%, 11%);
     color: hsl(0, 0%, 90%);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 .icon{
     background-color: hsl(208, 100%, 97%);
@@ -13,12 +16,13 @@ body{
     justify-content: center;
     align-items: center;
 }
-.userName{
+.user{
     display: flex;
     flex-direction: row;
+    gap: 5px;
 }
 #logo-name{
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 900;
     color:hsl(255, 10%, 85%);
 }
@@ -33,5 +37,539 @@ header{
     flex-direction: row;
     justify-content: space-between;
     padding: 5px;
+    height: 25px;
     background-color: hsl(249, 36%, 20%);
 }
+.down-side{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    min-height: 0;
+}
+.nav-bar{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex:0.4;
+    background-color: hsl(249, 36%, 15%);
+    box-shadow: 0px 2px 5px hsl(249, 36%, 22%);
+}
+.nav-bar h1{
+    text-align: center;
+}
+.groups-container{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    padding-right: 20px;
+    gap: 8px;
+    flex:1; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+}
+.group-card{
+    width: 100%;
+    background-color:hsl(249, 36%, 30%);
+    border-radius: 5px;
+    min-height: 25px;
+    padding: 5px;
+    font-weight: 1000;
+}
+.challenge-list{
+    margin-top: 10px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+.challenge-card{
+    margin-top: 8px;
+    padding: 10px;
+    min-height: 10px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: .2s;
+    background:hsl(249, 36%, 60%);
+}
+.challenge-card.selected{
+    background-color: hsl(249, 36%, 11%);
+}
+.challenge-ready {
+    background: hsl(120, 40%, 30%);
+}
+
+.challenge-running {
+    background: hsl(45, 60%, 35%);
+}
+
+.challenge-completed {
+    background: hsl(0, 40%, 35%);
+}
+.challenge-card:hover {
+    background: hsl(249, 36%, 30%);
+    transform: translateX(4px);
+}
+.group-card:hover{
+    background-color: hsl(249, 36%, 25%);
+    transition: all 0.3s ease;
+}
+.rigth-side{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+.best-ranking{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 50px;
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+    transition: all 0.5s ease;
+    margin: 0;
+}
+
+.rank{
+    width: 32%;
+    background-color:hsl(249,36%,30%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-top: 1px solid hsl(249,36%,50%);
+    border-left: 1px solid hsl(249,36%,40%);
+    box-shadow: 2px -3px px hsl(249,36%,15%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.position{
+    font-size: 2rem;
+    font-weight: 1000;
+}
+.score{
+    font-weight: 1000;
+    font-size: 25px;
+}
+.name{
+    font-weight: 900;
+    color: hsl(0, 0%, 90%);
+    font-size: 13px;
+}
+#rank_2:hover,#rank_1:hover, #rank_3:hover{
+    transition: all 0.3s ease;
+    transform: translateY(-10px);
+    background-color: hsl(249, 36%, 25%);
+    cursor: pointer;
+}
+#rank_2{
+    height: 130px;
+    color: hsl(200, 100%, 50%);
+        background: rgba(192, 192, 192, 0.15);
+
+}#rank_1{
+    height: 160px;
+    color:hsl(39, 100%, 50%);
+     background: rgba(255, 215, 0, 0.15);
+}#rank_3{
+    height: 115px;
+    color: hsl(340, 92%, 57%);
+    background: hsla(30, 61%, 50%, 0.15);
+}
+.ranking-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 50px;
+    padding-top: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.ranking-container::-webkit-scrollbar,.groups-container::-webkit-scrollbar{
+    width: 10px;
+    background-color: hsl(249, 36%, 8%);
+    border-radius: 15px;
+}
+.ranking-container::-webkit-scrollbar-thumb, .groups-container::-webkit-scrollbar-thumb{
+    background-color: hsl(249,36%,20%);
+    border-radius: 15px;
+}
+.rank-result{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 40px;
+    max-height:45px;
+    border-radius: 10px;
+    background-color: hsl(249, 36%, 30%);
+    border: 1px solid hsl(249, 36%, 40%);
+    padding: 5px;
+}
+.rank-result:hover{
+    background-color: hsl(249, 36%, 20%);
+    transition: all 0.3s ease;
+    transform: translateX(5px);
+}
+.descrip{
+    display: flex;
+    align-items: center;
+}
+.others-position{
+    color: hsl(200, 100%, 30%);
+    font-weight: 1000;
+    font-size: 1.8rem;
+    margin:5px;
+}
+.participantName{
+    font-weight: 900;
+    color: hsl(0, 0%, 100%);
+    font-size: 16px;
+    margin-left: 5px;
+}
+.others-score{
+    display: flex;
+    align-items: center;
+    color: hsl(249, 36%, 60%);
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+.others-icon{
+    width: 30px;
+    height: 30px;
+    background-color: hsl(0, 0%, 100%);
+    background-image: url("/assets/images/programmer.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+}
+#groups-btn{
+    display:none;
+}
+
+@media (max-width: 950px) {
+    
+    body {
+        height: 100dvh;
+        min-height: 100dvh;
+        overflow: hidden;
+    }
+
+    header {
+        height: 32px;
+        min-height: 32px;
+        padding: 5px 10px;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    .logo{
+        display: none;
+    }
+    #logo-name {
+        font-size: 1.05rem;
+    }
+
+    #logo-name::before {
+        font-size: 1rem;
+    }
+
+    .user {
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+    }
+
+    .icon {
+        width: 21px;
+        height: 21px;
+    }
+
+    .down-side {
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+    }
+    #groups-btn{
+        display:flex;
+        width:30px;
+        height:30px;
+        align-items:center;
+        justify-content:center;
+        border:none;
+        border-radius:5px;
+        background-color:hsl(249, 36%, 30%);
+        color:hsl(0, 0%, 90%);
+        font-size:18px;
+        cursor:pointer;
+    }
+
+    .nav-bar{
+        position:fixed;
+        top:30px;
+        left:0;
+        width:70%;
+        height:100dvh;
+        display:none;
+    }
+
+    .nav-bar.show{
+        display:flex;
+    }
+    .groups-container{
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+
+    .nav-bar h1 {
+        font-size: 1rem;
+        margin: 7px 0 5px;
+    }
+
+    .group-card {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 7px 10px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .challenge-list {
+        margin-top: 8px;
+        margin-left: 0;
+        gap: 3px;
+    }
+
+    .challenge-card {
+        min-width: 110px;
+        padding: 8px;
+        font-size: 12px;
+        box-sizing: border-box;
+    }
+
+    .rigth-side {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .best-ranking {
+        flex: none;
+
+        padding: 18px 10px 12px;
+
+        gap: 6px;
+
+        align-items: flex-end;
+        flex-wrap: nowrap;
+
+        box-sizing: border-box;
+    }
+
+    .rank {
+        width: 32%;
+        min-width: 0;
+
+        padding: 5px;
+
+        box-sizing: border-box;
+
+        overflow: hidden;
+    }
+
+    #rank_1 {
+        height: 120px;
+    }
+
+    #rank_2 {
+        height: 100px;
+    }
+
+    #rank_3 {
+        height: 93px;
+    }
+
+    .position {
+        font-size: 1.5rem;
+    }
+
+    .score {
+        font-size: 18px;
+    }
+
+    .name {
+        font-size: 11px;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .ranking-container {
+        flex: 1;
+        padding: 8px 10px 15px;
+        gap: 6px;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    .rank-result {
+        width: 100%;
+        min-height: 40px;
+        max-height: 45px;
+        padding: 5px 8px;
+        box-sizing: border-box;
+        border-radius: 9px;
+    }
+
+    .descrip {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .others-position {
+        font-size: 1.35rem;
+        margin: 3px;
+        min-width: 25px;
+    }
+    .participantName {
+        font-size: 13px;
+
+        margin-left: 5px;
+
+        max-width: 150px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .others-score {
+        flex-shrink: 0;
+        font-size: 0.95rem;
+        margin-left: 5px;
+        white-space: nowrap;
+    }
+
+    .others-icon {
+        width: 26px;
+        height: 26px;
+        flex-shrink: 0;
+    }
+
+    .groups-container::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .ranking-container::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .ranking-container::-webkit-scrollbar-thumb,
+    .groups-container::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+    }
+
+}
+@media (max-width: 400px) {
+    header {
+        padding: 5px 7px;
+    }
+    #logo-name {
+        font-size: 0.95rem;
+    }
+
+    #logo-name::before {
+        font-size: 0.9rem;
+    }
+
+    .user {
+        font-size: 11px;
+    }
+
+    .nav-bar {
+        max-height: 130px;
+    }
+
+    .nav-bar h1 {
+        font-size: 0.9rem;
+        margin: 6px 0 3px;
+    }
+
+    .group-card {
+        min-width: 85px;
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .challenge-card {
+        min-width: 100px;
+        padding: 7px;
+        font-size: 11px;
+    }
+
+    .best-ranking {
+        padding: 14px 7px 9px;
+        gap: 5px;
+    }
+
+    #rank_1 {
+        height: 108px;
+    }
+
+    #rank_2 {
+        height: 92px;
+    }
+
+    #rank_3 {
+        height: 83px;
+    }
+
+    .position {
+        font-size: 1.3rem;
+    }
+
+    .score {
+        font-size: 16px;
+    }
+
+    .name {
+        font-size: 10px;
+    }
+    .ranking-container {
+        padding: 7px;
+        gap: 5px;
+    }
+
+    .rank-result {
+        min-height: 38px;
+        max-height: 43px;
+        padding: 5px 7px;
+    }
+
+    .others-position {
+        font-size: 1.2rem;
+        min-width: 22px;
+    }
+
+    .participantName {
+        font-size: 12px;
+        max-width: 110px;
+    }
+
+    .others-score {
+        font-size: 0.85rem;
+    }
+
+    .others-icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+
