@@ -26,13 +26,11 @@ const prompt = `
                 IMPORTANTE:
                 A dificuldade do problema NÃO deve vir de um enunciado confuso ou ambíguo.
                 O problema deve ser difícil porque exige uma boa estratégia, análise de complexidade, estruturas de dados, algoritmos ou raciocínio lógico apropriado à dificuldade escolhida.
-
+                Para difuculdades faces crie mesmo exercicioas nao muto difices faces que siravam cmo aqueciemto ou para deixar o participante acostumado . um facil  que seja fazivel mesmo que seja a primeira vez num desafio.
                 Para dificuldades mais altas, crie problemas que exijam uma solução algorítmica significativa e que possam diferenciar participantes com diferentes níveis de conhecimento.
 
-                --------------------------------------------------
                 REGRAS DO PROBLEMA
-                --------------------------------------------------
-
+                o problema de estar em portugues.
                 O participante deve conseguir compreender exatamente o que precisa implementar apenas lendo o campo "problem".
 
                 O problema deve possuir uma única interpretação possível.
@@ -50,7 +48,7 @@ const prompt = `
                 9. Formato da entrada.
                 10. Formato da saída.
                 11. Pelo menos um exemplo completo de entrada e saída.
-
+                nao cira problemas repetidos devem ser diversificados
                 NÃO forneça dicas de implementação.
 
                 NÃO forneça o algoritmo.
@@ -65,9 +63,8 @@ const prompt = `
 
                 Porém, todas as regras necessárias para compreender o problema devem estar explicitamente descritas.
 
-                --------------------------------------------------
                 ESTRUTURA DO CAMPO "problem"
-                --------------------------------------------------
+            
 
                 TODAS as informações relacionadas ao problema devem estar dentro da string "problem".
 
@@ -111,9 +108,7 @@ const prompt = `
 
                 É permitido adicionar outras seções dentro da string "problem" quando forem necessárias para explicar corretamente o desafio, como "Rules", "Notes" ou "Special Cases".
 
-                --------------------------------------------------
                 EXEMPLOS
-                --------------------------------------------------
 
                 Os exemplos devem mostrar claramente:
 
@@ -131,10 +126,8 @@ const prompt = `
                 O exemplo deve ser matematicamente e logicamente consistente com todas as regras do problema.
 
                 Sempre que possível, inclua pelo menos dois exemplos, especialmente quando existirem casos diferentes ou casos especiais importantes.
-
-                --------------------------------------------------
+        
                 COMPLEXIDADE E QUALIDADE
-                --------------------------------------------------
 
                 O problema deve ser digno de uma competição.
 
@@ -150,11 +143,8 @@ const prompt = `
                 Não transforme um problema trivial em um problema "difícil" apenas adicionando uma história ou aumentando o tamanho da entrada.
 
                 O problema deve apresentar um desafio algorítmico real.
-
-                --------------------------------------------------
                 REFERENCE SOLUTION
-                --------------------------------------------------
-
+            
                 "referenceSolution" deve conter uma implementação completa e correta do problema na linguagem:
 
                 ${language}
@@ -168,10 +158,6 @@ const prompt = `
                 - ser compatível com a linguagem escolhida.
 
                 A solução de referência NÃO deve ser colocada dentro do campo "problem".
-
-                --------------------------------------------------
-                VERIFICAÇÃO INTERNA
-                --------------------------------------------------
 
                 Antes de responder, verifique internamente:
 
@@ -191,10 +177,8 @@ const prompt = `
 
                 Se qualquer resposta for "não", corrija o problema antes de responder.
 
-                --------------------------------------------------
                 FORMATO DA RESPOSTA
-                --------------------------------------------------
-
+             
                 RETORNE APENAS JSON VÁLIDO.
 
                 NÃO escreva absolutamente nada antes ou depois do JSON.

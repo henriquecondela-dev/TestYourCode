@@ -53,7 +53,8 @@ export default function submitScript(data) {
         "feedback": "Explicação curta sobre a avaliação."
         },
     ]
-
+    nao esuqca que os ranks devem estar em ordem, nao pode saltar rank 3 para 6 por exemplo. devem ser sequencias e  quando duas submissoes tiverem os mesmo score os ainda assim os ranks nao podem ser iguais devem ser diferentes... 
+    e caso uma submissao nao esteja 100% correta deves avaliar pelomesn se a logica estava correta ou e chegou pelomenso na solucao pois os as pessoas podem temtar e nao terminar, e isso deve ser avaliada pelomens ate onde conseguiram.
     Dados do desafio:
     PROBLEMA: ${data.problem}
     LINUAGEM: ${data.language}
