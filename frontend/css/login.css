@@ -1,43 +1,27 @@
-
 body{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-body::before{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url(/assets/images/01212022-1047259374-coding-classes_scanrail.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: blur(5px);
-    transform: scale(1.1);
-    z-index: 0;
+    margin: 0;
+    background-color: var(--background-color);
 }
 .container{
-    z-index: 1;
     display: flex;
     flex-direction: row;
-    background-color: var(--primary-color);
-    height: auto;
-    width: 50vw;
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    width: 820px;
+    max-width: 92vw;
+    min-height: 480px;
+    background-color: hsl(0, 0%, 96%);
+    border-radius: var(--borders);
+    box-shadow: 0 10px 50px hsla(0, 0%, 20%, 0.25);
     overflow: hidden;
-    background-color:rgb(202, 202, 255);
 }
 .left-side{
-    width: 50%;
+    width: 45%;
     position: relative;
     overflow: hidden;
-    background-color: hsl(208, 59%, 48%);
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius:30px;
-    border-bottom-right-radius: 30px;
+    background-color: var(--dark);
 }
 .left-side::before{
     content: "";
@@ -47,118 +31,120 @@ body::before{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(1px);
-    transform: scale(1.1);
+    filter: grayscale(1) brightness(0.35);
     z-index: 0;
 }
 .left-side .content{
     position: relative;
     z-index: 2;
     height: 100%;
-    white-space: normal;
-    overflow-wrap: break-word;
-    padding-left: 5px;
-    font-family: 'InterBold';
-    font-size: 1.5rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 950;
-    color:hsl(240, 51%, 60%);
-    width: auto;
+    align-items: flex-end;
+    padding: 32px;
+    box-sizing: border-box;
+    font-family: var(--font-title);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    color: hsl(0, 0%, 96%);
 }
 .left-side .content p{
+    margin: 0;
     width: fit-content;
     overflow:hidden;
     white-space: nowrap;
-    border-right: 1px solid white;
-   animation: typing 3s steps(20) infinite alternate,
+    border-right: 3px solid var(--accent-dark);
+    animation: typing 3s steps(20) infinite alternate,
                blink 0.7s infinite;
 }
 .right-side{
-   width: 50%;
-   text-align: center;
-   padding: 20px;
- 
+    width: 55%;
+    padding: 48px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.right-side h2{
-    font-family: 'InterBold';
-    color:hsl(200, 100%, 10%);
+h1{
+    margin: 0 0 28px;
+    font-family: var(--font-title);
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+h1::before{
+    content:"</>";
+    margin-right: 6px;
+    color: var(--accent);
 }
 form{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    font-family: 'InterBold';
-    gap:5px;
-    margin-left: 25px;
+    gap: 6px;
 }
 .form-label{
-  text-align: left;
-  font-size: 15px;
-  font-weight: bold;
-    color:hsl(200, 100%, 10%);
-}
-a{  
-   font-size: small;
-    text-align: right;
-    text-decoration: none;
-    color:black;
-    width: auto;
-    margin-right: 10px;
-    padding: 5px;
-}
-h1{
-    color:hsl(200, 100%, 20%);
-    font-weight: 950;
-    white-space: normal;
-    overflow-wrap: break-word;
-}
-h1::after{
-    content:"</>";
-    font-size: 2rem;
-    color:hsl(0, 80%, 17%);
+    margin-top: 8px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-soft);
 }
 .form-input{
-    width: 90%;
-    border-style: none;
-    background-color:hsl(240, 100%, 85%);
-    border-radius: 15px;
-    padding: 5px;
-    height: 20px;
-}
-form button:hover{
-    cursor: pointer;
-    background-color:hsl(240, 17%, 40%);
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    border: none;
+    border-bottom: 1.5px solid var(--primary-color);
+    border-radius: 0;
+    background-color: hsl(0, 0%, 88%);
+    font-family: var(--font-text);
+    font-size: 15px;
 }
 .form-input:hover{
-    cursor: pointer;
-    background-color:hsl(240, 100%, 80%);
+    background-color: hsl(0, 0%, 85%);
 }
 .form-input:focus{
     outline: none;
-    border: 1px solid hsl(240, 100%, 45%);
+    border-bottom: 3px solid var(--primary-color);
+}
+a{
+    align-self: flex-end;
+    margin-top: 10px;
+    padding: 6px 0;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--text-soft);
+}
+a b{
+    color: var(--text-color);
+}
+a:hover b{
+    text-decoration: underline;
 }
 form button{
-    display: block;
-    align-self: center;
-    width: 80px;
-    border-style: none;
-    background-color:hsl(240, 17%, 54%);
-    border-radius: 14px;
-    padding: 5px;
-    font-family: 'InterBold';
-    font-size: 1rem;
-    margin-right: 10px;
+    margin-top: 12px;
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: var(--borders);
+    background-color: var(--primary-color);
+    color: hsl(0, 0%, 93%);
+    font-family: var(--font-title);
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
 }
-@keyframes grow{
-    90%{
-        transform: scale(1.01,1);
-    }
+form button:hover{
+    background-color: hsl(0, 0%, 25%);
+}
+form button:active{
+    background-color: hsl(0, 0%, 35%);
 }
 @keyframes typing{
     from { width: 0 }
-    to { width: 21ch }
+    to { width: 29ch }
 }
 @keyframes blink{
     50% { border-color: transparent; }

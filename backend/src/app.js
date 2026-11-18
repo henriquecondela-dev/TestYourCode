@@ -10,6 +10,7 @@ import cors from "cors";
 import { apiReference } from "@scalar/express-api-reference"
 import openapiDocument from "./docs/openAPI.js";
 
+
 const app = express();
 
 app.use(express.json());

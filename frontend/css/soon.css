@@ -1,0 +1,35 @@
+body{
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+h1{
+    margin: 0;
+    font-family: var(--font-title);
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+h1::before{
+    content: "</> ";
+    color: var(--accent);
+}
+a{
+    padding: 12px 24px;
+    border-radius: var(--borders);
+    background-color: var(--primary-color);
+    color: hsl(0, 0%, 93%);
+    font-family: var(--font-label);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+a:hover{
+    background-color: hsl(0, 0%, 25%);
+}

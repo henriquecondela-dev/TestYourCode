@@ -3,9 +3,9 @@ html, body {
     margin: 0;
 }
 body{
-    background-color: hsl(0, 0%, 9%);
-    font-family: sans-serif;
-    color: hsl(208, 100%, 97%);
+    background-color: var(--dark);
+    font-family: var(--font-text);
+    color: hsl(0, 0%, 93%);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -13,244 +13,317 @@ body{
 #top-bar{
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-    padding: 5px;
-    background-color: hsl(0, 0%, 10%);
+    gap: 16px;
+    min-height: 60px;
+    padding: 8px 24px;
+    box-sizing: border-box;
+    background-color: var(--dark-2);
+    border-bottom: 1px solid var(--dark-line);
 }
 #logo-name{
+    font-family: var(--font-title);
     font-size: 1.4rem;
-    font-weight: 900;
-    color:hsl(255, 10%, 85%);
+    text-transform: uppercase;
+    color: hsl(0, 0%, 93%);
 }
 #logo-name::before{
     content:"</>";
-    font-size: 1.2rem;
-    font-weight: 1000;
-    color:hsl(252, 54%, 24%);
+    margin-right: 6px;
+    color: var(--accent-dark);
+}
+.butons{
+    display: flex;
+    align-items: center;
 }
 #submitSolution-btn, .submitType{
-    background-color: hsl(0, 0%, 30%);
-    color: aliceblue;
-    padding: 5px;
-    border: 1px solid hsl(120, 2%, 11%);
-    font-weight: 900;
-    border-radius: 5px;
+    min-height: 40px;
+    padding: 0 18px;
+    border: 1px solid hsl(0, 0%, 23%);
+    border-radius: 0;
+    background-color: transparent;
+    color: hsl(0, 0%, 93%);
+    font-family: var(--font-label);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+#submitSolution-btn{
+    order: 2;
+    margin-left: 14px;
+    border: none;
+    border-radius: var(--borders);
+    background-color: var(--accent-dark);
+    color: hsl(0, 0%, 6%);
+    font-family: var(--font-title);
+    font-size: 15px;
+}
+.submitType + .submitType{
+    border-left: none;
 }
 #file-type-btn.active, #text-type-btn.active{
-     background-color: hsl(125, 90%, 15%);
+    background-color: hsl(0, 0%, 93%);
+    color: hsl(0, 0%, 7%);
 }
-.submitType{
-     background-color: hsl(0, 0%, 50%);
+.submitType:hover{
+    background-color: hsl(0, 0%, 23%);
 }
-#submitSolution-btn:hover,.submitType:hover{
-    background-color: hsl(0, 0%, 20%);
+#submitSolution-btn:hover{
+    background-color: hsl(137, 57%, 66%);
 }
-#submitSolution-btn:active,.submitType:active{
-    background-color: hsl(125, 90%, 15%);
+#submitSolution-btn:active{
+    background-color: hsl(137, 57%, 50%);
+}
+#userName{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 15px;
+    text-transform: uppercase;
+}
+#userName img{
+    width: 18px;
+    height: 18px;
+    filter: invert(1);
 }
 .content{
     display: block;
     scroll-behavior: smooth;
     overflow-y: auto;
-    padding: 10px;
+    padding: 24px 28px;
+}
+.content > div{
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--dark-line);
+}
+.content > div:last-child{
+    border-bottom: none;
+    margin-bottom: 0;
 }
 .content::-webkit-scrollbar{
     width:6px;
-    background: hsl(0, 1%, 29%);
-    border-radius: 5px;
+    background: var(--dark-2);
 }
 .content::-webkit-scrollbar-thumb{
-    background: hsl(0, 0%, 50%);
-    border-radius: 5px;
+    background: hsl(0, 0%, 30%);
+}
+.content h2, .content h3{
+    margin: 0 0 12px;
+    font-family: var(--font-title);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+.content h3{
+    font-size: 1rem;
+}
+.content ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 .challenge-section{
     display: flex;
     flex: 1;
     height: 100%;
     min-height: 0;
-    
 }
 .challenge-info{
     display: flex;
-    width: 45%;
+    width: 40%;
     min-width: 25%;
     flex-direction: column;
-    background-color: hsl(0, 0% ,18%);
-    border-radius: 10px;
-    margin: 5px;
-    border: 1px solid hsl(0, 0%, 19%);
+    background-color: var(--dark-2);
+    border-right: 1px solid var(--dark-line);
 }
 .bottom-side{
     margin-top: auto;
+    padding: 16px 28px 24px;
+    border-top: 1px solid var(--dark-line);
 }
 #problem, #exemple{
-    color: hsl(0, 0%, 100%);
+    color: hsl(0, 0%, 84%);
     font-size: 15px;
 }
 #exemple-header{
-    font-weight: 900;
+    font-weight: 700;
 }
 .challenge-language{
-    color:hsl(251, 9%, 65%);
-    font-weight: 800;
-}
-.challenge-info-card h2{
-
-    font-weight: 1000;
-    font-size: 1.3rem;
+    display: inline-block;
+    padding: 4px 10px;
+    border: 1px solid hsl(0, 0%, 29%);
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: hsl(0, 0%, 93%);
 }
 #status-header{
-    text-align: center;
-    font-weight: 1000;
-    color: hsl(240, 100%, 80%);
+    margin: 0 0 4px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: hsl(0, 0%, 66%);
+}
+#status-header b{
+    font-weight: 700;
 }
 #status{
-    text-align: center;
-    color: rgb(200, 49, 49);
+    margin: 0 0 14px;
+    font-family: var(--font-code);
+    color: hsl(39, 90%, 62%);
     font-size: 14px;
-}
-.upload-card label{
-    font-weight: 900;
-    margin: 5px;
-}
-.upload-card{
-    text-align: center;
-    padding: 10px;
-    margin: 5px;
 }
 .upload-card{
     display: flex;
     flex-direction: column;
-    background-color: hsl(0, 0%, 30%);
-    color: aliceblue;
-    padding: 5px;
-    border: 1px solid hsl(120, 3%, 16%);
-    font-weight: 900;
-    border-radius: 10px;
     align-items: center;
+    gap: 6px;
+    padding: 18px;
+    border: 1.5px dashed hsl(0, 0%, 29%);
+    border-radius: 0;
+    text-align: center;
     overflow-wrap: break-word;
+    cursor: pointer;
+}
+.upload-card label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.upload-card label br{
+    display: none;
 }
 #file-name{
-    color: hsl(39, 100%, 60%);
-    font-size: 14px;
+    font-family: var(--font-code);
+    color: hsl(0, 0%, 66%);
+    font-size: 13px;
 }
 #file{
     display: none;
 }
 #upload-icon{
-    height: 50px;
-    width: 50px;
+    height: 26px;
+    width: 26px;
+    filter: grayscale(1) brightness(2);
 }
 .upload-card:hover{
-    background-color: hsl(0, 0%, 25%);
+    border-color: hsl(0, 0%, 45%);
+    background-color: hsl(0, 0%, 13%);
 }
 #challenge-timer{
     display: flex;
     flex-direction: column;
-    text-align: center;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background-color: hsl(0, 0%, 13%);
-    font-weight: 500;
-    font-family: monospace;
-    color: hsl(39, 100%, 60%);
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--dark-line);
+    font-family: var(--font-code);
+    color: hsl(0, 0%, 93%);
 }
 .divider{
-    width: 2px;
+    width: 6px;
     cursor: col-resize;
-    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--dark);
 }
 #dot{
-    height: 20px;
+    height: 24px;
     width: 3px;
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: hsl(0, 0%, 30%);
 }
 .editor-section{
     flex: 1;
-    background-color: hsl(0, 0% ,16%);
     display: flex;
     min-width: 25%;
     flex-direction: column;
-    border-radius: 10px;
-    margin: 5px;
-    border: 1px solid hsl(0, 0%, 15%);
+    background-color: var(--dark);
 }
 #editor-header::before{
     content: "</>";
-    font-size: 14px;
-    font-weight: 500;
-    color:hsl(252, 54%, 40%);
+    margin-right: 8px;
+    color: var(--accent-dark);
 }
 #editor-header{
-    background-color: hsl(0, 0%, 13%);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 5px;
-    font-weight: 900;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 20px;
+    background-color: var(--dark-2);
+    border-bottom: 1px solid var(--dark-line);
+    font-family: var(--font-code);
+    font-size: 13px;
 }
 #editor-language{
-    padding: 5px;
-    border-bottom: 1px solid hsl(0, 0%, 30%);
-    text-align: center;
+    padding: 8px 20px;
+    border-bottom: 1px solid var(--dark-line);
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: hsl(0, 0%, 66%);
+    text-align: right;
 }
 .editor{
     display: flex;
-    gap: 8px;
-    font-family: monospace;
+    font-family: var(--font-code);
     overflow-y: auto;
     scroll-behavior: smooth;
     flex: 1;
 }
 .editor::-webkit-scrollbar, #code::-webkit-scrollbar{
-    background: hsl(0, 0% ,25%);
+    background: var(--dark);
     width: 6px;
-    border-radius: 5px;
 }
-.edito::-webkit-scrollbar-thumb, #code::-webkit-scrollbar-thumb{
-    background: hsl(0, 0%, 50%);
-    border-radius: 5px;
+.editor::-webkit-scrollbar-thumb, #code::-webkit-scrollbar-thumb{
+    background: hsl(0, 0%, 30%);
 }
 #line-numbers{
-    width: 35px;
-    color: hsl(0, 0% ,70%);
-    font-family: monospace;
+    width: 40px;
+    color: hsl(0, 0%, 43%);
+    font-family: var(--font-code);
+    font-size: 14px;
     user-select: none;
-    padding: 10px;
-    line-height:1.5;
+    padding: 20px 12px 20px 0;
+    line-height: 1.7;
     white-space: pre;
-    background: hsl(0, 0%, 17%);
+    background: var(--dark);
     text-align: right;
-    border-bottom-left-radius: 10px;
 }
 #code{
     flex: 1;
     resize: none;
-    text-decoration: none;
     outline: none;
     border: none;
-    font-family: monospace;
-    padding: 10px;
-    line-height:1.5;
+    font-family: var(--font-code);
+    font-size: 14px;
+    padding: 20px 16px;
+    line-height: 1.7;
     color: hsl(0, 0%, 90%);
-    background-color: hsl(0, 0% ,16%);
-    border-bottom-right-radius: 10px;
+    background-color: var(--dark);
+    caret-color: var(--accent-dark);
 }
 .timer-btns{
     display: flex;
-    justify-content: center;
-   
 }
 #timer{
-    font-family: monospace;
-    font-size: 1.9rem;
-    font-weight: 900;
-    color: hsl(212, 100%, 67%);
-  
-    margin: auto;
+    margin: 0;
+    font-family: var(--font-code);
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: hsl(0, 0%, 93%);
 }
 .pause-play{
     height: 25px;
@@ -263,39 +336,35 @@ body{
 #play-btn,#pause-btn{
     background: none;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--borders);
 }
 #play-btn:hover,#pause-btn:hover{
-    background-color: hsl(0, 0% ,18%);
+    background-color: hsl(0, 0%, 18%);
 }
 #play-btn:active,#pause-btn:active{
-    background-color: hsl(0, 0% ,40%);
+    background-color: hsl(0, 0%, 30%);
 }
 #participants-container{
     display:flex;
     gap:6px;
-    height: auto;
-    width: auto;
     flex-wrap: wrap;
 }
 .participant-card{
-    padding:5px;
-    border:1px solid hsl(39, 100%, 35%);;
-    border-radius:20px;
-    cursor:pointer;
-    font-family: monospace;
-    background-color: hsl(0, 0%, 17%);
+    padding:6px 10px;
+    border:1px solid hsl(0, 0%, 29%);
+    border-radius: var(--borders);
+    font-family: var(--font-code);
+    background-color: var(--dark);
 }
 #profile{
     display: flex;
-
 }
 .participant-card:hover{
-    background-color: hsl(0, 0%, 25%);
+    background-color: hsl(0, 0%, 18%);
 }
 .submitted {
-    border-color: #22c55e;
-    box-shadow: 0 0 5px rgba(34,197,94,.4);
+    border-color: var(--accent-dark);
+    color: var(--accent-dark);
 }
 .timer-ending{
     animation: colorChange;
@@ -305,14 +374,11 @@ body{
 }
 #problem{
     white-space: pre-line;
-    color: hsl(0, 0%, 100%);
-    font-size: 14px;
-    line-height: 1;
+    font-size: 15px;
+    line-height: 1.6;
 }
 @keyframes colorChange{
-    50%{color: hsl(212, 100%, 67%);}
-    50%{color: hsl(0, 100%, 57%)}
-    
+    50%{color: hsl(0, 100%, 62%)}
 }
 
 @media (max-width: 700px) {
@@ -328,43 +394,29 @@ body{
     }
 
     #top-bar {
-        min-height: 45px;
-        padding: 5px 8px;
-        align-items: center;
-        gap: 2px;
+        min-height: 48px;
+        padding: 6px 10px;
+        gap: 6px;
     }
     #logo-name {
         font-size: 1rem;
         white-space: nowrap;
     }
-    #logo-name::before {
-        font-size: 0.9rem;
-    }
     #userName {
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        gap: 3px;
-        white-space: nowrap;
         display: none;
-    }
-    #userName img {
-        width: 16px;
-        height: 16px;
-    }
-    .butons {
-        display: flex;
-        gap: 4px;
-        align-items: center;
     }
     #submitSolution-btn,
     .submitType {
-        padding: 5px 6px;
-        font-size: 10px;
+        min-height: 34px;
+        padding: 0 8px;
+        font-size: 11px;
+    }
+    #submitSolution-btn{
+        margin-left: 6px;
     }
     .challenge-section {
         flex-direction: column;
-        height: calc(100vh - 45px);
+        height: calc(100vh - 48px);
         overflow: hidden;
     }
     .challenge-info {
@@ -372,213 +424,105 @@ body{
         min-width: 0;
         height: 42%;
         min-height: 220px;
-        margin: 4px;
-        border-radius: 8px;
+        border-right: none;
+        border-bottom: 1px solid var(--dark-line);
         flex-shrink: 0;
     }
     .content {
-        padding: 8px;
-        overflow-y: auto;
+        padding: 12px 14px;
     }
-    .challenge-info-card h2 {
+    .content h2 {
         font-size: 1.05rem;
-        margin: 5px 0;
     }
-
     #problem{
         font-size: 13px;
-        margin-top: 5px;
     }
-
-    .content h3 {
-        font-size: 14px;
-        margin: 10px 0 5px;
-    }
-
-    .challenge-language {
-        font-size: 13px;
-    }
-
     #challenge-timer {
-        padding: 2px;
+        padding: 10px 14px;
         flex-shrink: 0;
     }
-
     #timer {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
-
-    #participants-container {
-        gap: 4px;
-    }
-
     .participant-card {
         padding: 4px 7px;
         font-size: 11px;
-        border-radius: 15px;
     }
-
     .bottom-side {
         flex-shrink: 0;
+        padding: 10px 14px;
     }
-
-    #status-header {
-        font-size: 13px;
-        margin: 5px 0 2px;
-    }
-
-    #status {
+    #status{
+        margin-bottom: 8px;
         font-size: 12px;
-        margin: 3px 0;
     }
-
     .upload-card {
-        margin: 4px;
-        padding: 5px;
-        border-radius: 8px;
+        padding: 10px;
     }
-
     .upload-card label {
         font-size: 12px;
-        margin: 3px;
-    }
-
-    #upload-icon {
-        width: 35px;
-        height: 35px;
-    }
-
-    #file-name {
-        font-size: 11px;
-        max-width: 90%;
     }
     .divider {
         display: none;
     }
-
     .editor-section {
         width: auto;
         min-width: 0;
         min-height: 0;
         flex: 1;
-        margin: 4px;
-        border-radius: 8px;
     }
-
     #editor-header {
-        padding: 5px 8px;
-        font-size: 13px;
-    }
-
-    #editor-header::before {
+        height: 36px;
+        padding: 0 12px;
         font-size: 12px;
     }
-
     #editor-language {
-        padding: 4px;
-        font-size: 12px;
+        padding: 4px 12px;
+        font-size: 11px;
     }
-
     .editor {
-        gap: 4px;
         min-height: 0;
     }
-
     #line-numbers {
         width: 28px;
-        padding: 8px 5px;
+        padding: 10px 6px 10px 0;
         font-size: 11px;
-        line-height: 1.5;
     }
-
     #code {
-        padding: 8px;
+        padding: 10px 8px;
         font-size: 12px;
-        line-height: 1.5;
     }
-
     #challege-message {
         max-width: 90%;
     }
 }
 
 @media (max-width: 400px) {
-
     #top-bar {
-        padding: 4px 5px;
+        padding: 4px 6px;
     }
-
     #logo-name {
         font-size: 0.85rem;
     }
-
-    #logo-name::before {
-        font-size: 0.75rem;
-    }
-
-    #userName {
-        font-size: 10px;
-    }
-
     #submitSolution-btn,
     .submitType {
-        padding: 4px 5px;
-        font-size: 9px;
+        padding: 0 5px;
+        font-size: 10px;
     }
-
     .challenge-info {
         height: 44%;
     }
-
     #timer {
         font-size: 1.35rem;
     }
-
     #problem{
         font-size: 12px;
     }
-
-    .content h3 {
-        font-size: 13px;
-    }
-
-    .participant-card {
-        font-size: 10px;
-        padding: 3px 6px;
-    }
-
-    #status-header {
-        font-size: 12px;
-    }
-
-    #status {
-        font-size: 11px;
-    }
-
-    .upload-card label {
-        font-size: 11px;
-    }
-
-    #upload-icon {
-        width: 30px;
-        height: 30px;
-    }
-
-    #editor-header {
-        font-size: 12px;
-    }
-
-    #editor-language {
-        font-size: 11px;
-    }
-
     #line-numbers {
         width: 25px;
         font-size: 10px;
     }
-
     #code {
         font-size: 11px;
     }
 }
-
