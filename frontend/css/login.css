@@ -21,7 +21,7 @@ body{
     width: 45%;
     position: relative;
     overflow: hidden;
-    /* background-color: var(--dark); */
+    background-color: var(--dark);
 }
 .left-side::before{
     content: "";
@@ -31,7 +31,7 @@ body{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: grayscale(1) brightness(0.35);
+    filter: grayscale(0) brightness(0.35);
     z-index: 0;
 }
 .left-side .content{
@@ -39,7 +39,8 @@ body{
     z-index: 2;
     height: 100%;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     padding: 32px;
     box-sizing: border-box;
     font-family: var(--font-title);
