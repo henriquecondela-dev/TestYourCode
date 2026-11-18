@@ -21,7 +21,7 @@ body{
     width: 45%;
     position: relative;
     overflow: hidden;
-    background-color: var(--dark);
+    /* background-color: var(--dark); */
 }
 .left-side::before{
     content: "";
