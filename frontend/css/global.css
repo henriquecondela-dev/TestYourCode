@@ -1,6 +1,52 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/static/Inter-VariableFont_slnt,wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'InterBold';
+    src: url('/assets/static/Inter-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RobotoBold';
+    src: url('/assets/static/Roboto_Condensed-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RobotoCondensed';
+    src: url('/assets/static/Roboto_Condensed-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
 :root{
-    --background-color: hsl(202, 33%, 40%);
-    --primary-color: hsl(0, 0%, 100%);
-    font-family: 'Inter', sans-serif;
-    
+    --background-color: hsl(0, 0%, 93%);
+    --nav-color: hsl(0, 0%, 88%);
+    --card-color: hsl(0, 0%, 85%);
+    --card-hover: hsl(0, 0%, 80%);
+    --line-color: hsl(0, 0%, 70%);
+    --primary-color: hsl(0, 0%, 7%);
+    --text-color: hsl(0, 0%, 7%);
+    --text-soft: hsl(0, 0%, 27%);
+    --accent: hsl(137, 56%, 27%);
+    --accent-dark: hsl(137, 57%, 59%);
+    --dark: hsl(0, 0%, 8%);
+    --dark-2: hsl(0, 0%, 11%);
+    --dark-line: hsl(0, 0%, 17%);
+    --danger: hsl(0, 71%, 37%);
+    --font-title: 'RobotoBold', 'Arial Narrow', sans-serif;
+    --font-label: 'RobotoCondensed', 'Arial Narrow', sans-serif;
+    --font-text: 'Inter', sans-serif;
+    --font-code: Consolas, 'Courier New', monospace;
+    --borders: 2px;
+    font-family: var(--font-text);
+}
+body{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-text);
 }

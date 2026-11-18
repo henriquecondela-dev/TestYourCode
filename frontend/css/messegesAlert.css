@@ -1,46 +1,44 @@
-
 #joinMessage, #message-box-create,#startMessageAlert,#creatMessage,#startSettingsMessage,#login-error-message,#signup-error-message{
     align-self: center;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 14px;
+    border-radius: var(--borders);
     margin: 5px 0;
+    font-size: 14px;
     display: none;
 }
 #challege-message{
-    padding: 8px;
-    border-radius: 5px;
+    padding: 10px 24px;
+    font-family: var(--font-code);
+    font-size: 14px;
     display: none;
-    background:hsl(0, 0%, 12%);
+    background: var(--dark-2);
+    border-bottom: 1px solid var(--dark-line);
 }
 #message-box{
-    text-align: center;
-    margin: 5px;
-    padding: 8px;
-    border-radius: 5px;
+    padding: 12px 16px;
+    border-radius: var(--borders);
+    font-size: 14px;
     display: none;
 }
 .success{
-    background:hsl(134, 41%, 88%);
-    color:#155724;
+    background: hsl(137, 40%, 88%);
+    color: hsl(137, 60%, 18%);
 }
 .error{
-    background:hsl(355, 70%, 91%);
-    color:#721c24;
+    background: hsl(0, 70%, 92%);
+    color: hsl(0, 60%, 28%);
 }
 .alert{
-    background:#fff3cd;
-    color:#856404;
+    background: hsl(45, 90%, 88%);
+    color: hsl(40, 80%, 24%);
 }
 .challengeAlert{
-    color:hsl(45, 94%, 42%);
-    text-align: center;
+    color: hsl(45, 94%, 55%);
 }
 .challengeSuccess{
-    color:hsl(134, 61%, 40%);
-    text-align: center;
+    color: var(--accent-dark);
 }
 .form-error{
-    margin-top: 0px;
-    color:red;
-    font-size:11px;
+    color: var(--danger);
+    font-size: 12px;
 }
