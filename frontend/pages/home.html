@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestYourCode</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/home.css">
+</head>
+<body>
+    <header class="topNavBar">
+        <h1 id="name"><span id="logo">&lt;/&gt;</span>TESTYOURCODE</h1>
+        <nav class="nav-links">
+            <a href="#how">Como funciona</a>
+            <a href="#choose">Linguagens</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="login.html" class="start-link" id="login-btn">Entrar</a>
+            <a href="signup.html" id="signup-btn">Registar</a>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="left-side">
+                <h2>Testa o teu código.</h2>
+                <p>Resolve o mesmo problema que os teus amigos, contra o tempo. No fim, a IA diz quem fez melhor.</p>
+                <a href="login.html" class="start-link" id="start-btn">Começar</a>
+            </div>
+            <!-- <div id="terminal">
+                <div id="terminal-settings">
+                    <div class="left-seting">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <span id="file-name">main.java</span>
+                </div>
+                <p id="text"></p>
+            </div> -->
+        </section>
+
+        <section id="how">
+            <h3>Como funciona</h3>
+            <span class="barra"></span>
+            <div class="steps">
+                <div class="step">
+                    <span class="num">I</span>
+                    <h4>Cria ou entra num grupo</h4>
+                    <p>Quem cria o grupo é o dono. Os amigos entram e esperam que ele comece.</p>
+                </div>
+                <div class="step">
+                    <span class="num">II</span>
+                    <h4>Escolhe o desafio</h4>
+                    <p>O dono escolhe o tempo, o nível, a categoria e a linguagem. A IA gera o problema.</p>
+                </div>
+                <div class="step">
+                    <span class="num">III</span>
+                    <h4>Resolve contra o tempo</h4>
+                    <p>Todos recebem o mesmo problema. Escreve no editor ou envia o teu ficheiro.</p>
+                </div>
+                <div class="step step-dark">
+                    <span class="num">IV</span>
+                    <h4>Vê o ranking</h4>
+                    <p>A IA avalia cada solução pela correção, qualidade e eficiência, e monta o resultado.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="choose">
+            <h3>O que podes escolher</h3>
+            <span class="barra"></span>
+            <div class="options">
+                <div class="option">
+                    <h4>Nível</h4>
+                    <ul>
+                        <li>Fácil</li>
+                        <li>Médio</li>
+                        <li>Difícil</li>
+                    </ul>
+                </div>
+                <div class="option">
+                    <h4>Categoria</h4>
+                    <ul>
+                        <li>Fundamentos</li>
+                        <li>Arrays</li>
+                        <li>POO</li>
+                        <li>Strings</li>
+                        <li>Algoritmos</li>
+                        <li>Resolução de problemas</li>
+                        <li>Aleatório</li>
+                    </ul>
+                </div>
+                <div class="option">
+                    <h4>Linguagem</h4>
+                    <ul>
+                        <li>Java</li>
+                        <li>JavaScript</li>
+                        <li>Python</li>
+                        <li>C++</li>
+                        <li>C</li>
+                        <li>C#</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="final">
+            <h3>Chama os teus amigos e começa.</h3>
+            <a href="login.html" class="start-link" id="final-btn">DESAFIAR</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><span id="footer-logo">&lt;/&gt;</span>TESTYOURCODE</h3>
+                <p>Se voce se acha bom, Podes me desafiar!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Apoiar</h3>
+                <p>Se gostaste do projecto, deixa uma estrela no GitHub ou partilha com quem também programa.</p>
+                <a class="github-link" href="https://github.com/henriquecondela-dev/TestYourCode" target="_blank">
+                    <img src="/assets/images/github.png" alt="github">henriquecondela-dev/TestYourCode
+                </a>
+            </div>
+            <div class="footer-section">
+                <h3>Contactos</h3>
+                <p><strong>Email:</strong>hguambejunior@gmail.com</p>
+                <p><strong>Telefone:</strong>+258 86 697 0639</p>
+                <div class="social-links">
+                    <a href="#"><img src="/assets/images/gmail.png" alt="gmail"></a>
+                    <a href="#"><img src="/assets/images/whatsapp.png" alt="whatsapp"></a>
+                    <a href="#"><img src="/assets/images/linkedin.png" alt="linkedin"></a>
+                    <a href="#"><img src="/assets/images/instagram.png" alt="instagram"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p><span class="marca">&copy; 2026 TESTYOURCODE</span> Feito por henriquecondela-dev.</p>
+        </div>
+    </footer>
+    <script src="/frontend/js/terminal.js"></script>
+    <script src="/frontend/js/home.js"></script>
+</body>
+</html>
