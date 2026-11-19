@@ -1,14 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Chat</title>
-   <link rel="stylesheet" href="/frontend/css/global.css">
-   <link rel="stylesheet" href="/frontend/css/soon.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="/frontend/css/chat.css">
+    <title>Chat</title>
 </head>
 <body>
-   <h1>Feature unavailable at the moment</h1>
-   <a href="index.html">Go back</a>
+    <div class="topNavBar">
+        <p class="top" id="logo"></p>
+        <h1 class="top" id="name">TestYourCode</h1>
+        <p class="top"><img src="/assets/images/user.png" alt=""><span id="userName"></span></p>
+    </div>
+    <div class="downPage">
+        <div class="left-side">
+            <button type="button" id="state-btn"><img src="/assets/images/angle-left.png" alt="#"></button>
+
+            <a class="link" href="index.html">
+                <span class="icon"><img src="/assets/images/home.png" alt="dashboard"></span>
+                <span class="text">Dashboard</span>
+            </a>
+
+            <a class="link" href="results.html">
+                <span class="icon"><img src="/assets/images/history.png" alt="results"></span>
+                <span class="text">Results</span>
+            </a>
+
+            <a class="link" href="Settings.html">
+                <span class="icon"><img src="/assets/images/settings.png" alt="settings"></span>
+                <span class="text">Settings</span>
+            </a>
+
+            <a class="link active" href="chat.html">
+                <span class="icon"><img src="/assets/images/comment.png" alt="chating"></span>
+                <span class="text">Chat</span>
+            </a>
+
+            <a id="logout" class="link" href="login.html">
+                <span class="icon"><img src="/assets/images/exit(1).png" alt=""></span>
+                <span class="text">Log out</span>
+            </a>
+        </div>
+
+        <div class="chat-room">
+            <div class="chat-header">
+                <div>
+                    <h2>General chat</h2>
+                    <p>Everyone can read and answer.</p>
+                </div>
+                <button type="button" id="online-btn"><span class="on-dot"></span>0 online</button>
+            </div>
+
+            <div class="messages" id="messages">
+                <p class="empty" id="empty-chat">No messages yet</p>
+            </div>
+
+            <div class="write">
+                <div class="mention-list" id="mention-list">
+                    <p class="mention-title">Mention</p>
+                    <div id="mention-items"></div>
+                </div>
+                <label for="msg" class="hide">Message</label>
+                <textarea id="msg" rows="1" maxlength="500" placeholder="Write a message. Use @ to mention someone."></textarea>
+                <button type="button" id="send-btn">Send</button>
+            </div>
+        </div>
+
+        <aside class="online-side">
+            <button type="button" id="close-online"><img src="/assets/images/angle-right.png" alt="">Close</button>
+            <h3>Online <span id="online-count">0</span></h3>
+            <ul id="online-list"></ul>
+            <h3 class="off-title">Offline <span id="offline-count">0</span></h3>
+            <ul class="offline" id="offline-list"></ul>
+        </aside>
+    </div>
+    <script type="module" src="/frontend/js/chat.js"></script>
 </body>
 </html>
