@@ -263,6 +263,14 @@ textarea.addEventListener(
         lineNumbers.scrollTop = textarea.scrollTop;
     }
 );
+textarea.addEventListener("paste", (event) => {
+    event.preventDefault();
+    showMessage("Paste is not allowed. Write your own code.", "challengeAlert", "challege-message");
+});
+textarea.addEventListener("drop", (event) => {
+    event.preventDefault();
+    showMessage("Drop is not allowed. Write your own code.", "challengeAlert", "challege-message");
+});
 function updateLines() {
     const totalLines = textarea.value.split("\n").length;
     let numbers = "";
