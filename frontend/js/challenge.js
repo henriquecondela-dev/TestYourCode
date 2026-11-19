@@ -4,6 +4,7 @@ import { getChallenge, getToken } from "../data/store.js";
 import { finishChallenge } from "../data/finishchallenge.js";
 import API_URL from "../config/api_url.js";
 import showMessage from "./messagesAlert.js";
+import { createAvatar, fillAvatar } from "./avatar.js";
 import { finishAndEvaluate } from "../data/finishAndEvaluate.js";
 const token = getToken();
 const currentUser = JSON.parse(sessionStorage.getItem("user"));
@@ -113,6 +114,7 @@ problem.textContent = `${challengeDetails.problem}`.replace(/\\n/g, "\n")
 programlanguage.textContent = `${challengeDetails.language}`
 document.getElementById("challenge-language").textContent = `${challengeDetails.language}`
 document.getElementById("userName").textContent = currentUser.username;
+fillAvatar(document.getElementById("mini-avatar"), currentUser);
 loadUsers();
 textType.addEventListener("click", () => {
     textType.classList.add("active");
@@ -216,7 +218,8 @@ function renderParticipants(participants) {
     participants.forEach((user) => {
         const card = document.createElement("div");
         card.classList.add("participant-card");
-        card.textContent = user.username;
+        card.appendChild(createAvatar(user, "card-avatar"));
+        card.appendChild(document.createTextNode(user.username));
         card.style.fontSize = "12px";
         const submitted =
             user.submissions.length > 0 &&

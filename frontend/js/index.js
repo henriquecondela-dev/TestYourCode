@@ -12,6 +12,7 @@ if (!token) {
     window.location.href = "../pages/login.html"
 }
 import showMessage from "./messagesAlert.js";
+import { createAvatar, fillAvatar } from "./avatar.js";
 import { hoursToSeconds } from "./timeConverter.js";
 import { challengeDetail } from "../data/challengedetail.js";
 //left side consts
@@ -72,6 +73,7 @@ const waitTimer = document.getElementById("wait-timer");
 
 export const user = JSON.parse(sessionStorage.getItem("user"));
 username.textContent = user.username;
+fillAvatar(document.getElementById("mini-avatar"), user);
 setTimeout(function () {
     showMessage(`Seja Bem vindo de volta ${user.username}`, "success", "message-box")
 }, 2000)
@@ -444,7 +446,8 @@ async function loadParticipants(challengeid) {
         AllUsers.forEach((user) => {
             const card = document.createElement("div");
             card.classList.add("participant-card");
-            card.textContent = user.username;
+            card.appendChild(createAvatar(user, "card-avatar"));
+            card.appendChild(document.createTextNode(user.username));
             card.style.fontSize = "12px";
             waitparticipantContainer.appendChild(card);
         })

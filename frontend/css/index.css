@@ -51,7 +51,7 @@ body{
     font-size: 15px;
     text-transform: uppercase;
 }
-.topNavBar .top:last-child img{
+.topNavBar .top:last-child > img{
     width: 18px;
     height: 18px;
 }
@@ -450,9 +450,6 @@ input[type=number]::-webkit-inner-spin-button {
     font-family: var(--font-code);
     font-size: 14px;
 }
-#howtoplay{
-    font-family: var(--font-title);
-}
 #summary p{
     margin: 0;
 }
@@ -521,7 +518,10 @@ input[type=number]::-webkit-inner-spin-button {
     background-color: hsl(0, 0%, 13%);
 }
 .participant-card{
-    padding:6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding:4px 10px 4px 4px;
     border:1px solid hsl(0, 0%, 30%);
     border-radius: var(--borders);
     font-family: var(--font-code);

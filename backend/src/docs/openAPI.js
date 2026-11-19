@@ -111,6 +111,16 @@ const openapiDocument = {
                                                 "email": {
                                                     "type": "string",
                                                     "example": "henrique@gmail.com"
+                                                },
+                                                "avatar": {
+                                                    "type": "string",
+                                                    "nullable": true,
+                                                    "example": "avatar9.jpg"
+                                                },
+                                                "avatarColor": {
+                                                    "type": "string",
+                                                    "nullable": true,
+                                                    "example": null
                                                 }
                                             }
                                         }
@@ -184,56 +194,6 @@ const openapiDocument = {
                 }
             }
         },
-        "/api/users/{id}": {
-            "delete": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Delete user",
-                "description": "Deletes a user by ID.",
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "description": "User ID",
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Usuário deletado com sucesso"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Error deleting user"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
         "/api/users/me": {
             "get": {
                 "tags": [
@@ -270,6 +230,16 @@ const openapiDocument = {
                                             "type": "string",
                                             "example": "henrique@email.com"
                                         },
+                                        "avatar": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "example": "avatar9.jpg"
+                                        },
+                                        "avatarColor": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "example": null
+                                        },
                                         "createdAt": {
                                             "type": "string",
                                             "format": "date-time"
@@ -293,6 +263,294 @@ const openapiDocument = {
                     },
                     "404": {
                         "description": "Profile not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete my account",
+                "description": "Deletes the account of the logged user after checking the password. Also deletes the groups the user owns (with their challenges, submissions and results), the user's submissions, participations, memberships and chat messages.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Password123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Account deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Account deleted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Password not sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Missing Fields"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Wrong password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The password is wrong"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/me/avatar": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Change my avatar",
+                "description": "Saves an image avatar (avatar1.jpg to avatar14.jpg) or a letter color (black, green, blue, red, orange, purple). If an image is sent, the color is saved as null. Sending both as null goes back to the default letter.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "avatar": {
+                                        "type": "string", "nullable": true,
+                                        "example": "avatar9.jpg"
+                                    },
+                                    "avatarColor": {
+                                        "type": "string", "nullable": true,
+                                        "example": null
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Avatar saved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Avatar saved"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "example": "avatar9.jpg"
+                                        },
+                                        "avatarColor": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid avatar or color",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid Avatar"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/me/password": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Change my password",
+                "description": "Checks the current password and saves the new one. The new password needs at least 6 characters, an upper case, a lower case and a number.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "currentPassword": {
+                                        "type": "string",
+                                        "example": "Password123"
+                                    },
+                                    "newPassword": {
+                                        "type": "string",
+                                        "example": "NewPassword456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password changed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password changed"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or weak password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Weak Password"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "The current password is wrong",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The current password is wrong"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -451,7 +709,7 @@ const openapiDocument = {
                     "Groups"
                 ],
                 "summary": "Get my groups",
-                "description": "Returns all groups created by the authenticated user.",
+                "description": "Returns all groups created by the authenticated user, with the number of members and challenges. Returns an empty list when the user has no groups.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -486,6 +744,14 @@ const openapiDocument = {
                                                         "type": "string",
                                                         "format": "date-time",
                                                         "example": "2026-07-21T16:00:00.000Z"
+                                                    },
+                                                    "members": {
+                                                        "type": "integer",
+                                                        "example": 4
+                                                    },
+                                                    "challenges": {
+                                                        "type": "integer",
+                                                        "example": 3
                                                     }
                                                 }
                                             }
@@ -505,22 +771,6 @@ const openapiDocument = {
                                         "message": {
                                             "type": "string",
                                             "example": "Token not provided"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "User has no groups",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "You have no groups yet"
                                         }
                                     }
                                 }
@@ -723,7 +973,7 @@ const openapiDocument = {
                     "Groups"
                 ],
                 "summary": "Delete a group",
-                "description": "Deletes a group. Only the group owner is allowed to perform this action.",
+                "description": "Deletes a group. Only the group owner is allowed to perform this action. Also deletes the group's challenges, participations, submissions, results and members.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -1121,7 +1371,7 @@ const openapiDocument = {
                 ],
                 "responses": {
                     "200": {
-                        "description": "Challenge participants returned"
+                        "description": "Challenge participants returned. Each participant has id, username, avatar, avatarColor and submissions."
                     },
                     /*"409": {
                         "description": "No participants found"
@@ -1359,7 +1609,7 @@ const openapiDocument = {
                 ],
                 "responses": {
                     "200": {
-                        "description": "Results returned"
+                        "description": "Results returned. Each result has userId, username, avatar, avatarColor, rank, score, feedback and approved."
                     },
                     "404": {
                         "description": "Challenge not found"
@@ -1394,10 +1644,232 @@ const openapiDocument = {
                     }
                 }
             }
+        },
+        "/api/chat/messages": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Send a message",
+                "description": "Sends a message to the general room. Max 500 characters and one message per second.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Bora @kelvin"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Message sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/components/schemas/ChatMessage"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Empty or too long message",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Empty Message"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "More than one message per second",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Too Fast"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/sync": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get new messages and who is online",
+                "description": "Called every 3 seconds by the chat page. Returns the messages with id bigger than 'after' (the last 50 when after is 0) and the status of every user. Also marks the logged user as online.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "after",
+                        "in": "query",
+                        "required": false,
+                        "description": "Id of the last message the page already has",
+                        "schema": {
+                            "type": "integer",
+                            "example": 0
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New messages and users status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "messages": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ChatMessage"
+                                            }
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "username": {
+                                                        "type": "string",
+                                                        "example": "kelvin"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "example": "avatar12.jpg"
+                                                    },
+                                                    "avatarColor": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "example": null
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "enum": ["online", "playing", "offline"],
+                                                        "example": "playing"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     ,
     "components": {
+        "schemas": {
+            "ChatMessage": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 128
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "Bora @kelvin"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                                "example": "henrique"
+                            },
+                            "avatar": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": "avatar9.jpg"
+                            },
+                            "avatarColor": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",

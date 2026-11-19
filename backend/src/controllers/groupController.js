@@ -82,7 +82,9 @@ export async function getMyGroups(req, res) {
             groups: mygroups.map(group => ({
                 id: group.id,
                 name: group.name,
-                createdAt: group.createdAt
+                createdAt: group.createdAt,
+                members: group._count.member,
+                challenges: group._count.challenges
             }))
 
         })

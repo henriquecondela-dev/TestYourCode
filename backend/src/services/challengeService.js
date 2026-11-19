@@ -244,6 +244,8 @@ export async function getChallengeParticipants(challengeId) {
                 select: {
                     id: true,
                     username: true,
+                    avatar: true,
+                    avatarColor: true,
                     submissions: {
                         where: {
                             challengeId: Number(challengeId)

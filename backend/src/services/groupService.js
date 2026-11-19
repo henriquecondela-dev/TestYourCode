@@ -39,29 +39,46 @@ export async function deleteGroup(id, ownerid) {
     if (!group) {
         throw new Error("Group not found")
     }
-    //console.log(group)
-    //console.log(group.ownerId)
     if (group.ownerId !== Number(ownerid)) {
         throw new Error("Permission denied! This group does not belongs to you")
     }
-    await prisma.groupMember.deleteMany({
-        where: {
-            groupId: id
-        }
-    });
-    await prisma.grupos.delete({ where: { id: Number(id) } })
+    await prisma.$transaction(async (tx) => {
+        await removeGroups(tx, [Number(id)]);
+    })
     return;
 }
 
+export async function removeGroups(tx, groupIds) {
+    if (groupIds.length === 0) return;
+    const challenges = await tx.challenge.findMany({
+        where: {
+            groupId: { in: groupIds }
+        }, select: {
+            id: true
+        }
+    })
+    const challengeIds = challenges.map(c => c.id);
+    await tx.result.deleteMany({ where: { challengeId: { in: challengeIds } } })
+    await tx.submission.deleteMany({ where: { challengeId: { in: challengeIds } } })
+    await tx.challengeParticipants.deleteMany({ where: { challengeId: { in: challengeIds } } })
+    await tx.challenge.deleteMany({ where: { groupId: { in: groupIds } } })
+    await tx.groupMember.deleteMany({ where: { groupId: { in: groupIds } } })
+    await tx.grupos.deleteMany({ where: { id: { in: groupIds } } })
+}
+
 export async function getMyGroups(ownerId) {
-    if (await prisma.grupos.count({ where: { ownerId: Number(ownerId) } }) === 0) {
-        throw new Error("You have no groups yet")
-    }
     const mygroups = await prisma.grupos.findMany({
         where: {
             ownerId: Number(ownerId)
         },orderBy:{
             createdAt:"desc"
+        }, include: {
+            _count: {
+                select: {
+                    member: true,
+                    challenges: true
+                }
+            }
         }
     })
     return mygroups;

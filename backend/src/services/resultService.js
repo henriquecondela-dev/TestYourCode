@@ -21,7 +21,9 @@ export async function getChallengeResults(challengeId) {
                     user: {
                         select: {
                             id: true,
-                            username: true
+                            username: true,
+                            avatar: true,
+                            avatarColor: true
                         }
                     }
                 }
@@ -34,6 +36,8 @@ export async function getChallengeResults(challengeId) {
     const ranking = results.map(result => ({
         userId: result.submission.user.id,
         username: result.submission.user.username,
+        avatar: result.submission.user.avatar,
+        avatarColor: result.submission.user.avatarColor,
         rank: result.rank,
         score: result.score,
         feedback: result.feedback,

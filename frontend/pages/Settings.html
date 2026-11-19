@@ -1,14 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Chat</title>
-   <link rel="stylesheet" href="/frontend/css/global.css">
-   <link rel="stylesheet" href="/frontend/css/soon.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="/frontend/css/messegesAlert.css">
+    <link rel="stylesheet" href="/frontend/css/settings.css">
+    <title>Settings</title>
 </head>
 <body>
-   <h1>Feature unavailable at the moment</h1>
-   <a href="index.html">Go back</a>
+    <div class="topNavBar">
+        <p class="top" id="logo"></p>
+        <h1 class="top" id="name">TestYourCode</h1>
+        <p class="top"><span class="mini-avatar" id="mini-avatar"></span><span id="userName"></span></p>
+    </div>
+    <div class="downPage">
+        <div class="left-side">
+            <button type="button" id="state-btn"><img src="/assets/images/angle-left.png" alt="#"></button>
+            <a class="link" href="home.html#how">
+                <span class="icon"><img src="/assets/images/inicio.png" alt="how to play"></span>
+                <span class="text">How to play</span>
+            </a>
+            <a class="link" href="index.html">
+                <span class="icon"><img src="/assets/images/home.png" alt="dashboard"></span>
+                <span class="text">Dashboard</span>
+            </a>
+            <a class="link" href="results.html">
+                <span class="icon"><img src="/assets/images/history.png" alt="results"></span>
+                <span class="text">Results</span>
+            </a>
+            <a class="link active" href="Settings.html">
+                <span class="icon"><img src="/assets/images/settings.png" alt="settings"></span>
+                <span class="text">Settings</span>
+            </a>
+            <a class="link" href="chat.html">
+                <span class="icon"><img src="/assets/images/comment.png" alt="chating"></span>
+                <span class="text">Chat</span>
+            </a>
+            <a id="logout" class="link" href="login.html">
+                <span class="icon"><img src="/assets/images/exit(1).png" alt=""></span>
+                <span class="text">Log out</span>
+            </a>
+        </div>
+
+        <main class="settings">
+            <h1 class="page-title">Settings</h1>
+
+            <section class="block" id="avatar-section">
+                <h2>Avatar</h2>
+                <span class="barra"></span>
+                <div id="avatar-message"></div>
+                <div class="profile-row">
+                    <div class="preview">
+                        <span class="avatar-big" id="avatar-big"></span>
+                        <div class="preview-msg">
+                            <p class="msg-head"><b id="preview-name"></b><span class="msg-time">09:16</span></p>
+                            <p>This is how you look in the chat.</p>
+                        </div>
+                    </div>
+                    <div class="choose">
+                        <p class="label">Pick an image</p>
+                        <div class="avatar-grid" id="avatar-grid"></div>
+                        <p class="label">Or just a letter with a color</p>
+                        <div class="color-row" id="color-row"></div>
+                        <button type="button" class="btn-black" id="save-avatar">Save avatar</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block" id="account">
+                <h2>Account</h2>
+                <span class="barra"></span>
+                <div class="info-row">
+                    <div>
+                        <p class="label">Username</p>
+                        <p class="value" id="account-username"></p>
+                    </div>
+                    <div>
+                        <p class="label">Email</p>
+                        <p class="value" id="account-email"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block" id="password">
+                <h2>Change password</h2>
+                <span class="barra"></span>
+                <div id="password-message"></div>
+                <form class="password-form" id="password-form" novalidate>
+                    <label class="label" for="current-password">Current password</label>
+                    <div class="password-box">
+                        <input type="password" id="current-password" class="form-input">
+                        <button type="button" class="show-password" data-target="current-password">Show</button>
+                    </div>
+                    <label class="label" for="new-password">New password</label>
+                    <div class="password-box">
+                        <input type="password" id="new-password" class="form-input">
+                        <button type="button" class="show-password" data-target="new-password">Show</button>
+                    </div>
+                    <label class="label" for="confirm-password">Confirm the new password</label>
+                    <div class="password-box">
+                        <input type="password" id="confirm-password" class="form-input">
+                        <button type="button" class="show-password" data-target="confirm-password">Show</button>
+                    </div>
+                    <button type="submit" class="btn-black">Change password</button>
+                </form>
+            </section>
+
+            <section class="block" id="groups">
+                <h2>My groups</h2>
+                <span class="barra"></span>
+                <div id="groups-message"></div>
+                <p class="hint">Groups you created. Deleting a group also deletes its challenges and results.</p>
+                <div class="group-list" id="group-list"></div>
+            </section>
+
+            <section class="block danger-zone" id="danger">
+                <h2>Delete account</h2>
+                <span class="barra"></span>
+                <div id="account-message"></div>
+                <div class="group-row" id="delete-account-row">
+                    <p class="hint">Your account, your messages and your groups will be deleted.</p>
+                    <button type="button" class="btn-danger" id="delete-account-btn">Delete account</button>
+                </div>
+                <div class="delete-confirm" id="delete-confirm">
+                    <label class="label" for="delete-password">Write your password to confirm</label>
+                    <div class="password-box">
+                        <input type="password" id="delete-password" class="form-input">
+                        <button type="button" class="show-password" data-target="delete-password">Show</button>
+                    </div>
+                    <div class="confirm-buttons">
+                        <button type="button" class="btn-gray" id="cancel-delete-account">Cancel</button>
+                        <button type="button" class="btn-danger solid" id="confirm-delete-account">Yes, delete my account</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/frontend/js/showPassword.js"></script>
+    <script type="module" src="/frontend/js/settings.js"></script>
 </body>
 </html>

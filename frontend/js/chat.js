@@ -2,6 +2,7 @@ import { getToken } from "../data/store.js";
 import { syncChat } from "../data/syncChat.js";
 import { sendMessage } from "../data/sendMessage.js";
 import showMessage from "./messagesAlert.js";
+import { createAvatar, fillAvatar } from "./avatar.js";
 
 const token = getToken();
 if (!token) {
@@ -36,6 +37,7 @@ const errors = {
 }
 
 username.textContent = user.username;
+fillAvatar(document.getElementById("mini-avatar"), user);
 
 button.addEventListener("click", function () {
     leftSide.classList.toggle("collapsed");
@@ -106,9 +108,7 @@ function createMessage(message) {
     if (!mine && message.content.includes(`@${user.username}`)) {
         card.classList.add("mention-me");
     }
-    const avatar = document.createElement("span");
-    avatar.classList.add("avatar");
-    avatar.textContent = message.user.username[0].toUpperCase();
+    const avatar = createAvatar(message.user, "avatar");
 
     const body = document.createElement("div");
     body.classList.add("msg-body");
@@ -187,6 +187,7 @@ function createUser(u) {
         dot.classList.add("off");
     }
     item.appendChild(dot);
+    item.appendChild(createAvatar(u, "list-avatar"));
     item.appendChild(document.createTextNode(u.username));
     if (u.status !== "offline") {
         const small = document.createElement("small");
@@ -290,6 +291,7 @@ function renderMentions(matches) {
         const small = document.createElement("small");
         small.textContent = u.status === "playing" ? "in a challenge" : u.status;
         item.appendChild(dot);
+        item.appendChild(createAvatar(u, "list-avatar"));
         item.appendChild(document.createTextNode(u.username));
         item.appendChild(small);
         item.addEventListener("click", function () {

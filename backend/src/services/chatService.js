@@ -22,7 +22,9 @@ export async function sendMessage(userId, content) {
             createdAt: true,
             user: {
                 select: {
-                    username: true
+                    username: true,
+                    avatar: true,
+                    avatarColor: true
                 }
             }
         }
@@ -52,7 +54,9 @@ async function getMessages(after) {
         createdAt: true,
         user: {
             select: {
-                username: true
+                username: true,
+                avatar: true,
+                avatarColor: true
             }
         }
     }
@@ -85,6 +89,8 @@ async function getUsersStatus() {
         select: {
             id: true,
             username: true,
+            avatar: true,
+            avatarColor: true,
             lastSeenAt: true
         }, orderBy: {
             username: "asc"
@@ -107,6 +113,8 @@ async function getUsersStatus() {
         }
         return {
             username: user.username,
+            avatar: user.avatar,
+            avatarColor: user.avatarColor,
             status: status
         }
     })

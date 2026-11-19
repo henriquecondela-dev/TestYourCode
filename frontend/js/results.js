@@ -2,6 +2,7 @@ import API_URL from "../config/api_url.js";
 import { getResults } from "../data/getResults.js";
 import { getGroups } from "../data/groups.js";
 import { getToken } from "../data/store.js";
+import { createAvatar, fillAvatar } from "./avatar.js";
 const token = getToken();
 if (!token) {
     window.location.href = "../pages/login.html"
@@ -9,6 +10,7 @@ if (!token) {
 const username = document.getElementById("userName");
 const user = JSON.parse(sessionStorage.getItem("user"));
 username.textContent = user.username;
+fillAvatar(document.getElementById("mini-avatar"), user);
 const groupsContainer = document.getElementById("groups-container");
 const rankContainer = document.getElementById("ranking-container");
 const firstPosition = document.getElementById("rank_1");
@@ -194,6 +196,8 @@ function placePositions(results) {
         firstScore.textContent = `${results[0].score} pts`;
         secondName.textContent = `${results[1].username.split(" ")[0]}`;
         secondScore.textContent = `${results[1].score} pts`;
+        fillAvatar(document.getElementById("first-avatar"), results[0]);
+        fillAvatar(document.getElementById("second-avatar"), results[1]);
         thirdPosition.style.display = "none"
 
     }
@@ -204,6 +208,9 @@ function placePositions(results) {
         secondScore.textContent = `${results[1].score} pts`;
         thirdName.textContent = `${results[2].username.split(" ")[0]}`;
         thirdScore.textContent = `${results[2].score} pts`;
+        fillAvatar(document.getElementById("first-avatar"), results[0]);
+        fillAvatar(document.getElementById("second-avatar"), results[1]);
+        fillAvatar(document.getElementById("third-avatar"), results[2]);
         let otherResults = results.slice(3);
         document
             .querySelectorAll(".rank-result")
@@ -216,13 +223,12 @@ function placePositions(results) {
             const right = document.createElement("div");
             const position = document.createElement("span");
             const name = document.createElement("span");
-            const icon = document.createElement("span");
+            const icon = createAvatar(result, "others-icon");
             card.classList.add("rank-result");
             left.classList.add("descrip");
             right.classList.add("others-score");
             name.classList.add("participantName");
             position.classList.add("others-position");
-            icon.classList.add("others-icon")
             position.textContent = `${result.rank}`;
             name.textContent = `${result.username}`;
             right.textContent = `${result.score} pts`;
