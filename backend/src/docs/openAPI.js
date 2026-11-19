@@ -7,7 +7,7 @@ const openapiDocument = {
     },
     "servers": [
         {
-            "url": "http://localhost:3000"
+            "url": "https://testyourcode-api.onrender.com"
             //"url": "http://10.153.230.113:3000"
         }
     ],
