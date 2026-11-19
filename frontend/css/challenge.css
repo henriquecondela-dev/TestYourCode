@@ -76,18 +76,13 @@ body{
 #submitSolution-btn:active{
     background-color: hsl(137, 57%, 50%);
 }
-#userName{
+#user-box{
     display: flex;
     align-items: center;
     gap: 8px;
     font-family: var(--font-label);
     font-size: 15px;
     text-transform: uppercase;
-}
-#userName img{
-    width: 18px;
-    height: 18px;
-    filter: invert(1);
 }
 .content{
     display: block;
@@ -350,7 +345,10 @@ body{
     flex-wrap: wrap;
 }
 .participant-card{
-    padding:6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding:4px 10px 4px 4px;
     border:1px solid hsl(0, 0%, 29%);
     border-radius: var(--borders);
     font-family: var(--font-code);
@@ -402,7 +400,7 @@ body{
         font-size: 1rem;
         white-space: nowrap;
     }
-    #userName {
+    #user-box {
         display: none;
     }
     #submitSolution-btn,
