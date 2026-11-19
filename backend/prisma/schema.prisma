@@ -59,7 +59,13 @@ enum Status {
   CANCELLED
   COMPLETED
 }
-
+model Message {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  content   String   @db.VarChar(500)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
 model User {
   id                      Int                     @id @default(autoincrement())
   username                String                  @unique
@@ -71,6 +77,8 @@ model User {
   groups                  Grupos[]
   submissions             Submission[]
   challengeParticipations ChallengeParticipants[]
+    lastSeenAt              DateTime?
+  messages                Message[]
 }
 
 model Grupos {

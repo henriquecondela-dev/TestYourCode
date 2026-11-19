@@ -450,6 +450,9 @@ input[type=number]::-webkit-inner-spin-button {
     font-family: var(--font-code);
     font-size: 14px;
 }
+#howtoplay{
+    font-family: var(--font-title);
+}
 #summary p{
     margin: 0;
 }
