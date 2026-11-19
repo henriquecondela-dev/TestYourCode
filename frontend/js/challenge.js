@@ -108,8 +108,8 @@ const users = await getParticipants(id);
 let solution = "";
 //console.log(users)
 //console.log(challengeDetails)
-problem.textContent = `${challengeDetails.problem}`
-
+//problem.textContent = `${challengeDetails.problem}`
+problem.textContent = `${challengeDetails.problem}`.replace(/\\n/g, "\n")
 programlanguage.textContent = `${challengeDetails.language}`
 document.getElementById("challenge-language").textContent = `${challengeDetails.language}`
 document.getElementById("userName").textContent = currentUser.username;
