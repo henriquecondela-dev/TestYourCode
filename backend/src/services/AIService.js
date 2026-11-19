@@ -10,5 +10,3 @@ export async function callAI(prompt) {
             return callGemini(prompt) ;
     }
 }
-
-console.log(await callAI("ola tudo bem??"))
