@@ -142,6 +142,31 @@ form button:hover{
 form button:active{
     background-color: hsl(0, 0%, 35%);
 }
+.password-box{
+    position: relative;
+}
+.password-box .form-input{
+    padding-right: 64px;
+}
+form .show-password{
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 6px 8px;
+    transform: translateY(-50%);
+    background: none;
+    color: var(--text-soft);
+    font-family: var(--font-label);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+form .show-password:hover{
+    background: none;
+    color: var(--text-color);
+}
 @keyframes typing{
     from { width: 0 }
     to { width: 29ch }

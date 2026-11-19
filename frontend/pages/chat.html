@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/css/global.css">
     <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="/frontend/css/messegesAlert.css">
     <link rel="stylesheet" href="/frontend/css/chat.css">
     <title>Chat</title>
 </head>
@@ -17,6 +18,11 @@
     <div class="downPage">
         <div class="left-side">
             <button type="button" id="state-btn"><img src="/assets/images/angle-left.png" alt="#"></button>
+
+            <a class="link" href="home.html#how">
+                <span class="icon"><img src="/assets/images/inicio.png" alt="how to play"></span>
+                <span class="text">How to play</span>
+            </a>
 
             <a class="link" href="index.html">
                 <span class="icon"><img src="/assets/images/home.png" alt="dashboard"></span>
@@ -47,14 +53,15 @@
         <div class="chat-room">
             <div class="chat-header">
                 <div>
-                    <h2>General chat</h2>
+                    <h2>General room</h2>
                     <p>Everyone can read and answer.</p>
                 </div>
                 <button type="button" id="online-btn"><span class="on-dot"></span>0 online</button>
             </div>
 
+            <div id="chat-message"></div>
             <div class="messages" id="messages">
-                <p class="empty" id="empty-chat">No messages yet</p>
+                <p class="empty" id="empty-chat">No messages yet. Seus safadinhos kkk</p>
             </div>
 
             <div class="write">

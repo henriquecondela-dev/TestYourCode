@@ -26,7 +26,10 @@
                     <small class="form-error" id="email-error"></small>
                    
                     <label class="form-label" for="password">Password:</label>
-                    <input type="password" id="password" class="form-input" name="password"  >
+                    <div class="password-box">
+                        <input type="password" id="password" class="form-input" name="password"  >
+                        <button type="button" class="show-password" data-target="password">Show</button>
+                    </div>
                     <small class="form-error" id="password-error"></small>
                
                     <a class="link" href="signup.html">Don't have an account? <b>Create</b></a>
@@ -36,5 +39,6 @@
     </div>
     <script type="module" src="/frontend/js/messagesAlert.js"></script>
     <script type="module" src="/frontend/js/login.js"></script>
+    <script src="/frontend/js/showPassword.js"></script>
 </body>
 </html> 

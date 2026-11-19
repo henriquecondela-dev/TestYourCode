@@ -29,11 +29,17 @@
                     <small class="form-error"  id="signemail-error"></small>
 
                     <label class="form-label" for="sign-password">Password<sup style="color: red;">*</sup>:</label>
-                    <input type="password" id="sign-password" class="form-input" name="password">
+                    <div class="password-box">
+                        <input type="password" id="sign-password" class="form-input" name="password">
+                        <button type="button" class="show-password" data-target="sign-password">Show</button>
+                    </div>
                     <small class="form-error" id="signpassword-error"></small>
 
                     <label class="form-label" for="password-confirmation">Confirm the password<sup style="color: red;">*</sup>:</label>
-                    <input type="password" id="password-confirmation" class="form-input">
+                    <div class="password-box">
+                        <input type="password" id="password-confirmation" class="form-input">
+                        <button type="button" class="show-password" data-target="password-confirmation">Show</button>
+                    </div>
                     <small class="form-error" id="confirmpassword-error"></small>
                     <a class="link" href="login.html">I have an account. <b>Login</b></a>
                     <button id="signup" type="submit">Sign up</button>
@@ -42,5 +48,6 @@
     </div>
     <script type="module" src="/frontend/js/messagesAlert.js"></script>
     <script type="module" src="/frontend/js/signup.js"></script>
+    <script src="/frontend/js/showPassword.js"></script>
 </body>
 </html> 

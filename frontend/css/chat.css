@@ -44,6 +44,13 @@
     font-size: 13px;
     text-transform: uppercase;
 }
+#chat-message{
+    display: none;
+    margin: 12px 32px 0;
+    padding: 10px 14px;
+    border-radius: var(--borders);
+    font-size: 14px;
+}
 .messages{
     flex: 1;
     display: flex;
@@ -75,15 +82,12 @@
     gap: 12px;
     padding: 10px 12px;
     border-radius: var(--borders);
-    
 }
 .message:hover{
     background-color: hsl(0, 0%, 89%);
 }
 .mention-me{
     background-color: hsl(137, 40%, 88%);
-   
-    
 }
 .mention-me:hover{
     background-color: hsl(137, 40%, 85%);
@@ -113,17 +117,6 @@
     align-items: baseline;
     gap: 8px;
 }
-.message{
-    max-width: 75%;
-}
-.mine{
-    flex-direction: row-reverse;
-    align-self: flex-end;
-    text-align: right;
-}
-.mine .msg-head{
-    flex-direction: row-reverse;
-}
 .msg-head b{
     font-family: var(--font-label);
     font-size: 15px;
@@ -140,7 +133,6 @@
     font-family: var(--font-label);
     font-size: 11px;
     text-transform: uppercase;
-    
 }
 .mention{
     padding: 0 3px;
@@ -171,7 +163,6 @@
     font-size: 15px;
     resize: none;
     outline: none;
-    
 }
 #msg:focus{
     border-bottom: 3px solid var(--primary-color);
@@ -272,16 +263,6 @@
     border-left: 1px solid hsl(0, 0%, 80%);
     overflow-y: auto;
 }
-.online-side h3{
-    display: flex;
-    justify-content: space-between;
-    margin: 0 0 8px;
-    padding: 0 20px;
-    font-family: var(--font-title);
-    font-size: 15px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
 #close-online{
     display: none;
     align-items: center;
@@ -298,6 +279,16 @@
 }
 #close-online:hover{
     background-color: hsl(0, 0%, 80%);
+}
+.online-side h3{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 8px;
+    padding: 0 20px;
+    font-family: var(--font-title);
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 .online-side h3 span{
     font-family: var(--font-code);
@@ -330,9 +321,6 @@
     .online-side{
         display: none;
     }
-        #close-online{
-        display: flex;
-    }
     .online-side.show{
         position: fixed;
         top: 60px;
@@ -341,6 +329,9 @@
         display: block;
         z-index: 10;
         box-shadow: -6px 0 20px hsla(0, 0%, 0%, 0.15);
+    }
+    #close-online{
+        display: flex;
     }
     #online-btn{
         display: flex;
@@ -351,7 +342,7 @@
     .downPage{
         height: calc(100vh - 52px);
     }
-        .online-side.show{
+    .online-side.show{
         top: 52px;
         width: 80%;
     }
@@ -363,6 +354,10 @@
     }
     .chat-header p{
         font-size: 12px;
+    }
+    #chat-message{
+        margin: 8px 8px 0;
+        font-size: 13px;
     }
     .messages{
         padding: 12px 8px;
@@ -383,4 +378,15 @@
         left: 12px;
         bottom: 64px;
     }
+}
+.message{
+    max-width: 75%;
+}
+.mine{
+    flex-direction: row-reverse;
+    align-self: flex-end;
+    text-align: right;
+}
+.mine .msg-head{
+    flex-direction: row-reverse;
 }

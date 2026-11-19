@@ -16,10 +16,11 @@ export async function sendMessage(content) {
         const message = await response.json();
         if (!response.ok) {
             console.error(`Stastus: ${response.status}`)
-            throw new Error(`${message.message}`)
+            return { error: message.message }
         }
-        return message.message
+        return { message: message.message }
     } catch (error) {
         console.error("ERRO: was not possible to send the message", error.message)
+        return { error: "No Response" }
     }
 }
