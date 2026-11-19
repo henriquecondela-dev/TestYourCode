@@ -105,6 +105,10 @@ startChallengebutton.addEventListener("click", async function () {
 
 });
 genarateProblemBtn.addEventListener("click", async () => {
+    if (ownerSelectedGroup === null) {
+        showMessage("Please select a group first", "error", "startMessageAlert");
+        return;
+    }
     generated = false;
     selectedChallenge = null;
     const durationsSeconds = hoursToSeconds(hours.value, minutes.value, seconds.value);
@@ -129,7 +133,10 @@ genarateProblemBtn.addEventListener("click", async () => {
         const challenge = await response.json()
         if (!response.ok) {
             showMessage(`${challenge.message}`, "error", "startMessageAlert")
-            throw new Error(`Status:${response.status} ,${challenge.message}`)
+            document.getElementById("textProblem").style.display = "block";
+            genarateProblemBtn.classList.remove("spinning");
+            spinner.style.display = "none";
+            return;
         }
         showMessage(`${challenge.message}`, "success", "startMessageAlert")
         document.getElementById("summary").innerHTML = `
@@ -143,7 +150,12 @@ genarateProblemBtn.addEventListener("click", async () => {
 
         //console.log(challenge.challenge);
     } catch (error) {
-        console.error("ERRO: was not possible to get the groups", error.message)
+        console.error("ERRO: was not possible to generate the problem", error.message)
+        showMessage("The server is not responding. Try again.", "error", "startMessageAlert");
+        document.getElementById("textProblem").style.display = "block";
+        genarateProblemBtn.classList.remove("spinning");
+        spinner.style.display = "none";
+        return;
     }
     genarateProblemBtn.classList.add("genarated");
     disable(genarateProblemBtn);
@@ -160,7 +172,7 @@ genarateProblemBtn.addEventListener("click", async () => {
 goInChallengeBtn.addEventListener("click", async function () {
     waitparticipantContainer.textContent = ""
     if (selectedChallenge === null) {
-        showMessage("Plese select a  challenge first", "error", "joinMessage");
+        showMessage("Please select a challenge first", "error", "joinMessage");
         return;
     }
     try {
@@ -179,6 +191,8 @@ goInChallengeBtn.addEventListener("click", async function () {
         }
     } catch (error) {
         console.log(error.message);
+        showMessage("The server is not responding. Try again.", "error", "joinMessage");
+        return;
     }
     sessionStorage.setItem("challengeID", selectedChallenge)
     await loadParticipants(Number(sessionStorage.getItem("challengeID")));
@@ -245,6 +259,10 @@ goInChallengeBtn.addEventListener("click", async function () {
 }
 )
 participateInChallengeBtn.addEventListener("click", async () => {
+    if (selectedChallenge === null) {
+        showMessage("Please select a challenge first", "error", "joinMessage");
+        return;
+    }
     try {
         const response = await fetch(`${API_URL}/api/challenges/${selectedChallenge}/join`, {
             method: 'POST',
@@ -260,10 +278,15 @@ participateInChallengeBtn.addEventListener("click", async () => {
         showMessage(`${res.message}`, "success", "joinMessage");
     } catch (error) {
         console.log(error.message);
+        showMessage("The server is not responding. Try again.", "error", "joinMessage");
         return;
     }
 })
 createGroup.addEventListener("click", async () => {
+    if (groupName.value.trim() === "") {
+        showMessage("Please write a name for the group", "error", "message-box-create");
+        return;
+    }
     try {
         const response = await fetch(`${API_URL}/api/groups`, {
             method: "POST",
@@ -286,6 +309,9 @@ createGroup.addEventListener("click", async () => {
         }
     } catch (error) {
         console.error("ERRO: was not possible to create the group", error.message)
+        if (error.message !== "") {
+            showMessage("The server is not responding. Try again.", "error", "message-box-create");
+        }
     }
 })
 closeModal(cancelG, overlayG);
@@ -294,14 +320,28 @@ closeModal(cancelS1, overlayS);
 closeModal(cancelS2, overlayS);
 closeModal(cancelS3, overlayS);
 //closeModal(cancelgetOut, overlaygetout)
-moveModalForward(next1Btn, startModal1, startModal2);
-moveModalForward(next2Btn, startModal2, startModal3);
+next1Btn.addEventListener("click", () => {
+    if (ownerSelectedGroup === null) {
+        showMessage("Please select a group first", "error", "startMessageAlert");
+        return;
+    }
+    startModal1.classList.remove("active");
+    startModal2.classList.add("active");
+});
+next2Btn.addEventListener("click", () => {
+    if (selectedChallenge === null) {
+        showMessage("Please generate the problem first", "error", "startMessageAlert");
+        return;
+    }
+    startModal2.classList.remove("active");
+    startModal3.classList.add("active");
+});
 moveModalForward(back1Btn, startModal2, startModal1);
 moveModalForward(back2Btn, startModal3, startModal2);
 
 startchallenge.addEventListener("click", () => {
     if (selectedChallenge === null) {
-        showMessage("Plese select a challengefirst", "error", "startMessageAlert");
+        showMessage("Please select a challenge first", "error", "startMessageAlert");
     } else {
         console.log("Starting a challenge", selectedChallenge);
         window.location.href = "challenge.html";
@@ -310,7 +350,7 @@ startchallenge.addEventListener("click", () => {
 joinSelectedButton.addEventListener("click", async function () {
     if (selectedGroup === null) {
         //alert("please select a gropup");
-        showMessage("Plese select a group first", "error", "joinMessage");
+        showMessage("Please select a group first", "error", "joinMessage");
         return;
     } else {
         //console.log("joining group", selectedGroup);
@@ -329,6 +369,8 @@ joinSelectedButton.addEventListener("click", async function () {
             showMessage(`${data.message}`, "success", "joinMessage");
         } catch (error) {
             console.log(error.message)
+            showMessage("The server is not responding. Try again.", "error", "joinMessage");
+            return;
         }
         sessionStorage.setItem("challengeID", selectedChallenge)
         console.log("seleccted challenge at ownerGroup: ", selectedChallenge)

@@ -1,6 +1,7 @@
 import { getToken } from "../data/store.js";
 import { syncChat } from "../data/syncChat.js";
 import { sendMessage } from "../data/sendMessage.js";
+import showMessage from "./messagesAlert.js";
 
 const token = getToken();
 if (!token) {
@@ -26,6 +27,13 @@ const closeOnline = document.getElementById("close-online");
 let lastId = 0;
 let users = [];
 let sending = false;
+let offline = false;
+const errors = {
+    "Empty Message": "Write something before sending.",
+    "Message Too Long": "Your message is too long. Max 500 characters.",
+    "Too Fast": "Wait a second before sending again.",
+    "No Response": "The server is not responding. Try again."
+}
 
 username.textContent = user.username;
 
@@ -38,17 +46,33 @@ onlineButton.addEventListener("click", function () {
 closeOnline.addEventListener("click", function () {
     onlineSide.classList.remove("show");
 });
+
 async function loadChat() {
     if (document.hidden) {
         return;
     }
     const chat = await syncChat(lastId);
     if (!chat) {
+        showConnection(false);
         return;
     }
+    showConnection(true);
     users = chat.users;
     renderUsers(users);
     renderMessages(chat.messages);
+}
+
+function showConnection(connected) {
+    const box = document.getElementById("chat-message");
+    if (!connected && !offline) {
+        offline = true;
+        box.textContent = "Connection lost. Trying again...";
+        box.className = "error";
+        box.style.display = "block";
+    } else if (connected && offline) {
+        offline = false;
+        showMessage("Connected again.", "success", "chat-message");
+    }
 }
 
 function renderMessages(messages) {
@@ -180,17 +204,24 @@ function createUser(u) {
 
 async function send() {
     const content = textarea.value.trim();
-    if (content === "" || sending) {
+    if (sending) {
+        return;
+    }
+    if (content === "") {
+        showMessage(errors["Empty Message"], "error", "chat-message");
         return;
     }
     if (content.length > 500) {
         textarea.classList.add("too-long");
+        showMessage(errors["Message Too Long"], "error", "chat-message");
         return;
     }
     sending = true;
     sendButton.disabled = true;
-    const message = await sendMessage(content);
-    if (message) {
+    const result = await sendMessage(content);
+    if (result.error) {
+        showMessage(errors[result.error] || result.error, "error", "chat-message");
+    } else {
         textarea.value = "";
         textarea.classList.remove("too-long");
         await loadChat();
