@@ -1307,7 +1307,7 @@ const openapiDocument = {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "challenge aleredy exists"
+                                            "example": "Challenge already exists"
                                         }
                                     }
                                 }
@@ -1740,6 +1740,146 @@ const openapiDocument = {
                 }
             }
         },
+        "/api/admin/broadcast": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Send an email to every user",
+                "description": "Only for the admin (needs the x-admin-key header). Sends the message from testyourcode.tech@gmail.com to all registered users, starting with 'Olá {username},'. Use {username} inside the message to write the name again. With test true it only sends to the admin email.",
+                "security": [
+                    {
+                        "adminKey": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["subject", "message"],
+                                "properties": {
+                                    "subject": {
+                                        "type": "string",
+                                        "example": "Novidades no TestYourCode"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Agora já tens chat e avatares. Passa por lá!\n\nAbraço,\nHenrique"
+                                    },
+                                    "test": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Emails sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "total": { "type": "integer", "example": 42 },
+                                        "sent": { "type": "integer", "example": 41 },
+                                        "failed": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "email": { "type": "string" },
+                                                    "error": { "type": "string" }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Subject And Message Required / Too Many Users For One Day"
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "500": {
+                        "description": "Gmail error"
+                    }
+                }
+            }
+        },
+        "/api/admin/email": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Send an email to one user",
+                "description": "Only for the admin (needs the x-admin-key header). Sends the message from testyourcode.tech@gmail.com to one registered user, starting with 'Olá {username},'.",
+                "security": [
+                    {
+                        "adminKey": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["email", "subject", "message"],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "kelvin@gmail.com"
+                                    },
+                                    "subject": {
+                                        "type": "string",
+                                        "example": "Obrigado pelo feedback"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Corrigi o bug que encontraste.\n\nAbraço,\nHenrique"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Email sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "sent": { "type": "string", "example": "kelvin@gmail.com" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email, Subject And Message Required"
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "User Not Found"
+                    },
+                    "500": {
+                        "description": "Gmail error"
+                    }
+                }
+            }
+        },
         "/api/chat/sync": {
             "get": {
                 "tags": [
@@ -1871,6 +2011,11 @@ const openapiDocument = {
             }
         },
         "securitySchemes": {
+            "adminKey": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-admin-key"
+            },
             "bearerAuth": {
                 "type": "http",
                 "scheme": "bearer",

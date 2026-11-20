@@ -55,17 +55,12 @@ function startTimer() {
             timesrInfo.style.fontSize = "16px";
             timesrInfo.style.fontFamily = "monospace";
             timesrInfo.style.color = "hsl(0, 100%, 57%)";
-            timesrInfo.textContent = "Time Expired";
-            timer.textContent = "00:00:00";
+            timesrInfo.textContent = "Time expired. Evaluating...";
             submitButton.disabled = true;
             textarea.disabled = true;
             fileInput.disabled = true;
-            await finishAndEvaluate(
-                challengedetails.id,
-                token
-            );
-            sessionStorage.setItem("challengeID", challengeId);
-            window.location.href = "../pages/results.html";
+            sessionStorage.setItem("challengeID", challengedetails.id);
+            await finishAndEvaluate(challengedetails.id);
             return;
         }
         if (hours === 0 && minutes <= 1 && seconds < 60) {
@@ -157,7 +152,8 @@ async function initializeChallenge() {
     // Caso o challenge esteja em outro estado
     // timesrInfo.textContent =
     // `Challenge status: ${challengedetails.status}`;
-    timesrInfo.textContent = `challenge finished, all participants submitted!`;
+    timesrInfo.textContent = "Challenge finished. Evaluating...";
+    sessionStorage.setItem("challengeID", challengedetails.id);
     timesrInfo.style.fontWeight = "800";
     timesrInfo.style.fontSize = "16px";
     timesrInfo.style.fontFamily = "monospace";

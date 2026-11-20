@@ -110,6 +110,48 @@ async function allParticipantsSubmitted(challengeId) {
     //console.log(totalSubmissions, totalParticipants)
     return totalParticipants === totalSubmissions;
 }
+async function isParticipantOrOwner(userId, challenge) {
+    const member = await prisma.challengeParticipants.findUnique({
+        where: {
+            challengeId_userId: {
+                challengeId: challenge.id,
+                userId: userId
+            }
+        }
+    })
+    if (member) return true;
+    const group = await prisma.grupos.findFirst({
+        where: {
+            id: Number(challenge.groupId),
+            ownerId: userId
+        }
+    })
+    return Boolean(group);
+}
+async function evaluateChallenge(challengeId) {
+    try {
+        const totalSubmissions = await prisma.submission.count({ where: { challengeId } });
+        if (totalSubmissions > 0) {
+            await submitSolutionsToAI(challengeId);
+        }
+        return await prisma.challenge.update({
+            where: {
+                id: challengeId
+            }, data: {
+                status: "COMPLETED"
+            }
+        })
+    } catch (error) {
+        await prisma.challenge.update({
+            where: {
+                id: challengeId
+            }, data: {
+                status: "FINISHED"
+            }
+        })
+        throw error;
+    }
+}
 export async function finishChallenge(userId, challengeId) {
     const challenge = await prisma.challenge.findUnique({
         where: {
@@ -117,34 +159,28 @@ export async function finishChallenge(userId, challengeId) {
         }
     })
     if (!challenge) throw new Error("Challenge Not Found");
-    const groupId = Number(challenge.groupId);
-    const group = await prisma.grupos.findFirst({
-        where: {
-            id: groupId,
-            ownerId: userId
-        }
-    })
-    if (!group) throw new Error("YOU ARE NOT THE OWNER");
-    if (challenge.status === "FINISHED") throw new Error("Challenge alredy Finished");
+    const canFinish = await isParticipantOrOwner(userId, challenge);
+    if (!canFinish) throw new Error("Not Participating");
+    if (challenge.status !== "RUNNING") throw new Error("Challenge Already Finished");
     const isTimeout = hasChallengeEnded(challenge);
-    //console.log(isTimeout)
     const allsubmitted = await allParticipantsSubmitted(challengeId);
-    //console.log(allsubmitted)
-    if (isTimeout || !allsubmitted) throw new Error("Out of Time or missing participants to submit");
-    const startedChalllenge = await prisma.challenge.update({
+    if (!isTimeout && !allsubmitted) throw new Error("Challenge Still Running");
+    const claimed = await prisma.challenge.updateMany({
         where: {
-            id: challengeId
+            id: challengeId,
+            status: "RUNNING"
         }, data: {
-            status: "FINISHED",
+            status: "EVALUATING",
             finishedAt: new Date()
         }
     })
+    if (claimed.count === 0) throw new Error("Challenge Already Finished");
+    const finishedChallenge = await evaluateChallenge(challengeId);
     return {
-        title: startedChalllenge.title,
-        problem: startedChalllenge.problem,
-        status: startedChalllenge.status,
-        startedAt: startedChalllenge.startedAt,
-        finishedAt: startedChalllenge.finishedAt
+        title: finishedChallenge.title,
+        status: finishedChallenge.status,
+        startedAt: finishedChallenge.startedAt,
+        finishedAt: finishedChallenge.finishedAt
     }
 }
 export async function submitAllSolutions(userId, challengeId) {
@@ -154,28 +190,24 @@ export async function submitAllSolutions(userId, challengeId) {
         }
     })
     if (!challenge) throw new Error("Challenge Not Found");
-    const groupId = Number(challenge.groupId);
     const group = await prisma.grupos.findFirst({
         where: {
-            id: groupId,
+            id: Number(challenge.groupId),
             ownerId: userId
         }
     })
     if (!group) throw new Error("YOU ARE NOT THE OWNER");
-    if (challenge.status !== "FINISHED") throw new Error("challenge completed or not finished");
-    const results = await submitSolutionsToAI(challengeId);
-    if (!results) throw new Error("Failed to subtmit solutions")
-    console.log("1 - AI terminou");
-    console.log("2 - results:", results);
-    const completeChallenge = await prisma.challenge.update({
+    const stuckEvaluating = challenge.status === "EVALUATING" && Date.now() - new Date(challenge.finishedAt).getTime() > 120000;
+    if (challenge.status !== "FINISHED" && !stuckEvaluating) throw new Error("Challenge Already Finished");
+    await prisma.challenge.update({
         where: {
             id: challengeId
         }, data: {
-            status: "COMPLETED"
+            status: "EVALUATING"
         }
     })
-    console.log("3 - Challenge atualizado:", completeChallenge);
-    return results;
+    await evaluateChallenge(challengeId);
+    return await prisma.result.findMany({ where: { challengeId } });
 }
 export async function submitSolution(submission, challengeid, userid) {
     const { challengId, userId, type, solution, submitted } = submission;
@@ -195,14 +227,14 @@ export async function submitSolution(submission, challengeid, userid) {
     })
     if (!member) throw new Error("Not Participating");
     if (challenge.status !== "RUNNING") throw new Error("Challenge is not running");
-    const alredySubmitted = await prisma.submission.findUnique({
+    const alreadySubmitted = await prisma.submission.findUnique({
         where: {
             userId_challengeId: {
                 userId: userid, challengeId: challengeid
             }
         }
     })
-    if (alredySubmitted) throw new Error("Alredy Submitted");
+    if (alreadySubmitted) throw new Error("Already Submitted");
     //if(Number.isNaN(secondsRemainig)){throw new Error("remaining time not provided")}
     if (solution.trim() === "") {
         throw new Error("Provide a valid Solution!");
@@ -225,7 +257,16 @@ export async function joinChallenge(userid, challengeid) {
         }
     })
     if (!challenge) throw new Error("Challenge Not Found");
-    if (challenge.status !== "READY") throw new Error("Challenge not redy or finished");
+    const member = await prisma.challengeParticipants.findUnique({
+        where: {
+            challengeId_userId: {
+                challengeId: challengeid,
+                userId: userid
+            }
+        }
+    })
+    if (member) throw new Error("Already participating");
+    if (challenge.status !== "READY") throw new Error("Challenge not ready or finished");
 
     const joinchallenge = await prisma.challengeParticipants.create({
         data: {

@@ -14,7 +14,7 @@ export async function createChallenge(req, res) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return res.status(401).json({
-                    message: "Challenge alredy existes"
+                    message: "Challenge already exists"
                 })
             } else if (error.code === "P2012") {
                 return res.status(400).json({
@@ -92,8 +92,12 @@ export async function finishChallenge(req, res) {
             return res.status(404).json({
                 message: error.message
             })
-        } else if (error.message.trim() === "YOU ARE NOT THE OWNER") {
+        } else if (error.message.trim() === "Not Participating") {
             return res.status(403).json({
+                message: error.message
+            })
+        } else if (error.message.trim() === "Challenge Already Finished" || error.message.trim() === "Challenge Still Running") {
+            return res.status(409).json({
                 message: error.message
             })
         }
@@ -108,7 +112,8 @@ export async function submitSolution(req, res) {
         const userId = Number(req.user.id);
         const solution = req.body;
         const submission = await challengeService.submitSolution(solution, challengeId, userId);
-        res.status(200).json({
+        res.status(201).json({
+            message: "Solution submitted successfully",
             submission: submission
         })
     } catch (error) {
@@ -122,10 +127,18 @@ export async function submitSolution(req, res) {
             return res.status(403).json({
                 message: error.message
             })
+        } else if (error.message.trim() === "Already Submitted") {
+            return res.status(409).json({
+                message: error.message
+            })
+        } else if (error.message.trim() === "Provide a valid Solution!") {
+            return res.status(400).json({
+                message: error.message
+            })
         } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return res.status(409).json({
-                    message: "Alredy submitted"
+                    message: "Already submitted"
                 })
             } else if (error.code === "P2012") {
                 return res.status(400).json({
@@ -148,7 +161,7 @@ export async function submitAllSolutions(req, res) {
         const challengeId = Number(req.params.challengeId);
         const results = await challengeService.submitAllSolutions(userId, challengeId);
         res.status(200).json({
-            message: "Submissios sent",
+            message: "Solutions evaluated",
             results: results
         })
     } catch (error) {
@@ -156,8 +169,11 @@ export async function submitAllSolutions(req, res) {
             return res.status(404).json({
                 message: error.message
             })
-        } else if (error.message.trim() === "YOU ARE NOT THE OWNER" ||
-            error.message.trim() === "Challenge alredy Finished") {
+        } else if (error.message.trim() === "YOU ARE NOT THE OWNER") {
+            return res.status(403).json({
+                message: error.message
+            })
+        } else if (error.message.trim() === "Challenge Already Finished") {
             return res.status(403).json({
                 message: error.message
             })
@@ -173,14 +189,14 @@ export async function joinChallenge(req, res) {
         const challengeId = Number(req.params.challengeId);
         const joinchallenge = await challengeService.joinChallenge(userId, challengeId);
         res.status(200).json({
-            message: "joined",
+            message: "Joined",
             joinchallenge
         })
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return res.status(409).json({
-                    message: "Alredy Participating"
+                    message: "Already participating"
                 })
             } else if (error.code === "P2012") {
                 return res.status(400).json({
@@ -190,6 +206,10 @@ export async function joinChallenge(req, res) {
         }
         if (error.message.trim() === "Challenge Not Found") {
             return res.status(404).json({
+                message: error.message
+            })
+        } else if (error.message.trim() === "Already participating" || error.message.trim() === "Challenge not ready or finished") {
+            return res.status(409).json({
                 message: error.message
             })
         }

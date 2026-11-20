@@ -10,6 +10,8 @@ import cors from "cors";
 import { apiReference } from "@scalar/express-api-reference"
 import openapiDocument from "./docs/openAPI.js";
 import chatRoutes from "./routes/chatRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js"
+import adminMiddleware from "./middlewares/adminMiddleware.js";
 
 
 const app = express();
@@ -29,6 +31,7 @@ app.use("/api/users", authMiddleware, userRoutes);
 app.use("/api/groups", authMiddleware, groupRoutes);
 app.use("/api/challenges", authMiddleware, challengeRoutes);
 app.use("/api/chat", authMiddleware, chatRoutes);
+app.use("/api/admin", adminMiddleware, adminRoutes);
 export default app;
 /*
 app.get("/", (request, response) => {

@@ -124,7 +124,7 @@ groupsBtn.addEventListener("click", () => {
 loadGroups();
 async function loadGroups() {
     if (groups.length === 0) {
-        groupsContainer.innerHTML = "No groups availible yet.";
+        groupsContainer.innerHTML = "No groups available yet.";
         groupsContainer.style.textAlign = "center";
     } else {
         groups.forEach((group) => {
@@ -156,9 +156,7 @@ async function loadGroups() {
                 );
                 const data = await response.json();
                 const challenges = data.challenges.filter(
-                    challenge =>
-                        challenge.status === "FINISHED" ||
-                        challenge.status === "COMPLETED"
+                    challenge => challenge.status === "COMPLETED"
                 );
                 const list = document.createElement("div");
                 list.classList.add("challenge-list");
@@ -191,53 +189,61 @@ async function loadGroups() {
     }
 }
 function placePositions(results) {
-    if (results.length == 2) {
-        firstName.textContent = `${results[0].username.split(" ")[0]}`;
-        firstScore.textContent = `${results[0].score} pts`;
-        secondName.textContent = `${results[1].username.split(" ")[0]}`;
-        secondScore.textContent = `${results[1].score} pts`;
-        fillAvatar(document.getElementById("first-avatar"), results[0]);
-        fillAvatar(document.getElementById("second-avatar"), results[1]);
-        thirdPosition.style.display = "none"
-
+    document.querySelectorAll(".rank-result, .rank-empty").forEach(element => element.remove());
+    const podium = [
+        { box: firstPosition, name: firstName, score: firstScore, avatar: "first-avatar" },
+        { box: secondPosition, name: secondName, score: secondScore, avatar: "second-avatar" },
+        { box: thirdPosition, name: thirdName, score: thirdScore, avatar: "third-avatar" }
+    ];
+    podium.forEach((place, index) => {
+        const result = results?.[index];
+        if (!result) {
+            place.box.style.visibility = "hidden";
+            return;
+        }
+        place.box.style.visibility = "visible";
+        place.name.textContent = index === 0 ? result.username : result.username.split(" ")[0];
+        place.score.textContent = `${result.score} pts`;
+        fillAvatar(document.getElementById(place.avatar), result);
+    });
+    if (!results || results.length === 0) {
+        const empty = document.createElement("p");
+        empty.classList.add("rank-empty");
+        empty.textContent = "Nobody submitted a solution in this challenge.";
+        rankContainer.appendChild(empty);
+        return;
     }
-    else if (results.length >= 3) {
-        firstName.textContent = `${results[0].username}`;
-        firstScore.textContent = `${results[0].score} pts`;
-        secondName.textContent = `${results[1].username.split(" ")[0]}`;
-        secondScore.textContent = `${results[1].score} pts`;
-        thirdName.textContent = `${results[2].username.split(" ")[0]}`;
-        thirdScore.textContent = `${results[2].score} pts`;
-        fillAvatar(document.getElementById("first-avatar"), results[0]);
-        fillAvatar(document.getElementById("second-avatar"), results[1]);
-        fillAvatar(document.getElementById("third-avatar"), results[2]);
-        let otherResults = results.slice(3);
-        document
-            .querySelectorAll(".rank-result")
-            .forEach((element) => {
-                element.remove();
-            })
-        otherResults.forEach((result) => {
-            const card = document.createElement("div");
-            const left = document.createElement("div");
-            const right = document.createElement("div");
-            const position = document.createElement("span");
-            const name = document.createElement("span");
-            const icon = createAvatar(result, "others-icon");
-            card.classList.add("rank-result");
-            left.classList.add("descrip");
-            right.classList.add("others-score");
-            name.classList.add("participantName");
-            position.classList.add("others-position");
-            position.textContent = `${result.rank}`;
-            name.textContent = `${result.username}`;
-            right.textContent = `${result.score} pts`;
-            left.appendChild(position);
-            left.appendChild(icon)
-            left.appendChild(name);
-            card.appendChild(left);
-            card.appendChild(right);
-            rankContainer.appendChild(card);
+    const hint = document.createElement("p");
+    hint.classList.add("rank-empty");
+    hint.textContent = "Click a name to see what the AI said about the solution.";
+    rankContainer.appendChild(hint);
+    results.forEach((result) => {
+        const card = document.createElement("div");
+        const left = document.createElement("div");
+        const right = document.createElement("div");
+        const position = document.createElement("span");
+        const name = document.createElement("span");
+        const feedback = document.createElement("p");
+        const icon = createAvatar(result, "others-icon");
+        card.classList.add("rank-result");
+        left.classList.add("descrip");
+        right.classList.add("others-score");
+        name.classList.add("participantName");
+        position.classList.add("others-position");
+        feedback.classList.add("rank-feedback");
+        position.textContent = `${result.rank}`;
+        name.textContent = `${result.username}`;
+        right.textContent = `${result.score} pts`;
+        feedback.textContent = `${result.approved ? "Approved" : "Not approved"} · ${result.feedback || "No feedback"}`;
+        left.appendChild(position);
+        left.appendChild(icon)
+        left.appendChild(name);
+        card.appendChild(left);
+        card.appendChild(right);
+        card.appendChild(feedback);
+        card.addEventListener("click", () => {
+            card.classList.toggle("open");
         });
-    }
+        rankContainer.appendChild(card);
+    });
 }

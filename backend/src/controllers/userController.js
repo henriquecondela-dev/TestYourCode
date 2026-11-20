@@ -15,7 +15,7 @@ export  async function getUsers(req, res){
         });
     }catch(error){
         res.status(500).json({  
-            message: "Erro ao listar usuários"
+            message: "Could not list users"
         });
     }
 }

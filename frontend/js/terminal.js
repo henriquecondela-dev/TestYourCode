@@ -6,20 +6,22 @@ let indice=0;
 
 function write(){
     const texts=[
-    "    import java.util.Scanner;",
+    "import java.util.Scanner;",
+    "",
+    "public class Main {",
     "    public static void main(String[] args) {",
-    "        int[] armazem=new int[10];",
-    "        Scanner input=new Scanner(System.in);",
-    "        System.out.println('Digite os valores;');",
-    "        for(int i=0; i<armazem.length; i++) {",
-    "           System.out.print('numero '+i+1+' :');",
-    "           armazem[i]=input.nextInt();",
+    "        int[] armazem = new int[10];",
+    "        Scanner input = new Scanner(System.in);",
+    "        System.out.println(\"Digite os valores:\");",
+    "        for (int i = 0; i < armazem.length; i++) {",
+    "            System.out.print(\"numero \" + (i + 1) + \": \");",
+    "            armazem[i] = input.nextInt();",
     "        }",
-    "        int soma=0;",
-    "        for(int n:armazem){",
-    "            soma+=n;",
+    "        int soma = 0;",
+    "        for (int n : armazem) {",
+    "            soma += n;",
     "        }",
-    "        System.out.println('Soma = '+soma);",
+    "        System.out.println(\"Soma = \" + soma);",
     "    }",
     "}"];
     const currentText= texts[actualrow];
@@ -41,5 +43,5 @@ function write(){
         }
     }
 }
-setTimeout(write(),12000);
+setTimeout(write, 1000);
 

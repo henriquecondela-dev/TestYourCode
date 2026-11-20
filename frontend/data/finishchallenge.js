@@ -11,15 +11,12 @@ export async function finishChallenge(challengeID) {
             }
         });
         const challenge = await response.json();
-        if (!response.ok) {
-            if (response.status !== 403) {
-                console.error(`Stastus: ${response.status}`);
-            } throw new Error(`${challenge.message}`)
+        if (!response.ok && response.status !== 409) {
+            console.error(`Stastus: ${response.status}`);
+            throw new Error(`${challenge.message}`)
         }
         return challenge.message;
     } catch (error) {
-        if (error.message.trim() !== "YOU ARE NOT THE OWNER") {
-            console.error("ERRO: was not possible to get the groups", error.message)
-        }
+        console.error("ERRO: was not possible to finish the challenge", error.message)
     }
 }

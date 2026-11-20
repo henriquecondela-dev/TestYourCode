@@ -5,7 +5,7 @@ export async function login(req, res){
         const {email, password}=req.body;
         const token= await authService.login(email, password);
         res.status(200).json({
-            message: "Login realizado com sucesso",
+            message: "Login successful",
             token:token.token,
             user:token.user
         });
@@ -21,7 +21,7 @@ export async function signup(req, res){
        
         const user= await authService.signup(email,password,username);
         res.status(201).json({
-            message: "Usuario criado com sucesso",
+            message: "Account created successfully",
             user: {id:user.id, username:user.username, email:user.email},
         });
     }catch(error){
@@ -30,7 +30,7 @@ export async function signup(req, res){
         error.code === "P2002"
         ){
             return res.status(409).json({
-                message: "Email ou username já está em uso."
+                message: "Email or username already in use"
             });
         };
         res.status(500).json({

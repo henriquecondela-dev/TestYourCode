@@ -100,14 +100,14 @@ export async function joinInGroup(req, res) {
         const { id } = req.params;
         await groupService.joinInGroup(userId, Number(id));
         res.status(200).json({
-            message: "Joined sucecessfully"
+            message: "Joined successfully"
         })
     } catch (error) {
         if (error.message.trim() === "Group Not Found") {
             return res.status(404).json({
                 message: error.message
             })
-        } else if (error.message === "Alredy a member") {
+        } else if (error.message === "Already a member") {
             return res.status(409).json({
                 message: error.message
             })

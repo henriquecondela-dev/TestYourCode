@@ -4,7 +4,7 @@ export default function authMiddleware(req, res, next){
     const {authorization}= req.headers;
     if(!authorization){
         return res.status(401).json({
-            message:"Token nao informado."   
+            message:"Token not provided"   
         });
     }
     const token=authorization.split(" ")[1];
@@ -14,7 +14,7 @@ export default function authMiddleware(req, res, next){
         next();
     }catch(error){
         return res.status(401).json({
-            message:"Token invalido"
+            message:"Invalid token"
         });
     }
 }
