@@ -26,7 +26,7 @@ export async function getGroups() {
     });
     //console.log(groups)
     if (groups.length === 0) {
-        throw new Error("No groups availible")
+        throw new Error("No groups available")
     }
     return groups;
 
@@ -90,14 +90,14 @@ export async function joinInGroup(userId, groupId) {
         }
     })
     if (!group) throw new Error("Group Not Found");
-    const alredyMember = await prisma.groupMember.findUnique({
+    const alreadyMember = await prisma.groupMember.findUnique({
         where: {
             userId_groupId: {
                 userId: userId, groupId: groupId
             }
         }
     })
-    if (alredyMember) throw new Error("Alredy a member");
+    if (alreadyMember) throw new Error("Already a member");
     const member = await prisma.groupMember.create({
         data: {
             userId: userId, groupId: groupId, role: "MEMBER"

@@ -1,11 +1,34 @@
 import prisma from "../lib/prisma.js"
 import { callAI } from "./AIService.js"
+
+const LANGUAGE_NAMES = {
+    JAVA: "Java",
+    JAVASCRIPT: "JavaScript",
+    C: "C",
+    CPP: "C++",
+    C_CHARP: "C#",
+    PHYTON: "Python"
+};
+
+function cleanText(text) {
+    return text
+        .replace(/\\n/g, "\n")
+        .replace(/&le;/g, "≤")
+        .replace(/&ge;/g, "≥")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&ne;/g, "≠")
+        .replace(/&quot;/g, "\"")
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, "&");
+}
 export async function generateProblem(data) {
     const {
         language,
         category,
         difficulty
     } = data;
+    const languageName = LANGUAGE_NAMES[language] || language;
     if (!language || !category || !difficulty) {
         throw new Error(
             "language, category e difficulty são obrigatórios"
@@ -17,7 +40,7 @@ const prompt = `
 
                 Crie UM desafio de programação.
 
-                Linguagem: ${language}
+                Linguagem: ${languageName}
                 Categoria: ${category}
                 Dificuldade: ${difficulty}
 
@@ -29,8 +52,11 @@ const prompt = `
                 Para difuculdades faces crie mesmo exercicioas nao muto difices faces que siravam cmo aqueciemto ou para deixar o participante acostumado . um facil  que seja fazivel mesmo que seja a primeira vez num desafio.
                 Para dificuldades mais altas, crie problemas que exijam uma solução algorítmica significativa e que possam diferenciar participantes com diferentes níveis de conhecimento.
 
+                IDIOMA E TEXTO
+                O "title" e o "problem" devem estar escritos SEMPRE em português, do início ao fim, incluindo os nomes das secções e as explicações dos exemplos.
+                Use apenas texto simples. Escreva os símbolos directamente (≤, ≥, <, >, ≠) e NUNCA entidades HTML como &le; &ge; &lt; &gt;.
+
                 REGRAS DO PROBLEMA
-                o problema de estar em portugues.
                 O participante deve conseguir compreender exatamente o que precisa implementar apenas lendo o campo "problem".
 
                 O problema deve possuir uma única interpretação possível.
@@ -83,42 +109,42 @@ const prompt = `
                 "title": "...",
                 "problem": "...",
                 "referenceSolution": "...",
-                "language": "${language}"
+                "language": "${languageName}"
                 }
 
                 Dentro do texto de "problem", organize o enunciado de forma clara utilizando, quando aplicável:
 
-                Description:
+                Descrição:
                 [descrição do problema]
 
-                Objective:
+                Objectivo:
                 [objetivo]
 
-                Input:
+                Entrada:
                 [formato e significado da entrada]
 
-                Output:
+                Saída:
                 [formato e significado da saída]
 
-                Constraints:
+                Restrições:
                 [restrições]
 
-                Examples:
+                Exemplos:
                 [exemplos completos]
 
-                É permitido adicionar outras seções dentro da string "problem" quando forem necessárias para explicar corretamente o desafio, como "Rules", "Notes" ou "Special Cases".
+                É permitido adicionar outras seções dentro da string "problem" quando forem necessárias para explicar corretamente o desafio, como "Regras", "Notas" ou "Casos especiais".
 
                 EXEMPLOS
 
                 Os exemplos devem mostrar claramente:
 
-                Input:
+                Entrada:
                 [dados reais]
 
-                Output:
+                Saída:
                 [resultado real]
 
-                Explanation:
+                Explicação:
                 [uma explicação curta de por que aquela saída é produzida]
 
                 A explicação do exemplo NÃO deve revelar o algoritmo geral da solução.
@@ -147,7 +173,7 @@ const prompt = `
             
                 "referenceSolution" deve conter uma implementação completa e correta do problema na linguagem:
 
-                ${language}
+                ${languageName}
 
                 A solução deve:
 
@@ -189,7 +215,7 @@ const prompt = `
                 "title": "...",
                 "problem": "...",
                 "referenceSolution": "...",
-                "language": "${language}"
+                "language": "${languageName}"
                 }
 
                 NÃO adicione nenhuma propriedade adicional.
@@ -222,8 +248,8 @@ const prompt = `
         );
     }
     return {
-        title: aiResponse.title,
-        problem: aiResponse.problem,
+        title: cleanText(aiResponse.title),
+        problem: cleanText(aiResponse.problem),
         referenceSolution: aiResponse.referenceSolution,
         language: aiResponse.language
     };

@@ -13,8 +13,9 @@ if (!token) {
 }
 import showMessage from "./messagesAlert.js";
 import { createAvatar, fillAvatar } from "./avatar.js";
-import { hoursToSeconds } from "./timeConverter.js";
+import { hoursToSeconds, secondsToHours } from "./timeConverter.js";
 import { challengeDetail } from "../data/challengedetail.js";
+import { languageName } from "./languages.js";
 //left side consts
 const leftSide = document.querySelector(".left-side");
 const button = document.getElementById("state-btn");
@@ -26,16 +27,18 @@ const overlayG = document.getElementById("creat-overlay");
 const groupName = document.getElementById("creatGroup-name")
 let generated = false;
 //Join a groput consts
-const participateInChallengeBtn = document.getElementById("join-in-challenge");
 const joinButton = document.getElementById("joinGroup-btn");
 const overlayJ = document.getElementById("join-overlay");
 const groupsContainer = document.getElementById("groups-container");
 const cancelJ = document.getElementById("join-cancel-btn");
-const joinSelectedButton = document.getElementById("join-selected-btn");
 let selectedGroup = null;
 let selectedChallenge = null;
+let selectedStatus = null;
+let waitInterval = null;
+let statusInterval = null;
 let ownerSelectedChallenge = null;
 let ownerSelectedGroup = null;
+let ownerSelectedGroupName = "";
 //start a challenge consts
 const startChallengebutton = document.getElementById("startGroup-btn")
 const next1Btn = document.getElementById("next1-btn");
@@ -75,7 +78,7 @@ export const user = JSON.parse(sessionStorage.getItem("user"));
 username.textContent = user.username;
 fillAvatar(document.getElementById("mini-avatar"), user);
 setTimeout(function () {
-    showMessage(`Seja Bem vindo de volta ${user.username}`, "success", "message-box")
+    showMessage(`Welcome back, ${user.username}`, "success", "message-box")
 }, 2000)
 button.addEventListener("click", function () {
     leftSide.classList.toggle("collapsed");
@@ -142,9 +145,9 @@ genarateProblemBtn.addEventListener("click", async () => {
         }
         showMessage(`${challenge.message}`, "success", "startMessageAlert")
         document.getElementById("summary").innerHTML = `
-        <p>Group name:....</p>
-        <p>Title:${challenge.challenge.title}</p>
-        <p>click START to start the challenge</p>`
+        <p>Group: ${ownerSelectedGroupName}</p>
+        <p>Title: ${challenge.challenge.title}</p>
+        <p>Click START to start the challenge</p>`
         //sessionStorage.setItem("challenge",JSON.stringify(challenge.challenge));
         sessionStorage.setItem("challengeID", challenge.challenge.id);
         selectedChallenge = challenge.challenge.id;
@@ -172,65 +175,91 @@ genarateProblemBtn.addEventListener("click", async () => {
 });
 
 goInChallengeBtn.addEventListener("click", async function () {
-    waitparticipantContainer.textContent = ""
-    if (selectedChallenge === null) {
-        showMessage("Please select a challenge first", "error", "joinMessage");
+    if (selectedGroup === null) {
+        showMessage("Please select a group first", "error", "joinMessage");
         return;
     }
+    const inGroup = await joinGroup(selectedGroup);
+    if (!inGroup) return;
+    if (selectedChallenge === null) {
+        showMessage("You are in the group. Now pick a challenge", "success", "joinMessage");
+        return;
+    }
+    sessionStorage.setItem("challengeID", selectedChallenge);
+    if (selectedStatus === "COMPLETED") {
+        window.location.href = "results.html";
+        return;
+    }
+    const inChallenge = await joinChallenge(selectedChallenge);
+    if (!inChallenge) return;
+    if (selectedStatus === "RUNNING") {
+        window.location.href = "challenge.html";
+        return;
+    }
+    waitForStart();
+})
+cancelgetOut.addEventListener("click", () => {
+    clearInterval(waitInterval);
+    clearInterval(statusInterval);
+    overlaygetout.style.display = "none";
+    waitTimer.textContent = "00:00:00";
+})
+async function joinGroup(groupId) {
     try {
-        const response = await fetch(`${API_URL}/api/groups/${selectedGroup}/join`, {
+        const response = await fetch(`${API_URL}/api/groups/${groupId}/join`, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         const data = await response.json();
-        if (!response.ok) {
-            if (response.status !== 409) {
-                showMessage(`You are not a member of the group, please join in the group first`, "error", "joinMessage");
-                return;
-            }
+        if (!response.ok && response.status !== 409) {
+            showMessage(`${data.message}`, "error", "joinMessage");
+            return false;
         }
+        return true;
     } catch (error) {
-        console.log(error.message);
+        console.error("ERRO: was not possible to join the group", error.message);
         showMessage("The server is not responding. Try again.", "error", "joinMessage");
-        return;
+        return false;
     }
-    sessionStorage.setItem("challengeID", selectedChallenge)
-    await loadParticipants(Number(sessionStorage.getItem("challengeID")));
-    console.log("seleccted challenge at Groups: ", selectedChallenge)
+}
+async function joinChallenge(challengeId) {
+    try {
+        const response = await fetch(`${API_URL}/api/challenges/${challengeId}/join`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        if (!response.ok && data.message !== "Already participating") {
+            showMessage(`${data.message}`, "error", "joinMessage");
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error("ERRO: was not possible to join the challenge", error.message);
+        showMessage("The server is not responding. Try again.", "error", "joinMessage");
+        return false;
+    }
+}
+async function waitForStart() {
+    document.getElementById("wait-title").textContent = "Waiting for the owner to start...";
+    await loadParticipants(selectedChallenge);
     overlaygetout.style.display = "block";
-    let waithours = 0;
-    let waitminutes = 0;
-    let waitseconds = 0;
-    const interval = setInterval(() => {
-        /*if (waitseconds===15) {
-                clearInterval(interval);
-                //clearInterval(statusInterval);
-                window.location.href = "challenge.html";
-            }*/
-        waitseconds++;
-        if (waitseconds === 59) {
-            waitminutes++;
-            waitseconds = 0;
-        }
-        if (waitminutes === 59) {
-            waithours++;
-            waitminutes = 0;
-        }
+    let waitSeconds = 0;
+    clearInterval(waitInterval);
+    clearInterval(statusInterval);
+    waitInterval = setInterval(() => {
+        waitSeconds++;
+        const time = secondsToHours(waitSeconds);
         waitTimer.textContent =
-            `${String(waithours).padStart(2, "0")}:` +
-            `${String(waitminutes).padStart(2, "0")}:` +
-            `${String(waitseconds).padStart(2, "0")}`;
-
-        cancelgetOut.addEventListener("click", () => {
-            clearInterval(interval);
-            clearInterval(statusInterval);
-            overlaygetout.style.display = "none"
-            waitTimer.textContent = "00:00:00"
-        })
-    }, 1000)
-    const statusInterval = setInterval(async () => {
+            `${String(time.hours).padStart(2, "0")}:` +
+            `${String(time.minutes).padStart(2, "0")}:` +
+            `${String(time.seconds).padStart(2, "0")}`;
+    }, 1000);
+    statusInterval = setInterval(async () => {
         try {
             const response = await fetch(`${API_URL}/api/challenges/${selectedChallenge}`, {
                 method: "GET",
@@ -243,47 +272,23 @@ goInChallengeBtn.addEventListener("click", async function () {
                 console.error("Could not check challenge:", challenge.message);
                 return;
             }
-            console.log("Challenge status:", challenge.challenge.status);
-            if (challenge.challenge.status === "RUNNING") {
-                clearInterval(interval);
+            const status = challenge.challenge.status;
+            if (status === "RUNNING") {
+                clearInterval(waitInterval);
                 clearInterval(statusInterval);
                 window.location.href = "challenge.html";
-            } else if (challenge.challenge.status === "FINISHED" || challenge.challenge.status === "COMPLETED") {
-                clearInterval(interval);
+            } else if (status === "READY") {
+                await loadParticipants(selectedChallenge);
+            } else {
+                clearInterval(waitInterval);
                 clearInterval(statusInterval);
-                document.getElementById("wait-title").textContent = `Challenge finished`;
-                return;
+                document.getElementById("wait-title").textContent = "Challenge finished";
             }
         } catch (error) {
             console.error("Error checking challenge status:", error.message);
         }
     }, 2000);
 }
-)
-participateInChallengeBtn.addEventListener("click", async () => {
-    if (selectedChallenge === null) {
-        showMessage("Please select a challenge first", "error", "joinMessage");
-        return;
-    }
-    try {
-        const response = await fetch(`${API_URL}/api/challenges/${selectedChallenge}/join`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        const res = await response.json();
-        if (!response.ok) {
-            showMessage(`${res.message}`, "error", "joinMessage");
-            return;
-        }
-        showMessage(`${res.message}`, "success", "joinMessage");
-    } catch (error) {
-        console.log(error.message);
-        showMessage("The server is not responding. Try again.", "error", "joinMessage");
-        return;
-    }
-})
 createGroup.addEventListener("click", async () => {
     if (groupName.value.trim() === "") {
         showMessage("Please write a name for the group", "error", "message-box-create");
@@ -306,9 +311,9 @@ createGroup.addEventListener("click", async () => {
             //console.error(`Stastus: ${response.status}, message:${group.message}`)
             throw new Error("")
         }
-        if (response.status !== 500) {
-            showMessage(`${group.message}`, "success", "message-box-create")
-        }
+        showMessage(`${group.message}`, "success", "message-box")
+        groupName.value = "";
+        overlayG.style.display = "none";
     } catch (error) {
         console.error("ERRO: was not possible to create the group", error.message)
         if (error.message !== "") {
@@ -349,35 +354,6 @@ startchallenge.addEventListener("click", () => {
         window.location.href = "challenge.html";
     }
 });
-joinSelectedButton.addEventListener("click", async function () {
-    if (selectedGroup === null) {
-        //alert("please select a gropup");
-        showMessage("Please select a group first", "error", "joinMessage");
-        return;
-    } else {
-        //console.log("joining group", selectedGroup);
-        try {
-            const response = await fetch(`${API_URL}/api/groups/${selectedGroup}/join`, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            const data = await response.json();
-            if (!response.ok) {
-                showMessage(`${data.message}`, "error", "joinMessage");
-                return;
-            }
-            showMessage(`${data.message}`, "success", "joinMessage");
-        } catch (error) {
-            console.log(error.message)
-            showMessage("The server is not responding. Try again.", "error", "joinMessage");
-            return;
-        }
-        sessionStorage.setItem("challengeID", selectedChallenge)
-        console.log("seleccted challenge at ownerGroup: ", selectedChallenge)
-    }
-});
 async function loadOwnerGroups() {
     const ownerGroups = await getMyGroups();
     if (ownerGroups.length === 0) {
@@ -402,6 +378,7 @@ async function loadOwnerGroups() {
                 });
                 card.classList.add("selected-group");
                 ownerSelectedGroup = ownerGroup.id;
+                ownerSelectedGroupName = ownerGroup.name;
                 console.log("selected group: ", ownerSelectedGroup)
                 const response = await fetch(`${API_URL}/api/groups/${ownerGroup.id}/challenges`, {
                     headers: {
@@ -417,7 +394,7 @@ async function loadOwnerGroups() {
                 readyChallenges.forEach(challenge => {
                     const item = document.createElement("div");
                     item.classList.add("challenge-card");
-                    item.textContent = `${challenge.title} | ${challenge.language}`;
+                    item.textContent = `${challenge.title} | ${languageName(challenge.language)}`;
                     item.addEventListener("click", (e) => {
                         document.querySelectorAll(".challenge-card").forEach(element => {
                             element.classList.remove("selected");
@@ -440,6 +417,7 @@ async function loadOwnerGroups() {
 }
 async function loadParticipants(challengeid) {
     const AllUsers = await getParticipants(challengeid);
+    waitparticipantContainer.innerHTML = "";
     if (AllUsers.length === 0) {
         waitparticipantContainer.innerHTML = "<p>No participants yet</p>";
     } else {
@@ -456,7 +434,7 @@ async function loadParticipants(challengeid) {
 async function loadGroups() {
     const groups = await getGroups();
     if (groups.length === 0) {
-        groupsContainer.innerHTML = "No groups availible yet.";
+        groupsContainer.innerHTML = "No groups available yet.";
         groupsContainer.style.textAlign = "center";
     } else {
         groups.forEach((group) => {
@@ -473,6 +451,7 @@ async function loadGroups() {
                 card.addEventListener("click", async () => {
 
                     selectedChallenge = null;
+                    selectedStatus = null;
                     selectedGroup = null;
 
                     document.querySelectorAll(".group-card").forEach(card => {
@@ -512,7 +491,7 @@ async function loadGroups() {
                             `challenge-${challenge.status.toLowerCase()}`
                         );
                         item.textContent =
-                            `${challenge.title} | ${challenge.language}(${challenge.status})`;
+                            `${challenge.title} | ${languageName(challenge.language)} (${challenge.status})`;
                         item.addEventListener("click", (e) => {
                             document
                                 .querySelectorAll(".challenge-card")
@@ -522,6 +501,7 @@ async function loadGroups() {
                             item.classList.add("selected");
                             e.stopPropagation();
                             selectedChallenge = challenge.id;
+                            selectedStatus = challenge.status;
                             sessionStorage.setItem(
                                 "challengeID",
                                 selectedChallenge

@@ -7,11 +7,11 @@ export async function login(email, password) {
         where:{email}
     });
     if (!user){
-        throw new Error("Email ou senha invalidos");
+        throw new Error("Wrong email or password");
     }
     const isPasswordCorrect= await bcrypt.compare(password, user.password);
     if(!isPasswordCorrect){
-        throw new Error("Email ou senha invalidos");
+        throw new Error("Wrong email or password");
     }
     const token= jwt.sign({id:user.id, username:user.username}, process.env.JWT_SECRET,{expiresIn:"24h"});
     return {token, user:{id:user.id, username:user.username, email:user.email, avatar:user.avatar, avatarColor:user.avatarColor}};

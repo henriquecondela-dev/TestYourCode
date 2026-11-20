@@ -11,3 +11,11 @@ GROQ_API_KEY=""
 
 #can be (groq or gemini) or other AIs to be added
 AI_PROVIDER=
+
+ADMIN_KEY=""
+
+GMAIL_USER="testyourcode.tech@gmail.com"
+GMAIL_NAME="Henrique - TestYourCode"
+GMAIL_CLIENT_ID=""
+GMAIL_CLIENT_SECRET=""
+GMAIL_REFRESH_TOKEN=""
