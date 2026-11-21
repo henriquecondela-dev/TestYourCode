@@ -1666,7 +1666,7 @@ const openapiDocument = {
                                 "properties": {
                                     "content": {
                                         "type": "string",
-                                        "example": "Bora @kelvin"
+                                        "example": "Bora @hacker1"
                                     }
                                 }
                             }
@@ -1836,7 +1836,7 @@ const openapiDocument = {
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "kelvin@gmail.com"
+                                        "example": "hguambejunior@gmail.com"
                                     },
                                     "subject": {
                                         "type": "string",
@@ -1982,7 +1982,7 @@ const openapiDocument = {
                     },
                     "content": {
                         "type": "string",
-                        "example": "Bora @kelvin"
+                        "example": "Bora @hacker1"
                     },
                     "createdAt": {
                         "type": "string",
