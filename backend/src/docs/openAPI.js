@@ -1766,7 +1766,7 @@ const openapiDocument = {
                                     },
                                     "message": {
                                         "type": "string",
-                                        "example": "Agora já tens chat e avatares. Passa por lá!\n\nAbraço,\nHenrique"
+                                        "example": "Tenho novidades people!\n\nAbraço,\nHenrique"
                                     },
                                     "test": {
                                         "type": "boolean",
@@ -1859,7 +1859,7 @@ const openapiDocument = {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "sent": { "type": "string", "example": "kelvin@gmail.com" }
+                                        "sent": { "type": "string", "example": "hguambejunior@gmail.com" }
                                     }
                                 }
                             }
