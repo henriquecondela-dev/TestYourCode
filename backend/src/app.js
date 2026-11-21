@@ -21,7 +21,7 @@ app.use(cors());
 //app.use(newrequest);
 
 app.use(logger);
-app.use("/api-docs", apiReference({
+app.use("/", apiReference({
     spec: {
         content: openapiDocument
     }
