@@ -15,86 +15,14 @@ const participantContainer = document.getElementById("participants-container");
 const fileType = document.getElementById("file-type-btn");
 const textType = document.getElementById("text-type-btn");
 const textarea = document.getElementById("code");
+const bottomSideSubmit= document.querySelector(".bottom-side");
 const lineNumbers = document.getElementById("line-numbers");
 const fileInput = document.getElementById("file");
 const problem = document.getElementById("problem");
 const status = document.getElementById("status");
 const programlanguage = document.getElementById("progaming-language");
 const submitButton = document.getElementById("submitSolution-btn");
-/*const users = [
-    {
-        id: 1,
-        username: "Henrique",
-        submitted: false,
-        solution: null
-    },
-    {
-        id: 2,
-        username: "Simiao",
-        submitted: true,
-        solution: {
-            type: "text",
-            content: "Hello ever one"
-        }
-    },
-    {
-        id: 3,
-        username: "Antonio",
-        submitted: true,
-        solution: {
-            type: "text",
-            content: "Hello ever one"
-        }
-    }, {
-        id: 4,
-        username: "pedro",
-        submitted: true,
-        solution: {
-            type: "text",
-            content: "Hello ever one"
-        }
-    }, {
-        id: 5,
-        username: "Ana cristia",
-        submitted: true,
-        solution: {
-            type: "text",
-            content: "Hello ever one"
-        }
-    },
-    {
-        id: 3,
-        username: "Antonio",
-        submitted: true,
-        solution: {
-            type: "text",
-            content: "Hello ever one"
-        }
-    },
-    {
-        id: 3,
-        username: "Antonio",
-        submitted: false,
-        solution: {
-            type: "text",
-            content: "Hello ever one"
-        }
-    },
-    {
-        id: 3,
-        username: "Andrea",
-        submitted: false,
-        solution: {
-            type: "text",
-            content: "Hello ever one"
-        }
-    }
-];
-*/
-//const challengeDetails = getChallenge();
-/*if(!challengeDetails){
-    
-}*/
+
 let type = null;
 let id;
 const challengedetail = getChallenge();
@@ -126,10 +54,13 @@ textType.classList.add("active");
 textType.addEventListener("click", () => {
     textType.classList.add("active");
     fileType.classList.remove("active");
+    bottomSideSubmit.classList.add("off");
+    
 })
 fileType.addEventListener("click", () => {
     fileType.classList.add("active");
     textType.classList.remove("active");
+    bottomSideSubmit.classList.toggle("off");
 })
 submitButton.addEventListener("click", async () => {
     console.log("voce clicou")

@@ -11,8 +11,10 @@ const usernameError = document.getElementById("username-error");
 const signEmailError = document.getElementById("signemail-error");
 const signPasswordError = document.getElementById("signpassword-error");
 const signPasswordConfirmError = document.getElementById("confirmpassword-error");
-
-console.log("Signform: ", signform);
+const signbtn= document.getElementById("signup");
+const spinner = document.getElementById("spinner-icon");
+const loginText = document.getElementById("login-text");
+// console.log("Signform: ", signform);
 signform.addEventListener("submit", async function (event) {
     event.preventDefault();
     let valid = true;
@@ -57,6 +59,9 @@ signform.addEventListener("submit", async function (event) {
     if (!valid) {
         return;
     }
+    spinner.style.display = "block";
+    loginText.style.display = "none";
+    signbtn.disabled = true;   
     try {
         const response = await fetch(`${API_URL}/api/auth/signup`, {
             method: "POST",
@@ -86,5 +91,11 @@ signform.addEventListener("submit", async function (event) {
         }, 1000)
     } catch (error) {
         console.error("Error during signup:", error);
+        showMessage(`An error occured durring registration, try again later`, "error", "signup-error-message");
+
+    } finally {
+        spinner.style.display = "none";
+        loginText.style.display = "inline";
+        signbtn.disabled = false;
     }
 })
