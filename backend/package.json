@@ -30,5 +30,5 @@
   "main": "server.js",
   "keywords": [],
   "author": "henriquecondela-dev",
-  "license": "ISC"
+  "license": "AGPL-3.0-only"
 }

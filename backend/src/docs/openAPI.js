@@ -1666,7 +1666,7 @@ const openapiDocument = {
                                 "properties": {
                                     "content": {
                                         "type": "string",
-                                        "example": "Bora @kelvin"
+                                        "example": "Bora @hacker1"
                                     }
                                 }
                             }
@@ -1766,7 +1766,7 @@ const openapiDocument = {
                                     },
                                     "message": {
                                         "type": "string",
-                                        "example": "Agora já tens chat e avatares. Passa por lá!\n\nAbraço,\nHenrique"
+                                        "example": "Tenho novidades people!\n\nAbraço,\nHenrique"
                                     },
                                     "test": {
                                         "type": "boolean",
@@ -1836,7 +1836,7 @@ const openapiDocument = {
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "kelvin@gmail.com"
+                                        "example": "hguambejunior@gmail.com"
                                     },
                                     "subject": {
                                         "type": "string",
@@ -1859,7 +1859,7 @@ const openapiDocument = {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "sent": { "type": "string", "example": "kelvin@gmail.com" }
+                                        "sent": { "type": "string", "example": "hguambejunior@gmail.com" }
                                     }
                                 }
                             }
@@ -1982,7 +1982,7 @@ const openapiDocument = {
                     },
                     "content": {
                         "type": "string",
-                        "example": "Bora @kelvin"
+                        "example": "Bora @hacker1"
                     },
                     "createdAt": {
                         "type": "string",
