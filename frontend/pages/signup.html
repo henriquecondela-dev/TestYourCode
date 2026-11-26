@@ -34,6 +34,11 @@
                         <input type="password" id="sign-password" class="form-input" name="password">
                         <button type="button" class="show-password" data-target="sign-password">Show</button>
                     </div>
+                    <span><ol>
+                        <li>Mininum 6 characters</li>
+                        <li>Password must contain a upper case, a lower case and a number</li>
+                    
+                    </ol></span>
                     <small class="form-error" id="signpassword-error"></small>
 
                     <label class="form-label" for="password-confirmation">Confirm the password<sup style="color: red;">*</sup>:</label>
@@ -42,9 +47,14 @@
                         <button type="button" class="show-password" data-target="password-confirmation">Show</button>
                     </div>
                     <small class="form-error" id="confirmpassword-error"></small>
-                    <a class="link" href="login.html">I have an account. <b>Login</b></a>
-                    <button id="signup" type="submit">Sign up</button>
+                    
+                    <!-- <button id="signup" type="submit">Sign up</button> -->
+                    <button id="signup" type="submit">
+                        <img id="spinner-icon" src="/assets/images/spinner_barras (1).png" alt="Loading...">
+                        <span id="login-text">Sign Up</span>
+                    </button>
                 </form>
+                <a class="link" href="login.html">I have an account. <b>Login</b></a>
            </div>
     </div>
     <script type="module" src="/frontend/js/messagesAlert.js"></script>
