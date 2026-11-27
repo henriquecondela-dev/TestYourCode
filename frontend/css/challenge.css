@@ -484,3 +484,180 @@ body{
 #live-results.hidden{
     display: none;
 }
+
+/* ---------- Telemóvel: separadores Problem / Code ---------- */
+.m-tabs,
+.m-keys{
+    display: none;
+}
+@media (max-width: 700px){
+    html,
+    body{
+        height: 100dvh;
+        min-height: 0;
+        overflow: hidden;
+    }
+    /* Barra de cima: tempo à esquerda, Submit à direita (o logo sai) */
+    #top-bar{
+        min-height: 56px;
+        padding: 0 12px;
+        gap: 8px;
+    }
+    #logo-name{
+        display: none;
+    }
+    #top-bar #challenge-timer{
+        padding: 0;
+        border: none;
+        background: none;
+        font-size: 13px;
+    }
+    #top-bar #timer{
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    #submitSolution-btn{
+        min-height: 40px;
+        padding: 0 16px;
+        font-size: 14px;
+    }
+    #live-results{
+        min-height: 40px;
+        margin-left: 8px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .challenge-section{
+        flex-direction: column;
+        height: auto;
+    }
+    /* O aside "desaparece" e os filhos dele passam a ser filhos directos da secção */
+    .challenge-info{
+        display: contents;
+    }
+    .m-tabs{
+        display: flex;
+        flex-shrink: 0;
+        order: 1;
+        border-bottom: 1px solid var(--dark-line);
+        background-color: var(--dark-2);
+    }
+    .m-tabs button{
+        flex: 1;
+        height: 44px;
+        border: none;
+        background: none;
+        color: hsl(0, 0%, 55%);
+        font-family: var(--font-label);
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .m-tabs button.on{
+        color: hsl(0, 0%, 93%);
+        box-shadow: inset 0 -3px 0 var(--accent-dark);
+    }
+
+    /* Separador Problem */
+    .content{
+        order: 2;
+        flex: 1;
+        min-height: 0;
+        padding: 16px 14px;
+        overflow-y: auto;
+        background-color: var(--dark);
+    }
+    #problem{
+        font-size: 14.5px;
+        line-height: 1.55;
+    }
+    .participants-card{
+        display: none;
+    }
+
+    /* Separador Code */
+    .editor-section{
+        display: none;
+        order: 2;
+        flex: 1;
+        min-height: 0;
+        width: auto;
+    }
+    .challenge-section.show-code .content{
+        display: none;
+    }
+    .challenge-section.show-code .editor-section{
+        display: flex;
+    }
+    #editor-header,
+    #editor-language{
+        display: none;
+    }
+    #code{
+        font-size: 14px;
+    }
+    .m-keys{
+        display: flex;
+        flex-shrink: 0;
+        gap: 5px;
+        padding: 7px 8px;
+        border-top: 1px solid var(--dark-line);
+        background-color: var(--dark-2);
+    }
+    .m-keys button{
+        flex: 1;
+        height: 38px;
+        border: none;
+        border-radius: var(--borders);
+        background-color: hsl(0, 0%, 16%);
+        color: hsl(0, 0%, 90%);
+        font-family: var(--font-code);
+        font-size: 14px;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .m-keys button:active{
+        background-color: hsl(0, 0%, 26%);
+    }
+
+    /* Barra de baixo: o teu estado e quem já submeteu */
+    .bottom-side{
+        order: 3;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 0;
+        padding: 10px 14px;
+        background-color: var(--dark-2);
+    }
+    #status-header{
+        display: none;
+    }
+    #status{
+        margin: 0;
+        font-size: 12px;
+    }
+    .bottom-side #participants-container{
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 4px;
+        overflow-x: auto;
+    }
+    /* Só o avatar de cada participante; quem já submeteu fica verde */
+    .bottom-side .participant-card{
+        padding: 0;
+        border: none;
+        background: none;
+        font-size: 0 !important;
+    }
+    .bottom-side .participant-card .card-avatar{
+        opacity: 0.45;
+    }
+    .bottom-side .participant-card.submitted .card-avatar{
+        opacity: 1;
+        outline: 2px solid var(--accent-dark);
+        outline-offset: -2px;
+    }
+}

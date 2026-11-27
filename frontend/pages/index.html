@@ -8,6 +8,7 @@
     <script src="/frontend/js/tema.js"></script>
     <link rel="stylesheet" href="/frontend/css/index.css">
     <link rel="stylesheet" href="/frontend/css/messegesAlert.css">
+    <link rel="stylesheet" href="/frontend/css/mobile.css">
     <title>TestYourCode</title>
 </head>
 <body>
@@ -23,6 +24,11 @@
             <a class="link" href="home.html#how">
                 <span class="icon"><img src="/assets/images/inicio.png" alt="how to play"></span>
                 <span class="text">How to play</span>
+            </a>
+
+            <a class="link active" href="index.html">
+                <span class="icon"><img src="/assets/images/home.png" alt="dashboard"></span>
+                <span class="text">Dashboard</span>
             </a>
 
             <a class="link" href="results.html">
@@ -112,13 +118,13 @@
                         <div id="start-settings-modal">
                             <div class="cancelModel"><button type="button" class="btn" id="start-cancel-btn2">X</button></div>
                             <h2 class="headLink">Preferences</h2>
-                            <div>
+                            <div class="field field-time">
                                 <label class="link" for="DurationTime">Duration Time: </label>
                                 <input type="number" class="time" id="hours" min="0" value="01"><small>h</small> :
                                 <input type="number" class="time" id="minutes" min="0" value="30"><small>m</small> :
                                 <input type="number" class="time" id="seconds" min="0" value="00"><small>s</small>
                             </div>
-                            <div>
+                            <div class="field">
                                 <label  class="link" for="difficulty">Difficulty Level: </label>
                                 <select name="difficulty" id="difficulty">
                                     <option value="EASY">Easy</option>
@@ -126,7 +132,7 @@
                                     <option value="HARD">Hard</option>
                                 </select>
                             </div>
-                            <div>
+                            <div class="field">
                                 <label  class="link" for="category">Challenge Category: </label>
                                 <select name="category" id="category">
                                     <option value="FUNDAMENTALS">Fundamentals</option>
@@ -138,7 +144,7 @@
                                     <option value="RANDOM">Random</option>
                                 </select>
                             </div>
-                            <div>
+                            <div class="field">
                                 <label class="link" for="language">Language</label>
                                 <select  name="language" id="language">
                                     <option value="JAVA">Java</option>
@@ -149,7 +155,7 @@
                                     <option value="C_CHARP">C#</option>
                                 </select>
                             </div>
-                            <div>
+                            <div class="field">
                                 <span class="link">Mode: </span>
                                 <div class="mode-choice">
                                     <label><input type="radio" name="mode" value="NORMAL" checked><span>Normal</span></label>
@@ -179,6 +185,10 @@
                         </div>
                     </div>
             </div>
+            <section class="m-groups" id="m-groups">
+                <p class="m-groups-title"><span>My groups</span><span id="m-groups-count"></span></p>
+                <div id="m-groups-list"></div>
+            </section>
             <div id="terminal">
                   <div id="terminal-settings">
 
@@ -194,9 +204,16 @@
         </div>
 
     </div>
+    <nav class="m-nav">
+        <a href="index.html" class="on"><span class="icon"><img src="/assets/images/home.png" alt=""></span>Home</a>
+        <a href="results.html"><span class="icon"><img src="/assets/images/history.png" alt=""></span>Results</a>
+        <a href="chat.html"><span class="icon"><img src="/assets/images/comment.png" alt=""></span>Chat</a>
+        <a href="Settings.html"><span class="icon"><img src="/assets/images/settings.png" alt=""></span>Settings</a>
+    </nav>
     <script src="/frontend/js/terminal.js"></script>
     <script type="module" src="/frontend/js/messagesAlert.js"></script>
     <script type="module" src="/frontend/js/index.js"></script>
+    <script type="module" src="/frontend/js/mobile.js"></script>
     
 </body>
 </html>
