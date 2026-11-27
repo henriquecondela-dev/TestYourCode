@@ -1,5 +1,7 @@
 import prisma from "../lib/prisma.js";
 const ONLINE_SECONDS = 15;
+const HISTORY_LIMIT = 250;
+const SYNC_LIMIT = 100;
 export async function sendMessage(userId, content) {
     if (!content || content.trim() === "") throw new Error("Empty Message");
     const text = content.trim();
@@ -65,7 +67,7 @@ async function getMessages(after) {
             orderBy: {
                 id: "desc"
             },
-            take: 50,
+            take: HISTORY_LIMIT,
             select: select
         })
         return lastMessages.reverse();
@@ -78,7 +80,7 @@ async function getMessages(after) {
         }, orderBy: {
             id: "asc"
         },
-        take: 100,
+        take: SYNC_LIMIT,
         select: select
     })
     return newMessages;
