@@ -504,3 +504,14 @@ header{
         font-size: 12px;
     }
 }
+
+.live-banner{
+    margin: 0 0 12px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background-color: var(--card-color);
+    font-size: 14px;
+}
+.rank-result.me .participantName{
+    font-weight: bold;
+}

@@ -4,6 +4,7 @@ import { getGroups } from "../data/groups.js";
 import { getToken } from "../data/store.js";
 import { createAvatar, fillAvatar } from "./avatar.js";
 const token = getToken();
+const LIVE_STATUS = ["RUNNING", "EVALUATING", "FINISHED", "COMPLETED"];
 if (!token) {
     window.location.href = "../pages/login.html"
 }
@@ -28,11 +29,23 @@ const groups = await getGroups();
 
 let selectedChallenge = null;
 let selectedGroup = null;
+let liveInterval = null;
 selectedChallenge = sessionStorage.getItem("challengeID");
 if (selectedChallenge != null) {
-    let results = await getResults(selectedChallenge);
-    placePositions(results);
-
+    await showResults(selectedChallenge);
+}
+async function showResults(challengeId) {
+    clearInterval(liveInterval);
+    const data = await getResults(challengeId);
+    placePositions(data);
+    if (data && !data.final) {
+        liveInterval = setInterval(async () => {
+            if (document.hidden) return;
+            const update = await getResults(challengeId);
+            placePositions(update);
+            if (update?.final) clearInterval(liveInterval);
+        }, 5000);
+    }
 }/*else {
     const data = [
         {
@@ -156,7 +169,7 @@ async function loadGroups() {
                 );
                 const data = await response.json();
                 const challenges = data.challenges.filter(
-                    challenge => challenge.status === "COMPLETED"
+                    challenge => LIVE_STATUS.includes(challenge.status)
                 );
                 const list = document.createElement("div");
                 list.classList.add("challenge-list");
@@ -166,8 +179,9 @@ async function loadGroups() {
                     item.classList.add(
                         `challenge-${challenge.status.toLowerCase()}`
                     );
-                    item.textContent =
-                        `${challenge.title}`;
+                    item.textContent = challenge.status === "COMPLETED"
+                        ? `${challenge.title}`
+                        : `${challenge.title} · live`;
                     item.addEventListener("click", async (e) => {
                         document
                             .querySelectorAll(".challenge-card")
@@ -177,8 +191,7 @@ async function loadGroups() {
                         item.classList.add("selected");
                         e.stopPropagation();
                         selectedChallenge = challenge.id;
-                        let results = await getResults(selectedChallenge);
-                        placePositions(results)
+                        await showResults(selectedChallenge);
                     });
                     list.appendChild(item);
                 });
@@ -188,8 +201,17 @@ async function loadGroups() {
         })
     }
 }
-function placePositions(results) {
-    document.querySelectorAll(".rank-result, .rank-empty").forEach(element => element.remove());
+function placePositions(data) {
+    const results = data?.results;
+    document.querySelectorAll(".rank-result, .rank-empty, .live-banner").forEach(element => element.remove());
+    if (data && !data.final) {
+        const banner = document.createElement("p");
+        banner.classList.add("live-banner");
+        banner.textContent = data.pending > 0
+            ? `Challenge in progress. Positions can still change. ${data.pending} solution(s) being evaluated...`
+            : "Challenge in progress. Positions can still change.";
+        rankContainer.appendChild(banner);
+    }
     const podium = [
         { box: firstPosition, name: firstName, score: firstScore, avatar: "first-avatar" },
         { box: secondPosition, name: secondName, score: secondScore, avatar: "second-avatar" },
@@ -209,13 +231,17 @@ function placePositions(results) {
     if (!results || results.length === 0) {
         const empty = document.createElement("p");
         empty.classList.add("rank-empty");
-        empty.textContent = "Nobody submitted a solution in this challenge.";
+        empty.textContent = data && !data.final
+            ? "No solution evaluated yet."
+            : "Nobody submitted a solution in this challenge.";
         rankContainer.appendChild(empty);
         return;
     }
     const hint = document.createElement("p");
     hint.classList.add("rank-empty");
-    hint.textContent = "Click a name to see what the AI said about the solution.";
+    hint.textContent = data.final
+        ? "Click a name to see what the AI said about the solution."
+        : "Click your name to see what the AI said about your solution.";
     rankContainer.appendChild(hint);
     results.forEach((result) => {
         const card = document.createElement("div");
@@ -226,6 +252,7 @@ function placePositions(results) {
         const feedback = document.createElement("p");
         const icon = createAvatar(result, "others-icon");
         card.classList.add("rank-result");
+        if (result.isMe) card.classList.add("me");
         left.classList.add("descrip");
         right.classList.add("others-score");
         name.classList.add("participantName");
@@ -234,7 +261,9 @@ function placePositions(results) {
         position.textContent = `${result.rank}`;
         name.textContent = `${result.username}`;
         right.textContent = `${result.score} pts`;
-        feedback.textContent = `${result.approved ? "Approved" : "Not approved"} · ${result.feedback || "No feedback"}`;
+        feedback.textContent = result.feedback === null
+            ? "The feedback shows up when the challenge ends."
+            : `${result.approved ? "Approved" : "Not approved"} · ${result.feedback}`;
         left.appendChild(position);
         left.appendChild(icon)
         left.appendChild(name);

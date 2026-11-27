@@ -1,7 +1,9 @@
 import prisma from "../lib/prisma.js";
 
 
-export async function getChallengeResults(challengeId) {
+const LIVE_STATUS = ["RUNNING", "EVALUATING", "FINISHED", "COMPLETED"];
+
+export async function getChallengeResults(challengeId, userId) {
     const challenge = await prisma.challenge.findUnique({
         where: {
             id: challengeId
@@ -10,7 +12,8 @@ export async function getChallengeResults(challengeId) {
     if (!challenge) {
         throw new Error("Challenge Not Found");
     }
-    if (challenge.status !== "COMPLETED") throw new Error("Challenge isn't completed");
+    if (!LIVE_STATUS.includes(challenge.status)) throw new Error("Challenge hasn't started");
+    const final = challenge.status === "COMPLETED";
     const results = await prisma.result.findMany({
         where: {
             challengeId: Number(challengeId)
@@ -33,17 +36,31 @@ export async function getChallengeResults(challengeId) {
             rank: "asc"
         }
     });
-    const ranking = results.map(result => ({
-        userId: result.submission.user.id,
-        username: result.submission.user.username,
-        avatar: result.submission.user.avatar,
-        avatarColor: result.submission.user.avatarColor,
-        rank: result.rank,
-        score: result.score,
-        feedback: result.feedback,
-        approved: result.approved,
-    }));
-    return ranking;
+    const totalSubmissions = await prisma.submission.count({
+        where: {
+            challengeId: Number(challengeId)
+        }
+    });
+    const ranking = results.map(result => {
+        const isMe = result.submission.user.id === userId;
+        return {
+            userId: result.submission.user.id,
+            username: result.submission.user.username,
+            avatar: result.submission.user.avatar,
+            avatarColor: result.submission.user.avatarColor,
+            rank: result.rank,
+            score: result.score,
+            feedback: final || isMe ? result.feedback : null,
+            approved: final || isMe ? result.approved : null,
+            isMe: isMe
+        }
+    });
+    return {
+        status: challenge.status,
+        final: final,
+        pending: totalSubmissions - results.length,
+        results: ranking
+    };
 }
 /**const results: ({
  submission: {

@@ -66,6 +66,21 @@ const seconds = document.getElementById("seconds");
 const difficulty = document.getElementById("difficulty");
 const language = document.getElementById("language");
 const category = document.getElementById("category");
+const modeInputs = document.querySelectorAll('input[name="mode"]');
+const modeHint = document.getElementById("mode-hint");
+const MODE_TEXT = {
+    NORMAL: { hint: "The AI creates a new problem for you.", button: "Generate Problem" },
+    CLASSIC: { hint: "A famous problem from our bank, already tested.", button: "Pick a Classic" }
+};
+function selectedMode() {
+    return document.querySelector('input[name="mode"]:checked').value;
+}
+modeInputs.forEach(input => {
+    input.addEventListener("change", () => {
+        modeHint.textContent = MODE_TEXT[selectedMode()].hint;
+        document.getElementById("textProblem").textContent = MODE_TEXT[selectedMode()].button;
+    });
+});
 
 const spinner = document.getElementById("spinner-icon");
 const genarateProblemBtn = document.getElementById("generateProblem-btn");
@@ -104,8 +119,9 @@ startChallengebutton.addEventListener("click", async function () {
     enable(document.getElementById("difficulty"));
     enable(document.getElementById("language"));
     enable(document.getElementById("category"));
+    modeInputs.forEach(input => enable(input));
     document.getElementById("textProblem").style.display = "block";
-    document.getElementById("textProblem").textContent = "Generate Problem";
+    document.getElementById("textProblem").textContent = MODE_TEXT[selectedMode()].button;
     ownerGroupsContainer.classList.remove("disable");
 
 });
@@ -132,7 +148,8 @@ genarateProblemBtn.addEventListener("click", async () => {
                 difficulty: `${difficulty.value}`,
                 category: `${category.value}`,
                 durationSeconds: durationsSeconds,
-                language: `${language.value}`
+                language: `${language.value}`,
+                mode: selectedMode()
             })
         })
         const challenge = await response.json()
@@ -143,10 +160,11 @@ genarateProblemBtn.addEventListener("click", async () => {
             spinner.style.display = "none";
             return;
         }
-        showMessage(`${challenge.message}`, "success", "startMessageAlert")
+        showMessage(`${challenge.message}`, challenge.challenge.notice ? "alert" : "success", "startMessageAlert")
         document.getElementById("summary").innerHTML = `
         <p>Group: ${ownerSelectedGroupName}</p>
         <p>Title: ${challenge.challenge.title}</p>
+        <p>Mode: ${challenge.challenge.mode === "CLASSIC" ? "Classic" : "Normal"}</p>
         <p>Click START to start the challenge</p>`
         //sessionStorage.setItem("challenge",JSON.stringify(challenge.challenge));
         sessionStorage.setItem("challengeID", challenge.challenge.id);
@@ -167,8 +185,9 @@ genarateProblemBtn.addEventListener("click", async () => {
     disable(document.getElementById("difficulty"));
     disable(document.getElementById("language"));
     disable(document.getElementById("category"));
+    modeInputs.forEach(input => disable(input));
     document.getElementById("textProblem").style.display = "block";
-    document.getElementById("textProblem").textContent = "Problem Generated";
+    document.getElementById("textProblem").textContent = "Problem Ready";
     spinner.style.display = "none";
     ownerGroupsContainer.classList.add("disable");
 

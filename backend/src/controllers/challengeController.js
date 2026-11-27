@@ -7,7 +7,7 @@ export async function createChallenge(req, res) {
         const userId = Number(req.user.id);
         const challenge = await challengeService.createChallenge(data, userId);
         res.status(201).json({
-            message: "Challenge Created!\nInfo:",
+            message: challenge.notice ? "Challenge Created! " + challenge.notice : "Challenge Created!",
             challenge: challenge
         })
     } catch (error) {
@@ -27,6 +27,10 @@ export async function createChallenge(req, res) {
             })
         } else if (error.message.trim() === "YOU ARE NOT THE OWNER") {
             return res.status(403).json({
+                message: error.message
+            })
+        } else if (error.message.trim() === "Invalid Mode") {
+            return res.status(400).json({
                 message: error.message
             })
         }
@@ -131,7 +135,7 @@ export async function submitSolution(req, res) {
             return res.status(409).json({
                 message: error.message
             })
-        } else if (error.message.trim() === "Provide a valid Solution!") {
+        } else if (error.message.trim() === "Provide a valid Solution!" || error.message.trim() === "Solution Too Long") {
             return res.status(400).json({
                 message: error.message
             })
@@ -221,16 +225,14 @@ export async function joinChallenge(req, res) {
 export async function getChallengeResults(req, res) {
     try {
         const challengeId = Number(req.params.challengeId);
-        const results = await resultService.getChallengeResults(challengeId);
-        res.status(200).json({
-            results
-        })
+        const data = await resultService.getChallengeResults(challengeId, req.user.id);
+        res.status(200).json(data)
     } catch (error) {
         if (error.message.trim() === "Challenge Not Found") {
             return res.status(404).json({
                 message: error.message
             })
-        } else if (error.message.trim() === "Challenge isn't completed") {
+        } else if (error.message.trim() === "Challenge hasn't started") {
             return res.status(403).json({
                 message: error.message
             })

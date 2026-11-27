@@ -12,8 +12,8 @@ export async function getResults(challengeid) {
         if (!response.ok) {
             console.error(`Stastus: ${response.status}`)
             throw new Error(`internal server error`)
-        }console.log(results.results); 
-        return results.results;
+        }
+        return results;
     } catch (error) {
         console.error("ERRO: was not possible to get results", error.message)
     }
