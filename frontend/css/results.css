@@ -508,8 +508,8 @@ header{
 .live-banner{
     margin: 0 0 12px;
     padding: 10px 14px;
-    border-left: 3px solid var(--accent);
-    background-color: var(--card-color);
+    /*  border-left: 3px solid var(--accent); */
+    background-color: hsl(130, 63%, 49%);
     font-size: 14px;
 }
 .rank-result.me .participantName{
