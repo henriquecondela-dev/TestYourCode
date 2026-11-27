@@ -45,6 +45,136 @@
     --borders: 2px;
     font-family: var(--font-text);
 }
+:root{
+    --aviso-fundo: hsl(45, 90%, 88%);
+    --aviso-texto: hsl(40, 80%, 24%);
+    --erro-fundo: hsl(0, 70%, 92%);
+    --erro-texto: hsl(0, 60%, 28%);
+    --fundo-20: hsl(0, 0%, 20%);
+    --fundo-25: hsl(0, 0%, 25%);
+    --fundo-30: hsl(0, 0%, 30%);
+    --fundo-35: hsl(0, 0%, 35%);
+    --fundo-40: hsl(0, 0%, 40%);
+    --fundo-80: hsl(0, 0%, 80%);
+    --fundo-82: hsl(0, 0%, 82%);
+    --fundo-83: hsl(0, 0%, 83%);
+    --fundo-85: hsl(0, 0%, 85%);
+    --fundo-87: hsl(0, 0%, 87%);
+    --fundo-88: hsl(0, 0%, 88%);
+    --fundo-89: hsl(0, 0%, 89%);
+    --fundo-95: hsl(0, 0%, 95%);
+    --fundo-96: hsl(0, 0%, 96%);
+    --linha-55: hsl(0, 0%, 55%);
+    --linha-70: hsl(0, 0%, 70%);
+    --linha-75: hsl(0, 0%, 75%);
+    --linha-80: hsl(0, 0%, 80%);
+    --mencao-destaque: hsl(137, 40%, 80%);
+    --mencao-fundo: hsl(137, 40%, 88%);
+    --mencao-fundo-hover: hsl(137, 40%, 85%);
+    --perigo-linha-80: hsl(0, 60%, 80%);
+    --perigo-fundo-90: hsl(0, 60%, 90%);
+    --perigo-fundo-92: hsl(0, 60%, 92%);
+    --perigo-fundo-94: hsl(0, 70%, 94%);
+    --sombra-80: hsl(0, 0%, 80%);
+    --sucesso-fundo: hsl(137, 40%, 88%);
+    --sucesso-texto: hsl(137, 60%, 18%);
+    --texto-20: hsl(0, 0%, 20%);
+    --texto-30: hsl(0, 0%, 30%);
+    --texto-45: hsl(0, 0%, 45%);
+    --texto-74: hsl(0, 0%, 74%);
+    --texto-81: hsl(0, 0%, 81%);
+    --texto-93: hsl(0, 0%, 93%);
+    --texto-96: hsl(0, 0%, 96%);
+}
+[data-tema="escuro"]{
+    --background-color: hsl(0, 0%, 9%);
+    --nav-color: hsl(0, 0%, 12%);
+    --card-color: hsl(0, 0%, 15%);
+    --card-hover: hsl(0, 0%, 19%);
+    --line-color: hsl(0, 0%, 27%);
+    --primary-color: hsl(0, 0%, 92%);
+    --text-color: hsl(0, 0%, 90%);
+    --text-soft: hsl(0, 0%, 66%);
+    --accent: hsl(137, 57%, 59%);
+    --dark: hsl(0, 0%, 4%);
+    --danger: hsl(0, 70%, 62%);
+    --aviso-fundo: hsl(40, 40%, 16%);
+    --aviso-texto: hsl(45, 80%, 70%);
+    --erro-fundo: hsl(0, 35%, 17%);
+    --erro-texto: hsl(0, 70%, 75%);
+    --fundo-20: hsl(0, 0%, 84%);
+    --fundo-25: hsl(0, 0%, 82%);
+    --fundo-30: hsl(0, 0%, 80%);
+    --fundo-35: hsl(0, 0%, 78%);
+    --fundo-40: hsl(0, 0%, 76%);
+    --fundo-80: hsl(0, 0%, 20%);
+    --fundo-82: hsl(0, 0%, 19%);
+    --fundo-83: hsl(0, 0%, 18%);
+    --fundo-85: hsl(0, 0%, 17%);
+    --fundo-87: hsl(0, 0%, 9%);
+    --fundo-88: hsl(0, 0%, 15%);
+    --fundo-89: hsl(0, 0%, 14%);
+    --fundo-95: hsl(0, 0%, 13%);
+    --fundo-96: hsl(0, 0%, 14%);
+    --linha-55: hsl(0, 0%, 45%);
+    --linha-70: hsl(0, 0%, 30%);
+    --linha-75: hsl(0, 0%, 24%);
+    --linha-80: hsl(0, 0%, 20%);
+    --mencao-destaque: hsl(137, 30%, 22%);
+    --mencao-fundo: hsl(137, 30%, 15%);
+    --mencao-fundo-hover: hsl(137, 30%, 18%);
+    --perigo-linha-80: hsl(0, 35%, 35%);
+    --perigo-fundo-90: hsl(0, 35%, 17%);
+    --perigo-fundo-92: hsl(0, 35%, 15%);
+    --perigo-fundo-94: hsl(0, 35%, 14%);
+    --sombra-80: hsl(0, 0%, 5%);
+    --sucesso-fundo: hsl(137, 30%, 15%);
+    --sucesso-texto: hsl(137, 50%, 70%);
+    --texto-20: hsl(0, 0%, 80%);
+    --texto-30: hsl(0, 0%, 75%);
+    --texto-45: hsl(0, 0%, 68%);
+    --texto-74: hsl(0, 0%, 27%);
+    --texto-81: hsl(0, 0%, 24%);
+    --texto-93: hsl(0, 0%, 19%);
+    --texto-96: hsl(0, 0%, 18%);
+    color-scheme: dark;
+}
+[data-tema="escuro"] .icon img,
+[data-tema="escuro"] #state-btn img,
+[data-tema="escuro"] #groups-btn img{
+    filter: invert(1);
+}
+[data-tema="escuro"] .color-option{
+    box-shadow: inset 0 0 0 1px hsl(0, 0%, 30%);
+}
+[data-tema="escuro"] .link.active img{
+    filter: none;
+}
+#tema-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-right: 4px;
+    padding: 0;
+    border: 1px solid var(--line-color);
+    border-radius: var(--borders);
+    background-color: transparent;
+    color: var(--text-color);
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+}
+#tema-btn:hover{
+    background-color: var(--card-color);
+}
+.tema-flutuante{
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+}
 body{
     background-color: var(--background-color);
     color: var(--text-color);

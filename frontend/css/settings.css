@@ -1,6 +1,6 @@
 .link.active{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
 }
 .link.active img{
     filter: invert(1);
@@ -172,10 +172,10 @@
 }
 .btn-black{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
 }
 .btn-black:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 .btn-gray{
     background-color: var(--card-color);
@@ -190,7 +190,7 @@
 }
 .btn-danger:hover, .btn-danger.solid{
     background-color: var(--danger);
-    color: hsl(0, 0%, 96%);
+    color: var(--texto-96);
 }
 .info-row{
     display: flex;
@@ -246,11 +246,11 @@
     justify-content: space-between;
     gap: 16px;
     padding: 14px 16px;
-    background-color: hsl(0, 0%, 89%);
-    border-bottom: 1px solid hsl(0, 0%, 80%);
+    background-color: var(--fundo-89);
+    border-bottom: 1px solid var(--linha-80);
 }
 .group-row.confirm{
-    background-color: hsl(0, 70%, 94%);
+    background-color: var(--perigo-fundo-94);
 }
 .group-name{
     margin: 0;
@@ -294,7 +294,7 @@
 }
 .danger-zone .group-row{
     background-color: transparent;
-    border: 1px solid hsl(0, 60%, 80%);
+    border: 1px solid var(--perigo-linha-80);
 }
 .danger-zone .hint{
     margin: 0;

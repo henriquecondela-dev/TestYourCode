@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <title>Privacidade</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <script src="/frontend/js/tema.js"></script>
     <style>
         body {
             max-width: 680px;
@@ -25,9 +27,17 @@
         a {
             color: #1a7f37;
         }
+        [data-tema="escuro"] body {
+            color: hsl(0, 0%, 90%);
+            background-color: hsl(0, 0%, 9%);
+        }
+        [data-tema="escuro"] a {
+            color: hsl(137, 57%, 59%);
+        }
     </style>
 </head>
 <body>
+    <button type="button" id="tema-btn" class="tema-flutuante"></button>
     <a href="/frontend/pages/home.html">← Voltar</a>
     <h1>Política de privacidade</h1>
     <p>O TestYourCode é um projecto pessoal feito por mim, Henrique. Aqui explico que dados guardo e o que faço com eles.</p>

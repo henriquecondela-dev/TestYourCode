@@ -22,8 +22,8 @@ body{
     min-height: 60px;
     padding: 0 28px;
     box-sizing: border-box;
-    border-bottom: 1px solid hsl(0, 0%, 80%);
-    box-shadow: 0 2px 5px hsl(0, 0%, 80%);
+    border-bottom: 1px solid var(--linha-80);
+    box-shadow: 0 2px 5px var(--sombra-80);
     z-index: 5;
 }
 .topNavBar .top{
@@ -69,7 +69,7 @@ body{
     flex-direction: column;
     width: 240px;
     background-color: var(--nav-color);
-    border-right: 1px solid hsl(0, 0%, 80%);
+    border-right: 1px solid var(--linha-80);
     padding-bottom: 16px;
     transition: width 0.3s ease;
 }
@@ -105,10 +105,10 @@ a{
     margin-top: auto;
 }
 #logout:hover{
-    background-color: hsl(0, 60%, 92%);
+    background-color: var(--perigo-fundo-92);
 }
 a:hover{
-    background-color: hsl(0, 0%, 83%);
+    background-color: var(--fundo-83);
 }
 #state-btn{
     align-self: flex-end;
@@ -116,7 +116,7 @@ a:hover{
     background: none;
 }
 #state-btn:hover{
-    background-color: hsl(0, 0%, 83%);
+    background-color: var(--fundo-83);
 }
 
 .right-side{
@@ -166,10 +166,10 @@ a:hover{
 }
 .top-right-side > #startGroup-btn{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
 }
 .top-right-side > #startGroup-btn:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 .num{
     font-family: var(--font-code);
@@ -177,7 +177,7 @@ a:hover{
     color: var(--text-soft);
 }
 #startGroup-btn .num{
-    color: hsl(0, 0%, 74%);
+    color: var(--texto-74);
 }
 .btn-text{
     display: flex;
@@ -194,10 +194,10 @@ a:hover{
 .btn-text small{
     font-size: 14px;
     font-weight: 400;
-    color: hsl(0, 0%, 20%);
+    color: var(--texto-20);
 }
 #startGroup-btn .btn-text small{
-    color: hsl(0, 0%, 81%);
+    color: var(--texto-81);
 }
 
 #join-modal, #start-modal,#start-settings-modal,#start-summary-modal{
@@ -205,7 +205,7 @@ a:hover{
     flex-direction: column;
     width:600px;
     gap: 12px;
-    background: hsl(0, 0%, 95%);
+    background: var(--fundo-95);
     border-radius: var(--borders);
     padding: 24px;
     min-height: 400px;
@@ -241,7 +241,7 @@ a:hover{
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background-color: hsl(0, 0%, 95%);
+    background-color: var(--fundo-95);
     width: 340px;
     min-height: 220px;
     border-radius: var(--borders);
@@ -276,11 +276,11 @@ a:hover{
 }
 .selected-group, .owner-selected-group{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
     border: 1px solid var(--primary-color);
 }
 .selected-group:hover, .owner-selected-group:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 
 .btn{
@@ -307,7 +307,7 @@ form{
     width:100%;
     border: none;
     border-bottom: 1.5px solid var(--primary-color);
-    background-color: hsl(0, 0%, 85%);
+    background-color: var(--fundo-85);
     border-radius: 0;
     height: 36px;
     padding: 0 10px;
@@ -315,7 +315,7 @@ form{
     font-family: var(--font-text);
 }
 .form-input:hover{
-    background-color: hsl(0, 0%, 82%);
+    background-color: var(--fundo-82);
 }
 .form-input:focus{
     outline: none;
@@ -337,13 +337,13 @@ form{
     font-size: 14px;
 }
 .time:hover,#NOfPartipants:hover,#difficulty:hover,#category:hover,#language:hover{
-    background-color: hsl(0, 0%, 82%);
+    background-color: var(--fundo-82);
     cursor: pointer;
 }
 .time,#NOfPartipants,#difficulty,#category,#language{
     border: none;
     border-bottom: 1.5px solid var(--primary-color);
-    background-color: hsl(0, 0%, 85%);
+    background-color: var(--fundo-85);
     border-radius: 0;
     height: 34px;
     width: 46px;
@@ -369,20 +369,20 @@ input[type=number]::-webkit-inner-spin-button {
     border: none;
     border-radius: var(--borders);
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
     font-family: var(--font-label);
     font-size: 15px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 #generateProblem-btn:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 #generateProblem-btn:active{
-    background-color: hsl(0, 0%, 30%);
+    background-color: var(--fundo-30);
 }
 #generateProblem-btn.spinning{
-    background-color: hsl(0, 0%, 40%);
+    background-color: var(--fundo-40);
 }
 #generateProblem-btn.genarated{
     background-color: var(--accent);
@@ -403,12 +403,12 @@ input[type=number]::-webkit-inner-spin-button {
 }
 #creatgroup-btn, #join-selected-btn, #join-in-challenge, #start-selected-btn,#go-in-chalenge-btn,#next1-btn,#next2-btn{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
     min-width: 90px;
     text-align: center;
 }
 #creatgroup-btn:hover, #join-selected-btn:hover, #join-in-challenge:hover, #start-selected-btn:hover,#go-in-chalenge-btn:hover,#next1-btn:hover,#next2-btn:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 #creat-cancel-btn, #join-cancel-btn,#back1-btn,#back2-btn{
     min-width: 90px;
@@ -426,7 +426,7 @@ input[type=number]::-webkit-inner-spin-button {
     font-family: var(--font-title);
 }
 #creat-cancel-btn:hover,#join-cancel-btn1:hover, #join-cancel-btn:hover, #start-cancel-btn1:hover,#start-cancel-btn2:hover,#start-cancel-btn3:hover{
-    background-color: hsl(0, 60%, 90%);
+    background-color: var(--perigo-fundo-90);
     color: var(--danger);
 }
 #getOut-btn{
@@ -674,7 +674,7 @@ input[type=number]::-webkit-inner-spin-button {
         align-items: center;
         padding: 0;
         border-right: none;
-        border-bottom: 1px solid hsl(0, 0%, 80%);
+        border-bottom: 1px solid var(--linha-80);
     }
 
     #state-btn{
@@ -891,16 +891,16 @@ input[type=number]::-webkit-inner-spin-button {
     display: inline-block;
     padding: 7px 14px;
     border-bottom: 1.5px solid var(--primary-color);
-    background-color: hsl(0, 0%, 85%);
+    background-color: var(--fundo-85);
     font-size: 14px;
     cursor: pointer;
 }
 .mode-choice span:hover{
-    background-color: hsl(0, 0%, 82%);
+    background-color: var(--fundo-82);
 }
 .mode-choice input:checked + span{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 96%);
+    color: var(--texto-96);
 }
 .mode-choice input:disabled + span{
     cursor: default;
