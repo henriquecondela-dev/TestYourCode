@@ -116,6 +116,8 @@ submitButton.addEventListener("click", async () => {
     fileInput.disabled = true;
     status.textContent = "SOLUTION SUBMITTED";
     status.style.color = "green";
+    sessionStorage.setItem("challengeID", challengeDetails.id);
+    document.getElementById("live-results").classList.remove("hidden");
     await loadUsers();
 })
 const interval = setInterval(async () => {

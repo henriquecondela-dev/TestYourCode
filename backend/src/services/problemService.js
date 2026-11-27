@@ -1,14 +1,7 @@
 import prisma from "../lib/prisma.js"
 import { callAI } from "./AIService.js"
+import { languageName as getLanguageName } from "./languages.js";
 
-const LANGUAGE_NAMES = {
-    JAVA: "Java",
-    JAVASCRIPT: "JavaScript",
-    C: "C",
-    CPP: "C++",
-    C_CHARP: "C#",
-    PHYTON: "Python"
-};
 
 function cleanText(text) {
     return text
@@ -28,7 +21,7 @@ export async function generateProblem(data) {
         category,
         difficulty
     } = data;
-    const languageName = LANGUAGE_NAMES[language] || language;
+    const languageName = getLanguageName(language);
     if (!language || !category || !difficulty) {
         throw new Error(
             "language, category e difficulty são obrigatórios"

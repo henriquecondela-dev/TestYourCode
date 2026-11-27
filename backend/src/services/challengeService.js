@@ -1,8 +1,13 @@
 import prisma from "../lib/prisma.js";
 import { generateProblem } from "./problemService.js"
-import { submitSolutionsToAI } from "./submissionService.js";
+import { pickClassic, classicStatement } from "./problemBankService.js";
+import { evaluatePending, evaluateSubmission } from "./submissionService.js";
+
+const MAX_SOLUTION_LENGTH = 20000;
 export async function createChallenge(data, userId) {
     const { groupId, difficulty, category, durationSeconds, language } = data;
+    const mode = (data.mode || "NORMAL").toUpperCase();
+    if (mode !== "NORMAL" && mode !== "CLASSIC") throw new Error("Invalid Mode");
     const group = await prisma.grupos.findUnique({
         where: {
             id: Number(groupId)
@@ -10,13 +15,34 @@ export async function createChallenge(data, userId) {
     })
     if (!group) throw new Error("Group Not Found");
     if (Number(group.ownerId) !== userId) throw new Error("YOU ARE NOT THE OWNER");
-    const dataProblem = {
-        language: language,
-        category: category,
-        difficulty: difficulty
+    let problem = null;
+    let notice = null;
+    if (mode === "CLASSIC") {
+        const classic = await pickClassic(Number(groupId), difficulty.toUpperCase(), category.toUpperCase());
+        if (classic) {
+            problem = {
+                problemId: classic.id,
+                title: classic.title,
+                problem: classicStatement(classic),
+                referenceSolution: classic.referenceSolution
+            };
+        } else {
+            notice = "There are no classic challenges for this category and difficulty yet, so the AI created a new one.";
+        }
     }
-    const AIproblem = await generateProblem(dataProblem);
-    //console.log(AIproblem)
+    if (!problem) {
+        const AIproblem = await generateProblem({
+            language: language,
+            category: category,
+            difficulty: difficulty
+        });
+        problem = {
+            problemId: null,
+            title: AIproblem.title,
+            problem: AIproblem.problem,
+            referenceSolution: AIproblem.referenceSolution
+        };
+    }
     const challenge = await prisma.challenge.create({
         data: {
             groupId: Number(groupId),
@@ -24,9 +50,10 @@ export async function createChallenge(data, userId) {
             difficulty: difficulty.toUpperCase(),
             category: category.toUpperCase(),
             durationSeconds: Number(durationSeconds),
-            title: AIproblem.title,
-            problem: AIproblem.problem,
-            referenceSolution: AIproblem.referenceSolution,
+            title: problem.title,
+            problem: problem.problem,
+            referenceSolution: problem.referenceSolution,
+            problemId: problem.problemId,
             status: "READY"
         }
     })
@@ -40,7 +67,9 @@ export async function createChallenge(data, userId) {
         durationSeconds: challenge.durationSeconds,
         title: challenge.title,
         problem: challenge.problem,
-        status: challenge.status
+        status: challenge.status,
+        mode: challenge.problemId ? "CLASSIC" : "NORMAL",
+        notice: notice
     };
 }
 export async function getChallengeDetails(challengId) {
@@ -130,10 +159,7 @@ async function isParticipantOrOwner(userId, challenge) {
 }
 async function evaluateChallenge(challengeId) {
     try {
-        const totalSubmissions = await prisma.submission.count({ where: { challengeId } });
-        if (totalSubmissions > 0) {
-            await submitSolutionsToAI(challengeId);
-        }
+        await evaluatePending(challengeId);
         return await prisma.challenge.update({
             where: {
                 id: challengeId
@@ -236,8 +262,11 @@ export async function submitSolution(submission, challengeid, userid) {
     })
     if (alreadySubmitted) throw new Error("Already Submitted");
     //if(Number.isNaN(secondsRemainig)){throw new Error("remaining time not provided")}
-    if (solution.trim() === "") {
+    if (typeof solution !== "string" || solution.trim() === "") {
         throw new Error("Provide a valid Solution!");
+    }
+    if (solution.length > MAX_SOLUTION_LENGTH) {
+        throw new Error("Solution Too Long");
     }
     const submit = await prisma.submission.create({
         data: {
@@ -248,6 +277,9 @@ export async function submitSolution(submission, challengeid, userid) {
             submitted: true,
         }
     })
+    evaluateSubmission(submit.id).catch(error => {
+        console.error(`ERRO: submission ${submit.id} not evaluated`, error.message);
+    });
     return submit;
 }
 export async function joinChallenge(userid, challengeid) {

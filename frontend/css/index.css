@@ -880,3 +880,32 @@ input[type=number]::-webkit-inner-spin-button {
         width: 38px;
     }
 }
+
+.mode-choice{
+    display: flex;
+}
+.mode-choice input{
+    display: none;
+}
+.mode-choice span{
+    display: inline-block;
+    padding: 7px 14px;
+    border-bottom: 1.5px solid var(--primary-color);
+    background-color: hsl(0, 0%, 85%);
+    font-size: 14px;
+    cursor: pointer;
+}
+.mode-choice span:hover{
+    background-color: hsl(0, 0%, 82%);
+}
+.mode-choice input:checked + span{
+    background-color: var(--primary-color);
+    color: hsl(0, 0%, 96%);
+}
+.mode-choice input:disabled + span{
+    cursor: default;
+}
+#mode-hint{
+    width: 100%;
+    color: var(--text-soft);
+}

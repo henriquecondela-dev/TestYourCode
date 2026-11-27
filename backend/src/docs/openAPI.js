@@ -1183,6 +1183,12 @@ const openapiDocument = {
                                     "language"
                                 ],
                                 "properties": {
+                                    "mode": {
+                                        "type": "string",
+                                        "enum": ["NORMAL", "CLASSIC"],
+                                        "example": "CLASSIC",
+                                        "description": "NORMAL: the AI creates the problem. CLASSIC: a problem is picked from the bank. If the bank has none for this category and difficulty, the AI creates one and the message says so. Default NORMAL."
+                                    },
                                     "groupId": {
                                         "type": "integer",
                                         "example": 1
@@ -1539,7 +1545,7 @@ const openapiDocument = {
                 },
                 "responses": {
                     "200": {
-                        "description": "Solution submitted"
+                        "description": "Solution submitted. It is evaluated by the AI in the background and appears in the live results."
                     },
                     "403": {
                         "description": "User cannot submit solution"
@@ -1590,7 +1596,7 @@ const openapiDocument = {
             "get": {
                 "tags": ["Challenges"],
                 "summary": "Get challenge results",
-                "description": "Returns ranking and AI evaluation results.",
+                "description": "Returns the ranking. Works while the challenge is running (live, positions can change) and after it ends. While it is running, only your own feedback is shown; the others come as null.",
                 "security": [
                     {
                         "bearerAuth": []
@@ -1609,7 +1615,10 @@ const openapiDocument = {
                 ],
                 "responses": {
                     "200": {
-                        "description": "Results returned. Each result has userId, username, avatar, avatarColor, rank, score, feedback and approved."
+                        "description": "Results returned. final is true when the challenge is COMPLETED. pending is the number of solutions still being evaluated. Each result has userId, username, avatar, avatarColor, rank, score, feedback, approved and isMe."
+                    },
+                    "403": {
+                        "description": "Challenge hasn't started"
                     },
                     "404": {
                         "description": "Challenge not found"

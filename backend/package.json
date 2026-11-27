@@ -22,7 +22,8 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "AI": " node src/services/AIService.js"
+    "AI": " node src/services/AIService.js",
+    "seed": "node prisma/seed.js"
   },
   "name": "backend",
   "version": "1.0.0",

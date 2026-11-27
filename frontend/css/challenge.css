@@ -529,3 +529,14 @@ body{
         font-size: 11px;
     }
 }
+
+#live-results{
+    order: 3;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 14px;
+    text-decoration: none;
+}
+#live-results.hidden{
+    display: none;
+}

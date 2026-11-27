@@ -1,15 +1,27 @@
 import { GoogleGenAI } from "@google/genai";
 import "dotenv/config";
-// Create a single client object
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-async function callGemini(prompt) {
+async function callGemini(input, options = {}) {
     try {
+        const config = {};
+        let contents = input;
+        if (typeof input !== "string") {
+            config.systemInstruction = input.system;
+            contents = input.user;
+        }
+        if (options.temperature !== undefined) {
+            config.temperature = options.temperature;
+        }
+        if (options.json) {
+            config.responseMimeType = "application/json";
+        }
         const response = await ai.models.generateContent({
-            model: "gemini-3.5-flash",
-            contents: prompt,
+            model: process.env.GEMINI_MODEL || "gemini-3.5-flash",
+            contents: contents,
+            config: config
         });
-        console.log(response.text)
-        const cleanedResponse=cleanAIResponse(response.text);
+        const cleanedResponse = cleanAIResponse(response.text);
         return JSON.parse(cleanedResponse)
     } catch (error) {
         throw new Error(`AI Error: ${error.message}`);
