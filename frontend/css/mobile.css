@@ -1,0 +1,443 @@
+/*
+  Mobile (telemóvel) — só se aplica a ecrãs pequenos.
+  No computador nada disto conta: tudo está dentro de @media.
+  Páginas: index (dashboard), chat, Settings, results.
+  O desafio (challenge) tem as regras dele no fim do challenge.css.
+*/
+
+/* A barra de baixo e a lista "My groups" só existem no telemóvel */
+.m-nav,
+.m-groups,
+.m-logout,
+.m-chips{
+    display: none;
+}
+
+@media (max-width: 600px){
+
+    /* ---------- Estrutura geral ---------- */
+    /* dvh = altura real do ecrã, já sem a barra do browser do telemóvel */
+    html,
+    body{
+        height: 100dvh;
+        min-height: 0;
+        overflow: hidden;
+    }
+    .downPage{
+        flex: 1;
+        height: auto;
+        min-height: 0;
+    }
+    .left-side{
+        display: none;
+    }
+
+    /* ---------- Barra de baixo ---------- */
+    .m-nav{
+        display: flex;
+        flex-shrink: 0;
+        height: 62px;
+        border-top: 1px solid var(--line-color);
+        background-color: var(--nav-color);
+        z-index: 6;
+    }
+    .m-nav a{
+        position: relative;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 0;
+        color: var(--text-soft);
+        font-family: var(--font-label);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .m-nav a:hover{
+        background-color: transparent;
+    }
+    .m-nav .icon img{
+        width: 20px;
+        height: 20px;
+        opacity: 0.65;
+    }
+    .m-nav a.on{
+        color: var(--text-color);
+    }
+    .m-nav a.on .icon img{
+        opacity: 1;
+    }
+    .m-nav a.on::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 22%;
+        right: 22%;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+
+    /* ---------- Dashboard ---------- */
+    .right-side{
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px 14px 20px;
+    }
+    #terminal{
+        display: none;
+    }
+    .top-right-side{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .top-right-side > .btn{
+        align-items: flex-start;
+        padding: 14px;
+    }
+    .top-right-side > #startGroup-btn{
+        grid-column: 1 / -1;
+        order: -1;
+        padding: 18px 16px;
+    }
+    .num{
+        display: none;
+    }
+    .btn-text b{
+        font-size: 15px;
+    }
+    #startGroup-btn .btn-text b{
+        font-size: 20px;
+    }
+    .btn-text small{
+        font-size: 12.5px;
+        line-height: 1.35;
+    }
+
+    /* My groups */
+    .m-groups{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .m-groups-title{
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0 0;
+        font-family: var(--font-label);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-soft);
+    }
+    #m-groups-list{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .m-group{
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 12px 14px;
+        background-color: var(--fundo-89);
+        border-radius: var(--borders);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .m-group b{
+        font-family: var(--font-label);
+        font-size: 15px;
+        text-transform: uppercase;
+    }
+    .m-group small{
+        font-size: 12px;
+        color: var(--text-soft);
+    }
+    .m-group:active{
+        background-color: var(--card-hover);
+    }
+    .m-groups-empty{
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-soft);
+    }
+
+    /* ---------- Janelas → painel que sobe de baixo ---------- */
+    #creat-overlay,
+    #join-overlay,
+    #start-overlay{
+        justify-content: flex-end;
+        padding: 0;
+    }
+    #creat-modal,
+    #join-modal,
+    #start-modal,
+    #start-settings-modal,
+    #start-summary-modal{
+        width: 100%;
+        max-width: none;
+        max-height: 88dvh;
+        box-sizing: border-box;
+        padding: 10px 16px 18px;
+        border: none;
+        border-top: 1px solid var(--line-color);
+        border-radius: 0;
+        background-color: var(--background-color);
+        overflow-y: auto;
+    }
+    #creat-modal{
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    #creat-modal::before,
+    #join-modal::before,
+    #start-modal::before,
+    #start-settings-modal::before,
+    #start-summary-modal::before{
+        content: "";
+        align-self: center;
+        width: 40px;
+        height: 4px;
+        margin-bottom: 4px;
+        background-color: var(--line-color);
+    }
+    #groups-container,
+    #owner-groups-container{
+        max-height: 46dvh;
+    }
+    .modal-buttons{
+        position: sticky;
+        bottom: -18px;
+        flex-wrap: nowrap;
+        margin: 4px -16px -18px;
+        padding: 10px 16px 18px;
+        background-color: var(--background-color);
+    }
+    .modal-buttons .btn{
+        flex: 1;
+        min-height: 46px;
+    }
+
+    /* Definições do desafio */
+    #start-settings-modal > .field{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    #start-settings-modal .link{
+        font-size: 12px;
+        letter-spacing: 0.06em;
+    }
+    /* Tempo: três caixas com hours / min / sec por baixo */
+    #start-settings-modal > .field-time{
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0;
+        font-size: 0;
+    }
+    #start-settings-modal > .field-time .link{
+        width: 100%;
+        margin-bottom: 6px;
+    }
+    #start-settings-modal > .field-time > small{
+        display: none;
+    }
+    .m-time-box{
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column;
+        align-items: center;
+        min-width: 0;
+        margin-right: 8px;
+        padding: 6px 0 8px;
+        background-color: var(--card-color);
+    }
+    .m-time-box:last-of-type{
+        margin-right: 0;
+    }
+    #start-settings-modal .m-time-box .time{
+        width: 100%;
+        height: 30px;
+        border: none;
+        background: transparent;
+        font-family: var(--font-code);
+        font-size: 19px;
+        color: var(--text-color);
+    }
+    .m-unit{
+        font-family: var(--font-label);
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--text-soft);
+    }
+
+    /* Passos 1 · 2 · 3 */
+    .m-steps{
+        display: flex;
+        gap: 6px;
+        margin-bottom: 4px;
+    }
+    .m-steps i{
+        flex: 1;
+        height: 3px;
+        background-color: var(--line-color);
+    }
+    .m-steps i.on{
+        background-color: var(--primary-color);
+    }
+
+    /* Como no mockup: sem X, sem texto de ajuda do modo, sem botão Generate
+       (o Next gera o problema e avança) */
+    #start-settings-modal .cancelModel,
+    #mode-hint,
+    #start-settings-modal #challegeGenerator{
+        display: none;
+    }
+    #start-settings-modal{
+        gap: 10px;
+    }
+    #start-settings-modal .headLink{
+        margin: 2px 0 2px;
+        font-size: 1.35rem;
+    }
+    #next2-btn.waiting{
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    /* Os selects dão lugar aos botões (m-chips), criados pelo mobile.js */
+    #start-settings-modal select.has-chips{
+        display: none;
+    }
+    .m-chips{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .m-chips button{
+        min-height: 38px;
+        padding: 0 10px;
+        border: none;
+        border-radius: var(--borders);
+        background-color: var(--card-color);
+        color: var(--text-color);
+        font-family: var(--font-text);
+        font-size: 13px;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .m-chips button.on{
+        background-color: var(--primary-color);
+        color: var(--texto-93);
+    }
+    .m-chips.m-seg{
+        gap: 0;
+        border: 1px solid var(--primary-color);
+    }
+    .m-chips.m-seg button{
+        flex: 1;
+        min-height: 40px;
+        border-radius: 0;
+        background-color: transparent;
+        font-family: var(--font-label);
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+    .m-chips.m-seg button.on{
+        background-color: var(--primary-color);
+        color: var(--texto-93);
+    }
+    .mode-choice{
+        width: 100%;
+        border: 1px solid var(--primary-color);
+    }
+    .mode-choice label{
+        flex: 1;
+    }
+    .mode-choice span{
+        display: block;
+        padding: 12px 0;
+        border-bottom: none;
+        background-color: transparent;
+        font-family: var(--font-label);
+        font-size: 13px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    #generateProblem-btn{
+        width: 100%;
+        min-height: 46px;
+    }
+
+    /* ---------- Chat ---------- */
+    .chat-room{
+        min-height: 0;
+    }
+    .messages{
+        min-height: 0;
+    }
+    .message{
+        max-width: 85%;
+    }
+    .msg-body{
+        padding: 8px 10px;
+        background-color: var(--fundo-96);
+        border-radius: var(--borders);
+    }
+    .mine .msg-body{
+        background-color: var(--primary-color);
+        color: var(--texto-93);
+    }
+    .mine .msg-time,
+    .mine .you{
+        color: var(--texto-74);
+    }
+    .online-side.show{
+        bottom: 62px;
+    }
+
+    /* ---------- Settings ---------- */
+    .m-logout{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        margin-top: 14px;
+        padding: 0;
+        border: 1px solid var(--danger);
+        border-radius: var(--borders);
+        color: var(--danger);
+        font-family: var(--font-label);
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+    .m-logout:hover{
+        background-color: var(--perigo-fundo-92);
+    }
+
+    /* ---------- Results ---------- */
+    .down-side{
+        flex: 1;
+    }
+    .nav-bar{
+        bottom: 62px;
+        height: auto;
+    }
+    .rank-result.me{
+        background-color: var(--primary-color);
+        color: var(--texto-93);
+    }
+    .rank-result.me .rank-feedback,
+    .rank-result.me .others-score{
+        color: var(--texto-93);
+    }
+}

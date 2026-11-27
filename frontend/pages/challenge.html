@@ -20,6 +20,10 @@
     </div>
     <div id="challege-message"></div>
     <div class="challenge-section">
+        <div class="m-tabs" id="m-tabs">
+            <button type="button" class="on" data-tab="problem">Problem</button>
+            <button type="button" data-tab="code">Code</button>
+        </div>
         <aside class="challenge-info">
             <div id="challenge-timer">
                 <p id="timer">00:00:00</p>
@@ -63,11 +67,22 @@
                 <div id="line-numbers"></div>
                 <textarea spellcheck="false" name="solution" id="code"></textarea>
             </div>
+            <div class="m-keys" id="m-keys">
+                <button type="button" data-key="tab">⇥</button>
+                <button type="button" data-key="(">( )</button>
+                <button type="button" data-key="[">[ ]</button>
+                <button type="button" data-key="{">{ }</button>
+                <button type="button" data-key=":">:</button>
+                <button type="button" data-key=";">;</button>
+                <button type="button" data-key="&quot;">"</button>
+                <button type="button" data-key="=">=</button>
+            </div>
         </section>
         <script type="module" src="/frontend/js/messagesAlert.js"></script>
         <script type="module" src="/frontend/js/challenge.js"></script>
         <script src="/frontend/js/resizer.js"></script>
         <script type="module" src="/frontend//js/timer.js"></script>
+        <script src="/frontend/js/challengeMobile.js"></script>
     </div>
 </body>
 </html>
