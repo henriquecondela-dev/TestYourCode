@@ -24,12 +24,12 @@ a{
     padding: 12px 24px;
     border-radius: var(--borders);
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
     font-family: var(--font-label);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     text-decoration: none;
 }
 a:hover{
-    background-color: hsl(0, 0%, 25%);
+    background-color: var(--fundo-25);
 }

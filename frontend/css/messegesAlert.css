@@ -21,16 +21,16 @@
     display: none;
 }
 .success{
-    background: hsl(137, 40%, 88%);
-    color: hsl(137, 60%, 18%);
+    background: var(--sucesso-fundo);
+    color: var(--sucesso-texto);
 }
 .error{
-    background: hsl(0, 70%, 92%);
-    color: hsl(0, 60%, 28%);
+    background: var(--erro-fundo);
+    color: var(--erro-texto);
 }
 .alert{
-    background: hsl(45, 90%, 88%);
-    color: hsl(40, 80%, 24%);
+    background: var(--aviso-fundo);
+    color: var(--aviso-texto);
 }
 .challengeAlert{
     color: hsl(45, 94%, 55%);

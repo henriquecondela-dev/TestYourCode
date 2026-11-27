@@ -4,7 +4,7 @@ html{
 body{
     margin: 0;
     overflow-x: hidden;
-    background-color: hsl(0, 0%, 87%);
+    background-color: var(--fundo-87);
     color: var(--text-color);
     font-family: var(--font-text);
 }
@@ -20,8 +20,8 @@ a{
     height: 60px;
     padding: 0 28px;
     background-color: var(--nav-color);
-    border-bottom: 1px solid hsl(0, 0%, 80%);
-    box-shadow: 0 2px 5px hsl(0, 0%, 80%);
+    border-bottom: 1px solid var(--linha-80);
+    box-shadow: 0 2px 5px var(--sombra-80);
     z-index: 5;
 }
 #name{
@@ -69,14 +69,14 @@ a{
     text-decoration: none;
 }
 #login-btn:hover{
-    background-color: hsl(0, 0%, 83%);
+    background-color: var(--fundo-83);
 }
 #signup-btn{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
 }
 #signup-btn:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 main{
     width: 100%;
@@ -146,7 +146,7 @@ h2{
     margin-top: 28px;
     border-radius: var(--borders);
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
     font-family: var(--font-title);
     font-size: 16px;
     letter-spacing: 0.06em;
@@ -155,7 +155,7 @@ h2{
     z-index: 2;
 }
 #start-btn:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 #signup-link{
     margin-top: 14px;
@@ -263,7 +263,7 @@ h4{
 }
 .step-dark{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
 }
 .num{
     font-family: var(--font-code);
@@ -272,7 +272,7 @@ h4{
     color: var(--text-soft);
 }
 .step-dark .num{
-    color: hsl(0, 0%, 74%);
+    color: var(--texto-74);
 }
 .step p{
     margin: 0;
@@ -291,12 +291,12 @@ h4{
 }
 .option li{
     padding: 10px 0;
-    border-bottom: 1px solid hsl(0, 0%, 80%);
+    border-bottom: 1px solid var(--linha-80);
     font-size: 15px;
     transition: background-color 0.2s ease-in;
 }
 .option li:hover{
-    background-color: hsl(0, 0%, 80%);
+    background-color: var(--fundo-80);
 }
 .final{
     display: flex;

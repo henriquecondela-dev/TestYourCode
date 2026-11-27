@@ -1,6 +1,6 @@
 .link.active{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
 }
 .link.active img{
     filter: invert(1);
@@ -38,7 +38,7 @@
     gap: 8px;
     height: 36px;
     padding: 0 12px;
-    border: 1px solid hsl(0, 0%, 70%);
+    border: 1px solid var(--linha-70);
     background-color: var(--nav-color);
     font-family: var(--font-label);
     font-size: 13px;
@@ -84,13 +84,13 @@
     border-radius: var(--borders);
 }
 .message:hover{
-    background-color: hsl(0, 0%, 89%);
+    background-color: var(--fundo-89);
 }
 .mention-me{
-    background-color: hsl(137, 40%, 88%);
+    background-color: var(--mencao-fundo);
 }
 .mention-me:hover{
-    background-color: hsl(137, 40%, 85%);
+    background-color: var(--mencao-fundo-hover);
 }
 .avatar{
     display: flex;
@@ -113,7 +113,7 @@
 }
 .mine .avatar{
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
 }
 .msg-body p{
     margin: 0;
@@ -137,14 +137,14 @@
 .you{
     padding: 0 6px;
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
     font-family: var(--font-label);
     font-size: 11px;
     text-transform: uppercase;
 }
 .mention{
     padding: 0 3px;
-    background-color: hsl(137, 40%, 80%);
+    background-color: var(--mencao-destaque);
     color: var(--accent);
     font-weight: 600;
 }
@@ -166,7 +166,7 @@
     padding: 12px;
     border: none;
     border-bottom: 1.5px solid var(--primary-color);
-    background-color: hsl(0, 0%, 85%);
+    background-color: var(--fundo-85);
     font-family: var(--font-text);
     font-size: 15px;
     resize: none;
@@ -181,14 +181,14 @@
     border: none;
     border-radius: var(--borders);
     background-color: var(--primary-color);
-    color: hsl(0, 0%, 93%);
+    color: var(--texto-93);
     font-family: var(--font-title);
     font-size: 15px;
     text-transform: uppercase;
     cursor: pointer;
 }
 #send-btn:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--fundo-20);
 }
 .mention-list{
     position: absolute;
@@ -198,8 +198,8 @@
     flex-direction: column;
     width: 260px;
     padding: 6px;
-    background-color: hsl(0, 0%, 96%);
-    border: 1px solid hsl(0, 0%, 75%);
+    background-color: var(--fundo-96);
+    border: 1px solid var(--linha-75);
     box-shadow: 0 6px 20px hsla(0, 0%, 0%, 0.12);
 }
 .mention-list.show{
@@ -219,7 +219,7 @@
     border-bottom-color: var(--danger);
 }
 #send-btn:disabled{
-    background-color: hsl(0, 0%, 40%);
+    background-color: var(--fundo-40);
 }
 .mention-title{
     margin: 4px 8px 6px;
@@ -261,14 +261,14 @@
 }
 .on-dot.off{
     background-color: transparent;
-    border: 1.5px solid hsl(0, 0%, 55%);
+    border: 1.5px solid var(--linha-55);
 }
 .online-side{
     width: 260px;
     flex-shrink: 0;
     padding: 20px 0;
     background-color: var(--nav-color);
-    border-left: 1px solid hsl(0, 0%, 80%);
+    border-left: 1px solid var(--linha-80);
     overflow-y: auto;
 }
 #close-online{
@@ -278,15 +278,15 @@
     margin: 0 20px 16px;
     height: 36px;
     padding: 0 12px;
-    border: 1px solid hsl(0, 0%, 70%);
-    background-color: hsl(0, 0%, 88%);
+    border: 1px solid var(--linha-70);
+    background-color: var(--fundo-88);
     font-family: var(--font-label);
     font-size: 13px;
     text-transform: uppercase;
     cursor: pointer;
 }
 #close-online:hover{
-    background-color: hsl(0, 0%, 80%);
+    background-color: var(--fundo-80);
 }
 .online-side h3{
     display: flex;
@@ -337,7 +337,7 @@
     font-size: 15px;
 }
 .online-side li:hover{
-    background-color: hsl(0, 0%, 83%);
+    background-color: var(--fundo-83);
 }
 .offline li{
     color: var(--text-soft);
