@@ -1521,21 +1521,12 @@ const openapiDocument = {
                             "schema": {
                                 "type": "object",
                                 "required": [
-                                    "type",
                                     "solution"
                                 ],
                                 "properties": {
-                                    "type": {
-                                        "type": "string",
-                                        "example": "TEXT"
-                                    },
                                     "solution": {
                                         "type": "string",
-                                        "enum": [
-                                            "TEXT",
-                                            "FILE"
-                                        ],
-                                        "description": "Type of the solution to be submitted",
+                                        "description": "Source code typed in the editor (text only, max 20000 characters)",
                                         "example": "#include<iostream>"
                                     },
                                 }

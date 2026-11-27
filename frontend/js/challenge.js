@@ -9,21 +9,14 @@ import { finishAndEvaluate } from "../data/finishAndEvaluate.js";
 import { languageName } from "./languages.js";
 const token = getToken();
 const currentUser = JSON.parse(sessionStorage.getItem("user"));
-const upload = document.getElementById("file");
-const fileName = document.getElementById("file-name");
 const participantContainer = document.getElementById("participants-container");
-const fileType = document.getElementById("file-type-btn");
-const textType = document.getElementById("text-type-btn");
 const textarea = document.getElementById("code");
-const bottomSideSubmit= document.querySelector(".bottom-side");
 const lineNumbers = document.getElementById("line-numbers");
-const fileInput = document.getElementById("file");
 const problem = document.getElementById("problem");
 const status = document.getElementById("status");
 const programlanguage = document.getElementById("progaming-language");
 const submitButton = document.getElementById("submitSolution-btn");
 
-let type = null;
 let id;
 const challengedetail = getChallenge();
 console.log(challengedetail)
@@ -50,41 +43,12 @@ document.getElementById("challenge-language").textContent = languageName(challen
 document.getElementById("userName").textContent = currentUser.username;
 fillAvatar(document.getElementById("mini-avatar"), currentUser);
 loadUsers();
-textType.classList.add("active");
-textType.addEventListener("click", () => {
-    textType.classList.add("active");
-    fileType.classList.remove("active");
-    bottomSideSubmit.classList.add("off");
-    
-})
-fileType.addEventListener("click", () => {
-    fileType.classList.add("active");
-    textType.classList.remove("active");
-    bottomSideSubmit.classList.toggle("off");
-})
 submitButton.addEventListener("click", async () => {
-    console.log("voce clicou")
-    if (fileType.classList.contains("active")) {
-        type = "FILE"
-        const file = fileInput.files[0];
-        if (!file) {
-            showMessage("Please, select a file", "challengeAlert", "challege-message");
-            return;
-        }
-        solution = await file.text();
-        //console.log(solution)
-    } else if (textType.classList.contains("active")) {
-        type = "TEXT";
-        if (textarea.value.trim() === "") {
-            showMessage("Please, provide a valid solution", "challengeAlert", "challege-message");
-            return;
-        }
-        solution = textarea.value;
-    }
-    if (!type) {
-        showMessage("Please, select a solution type first", "challengeAlert", "challege-message");
+    if (textarea.value.trim() === "") {
+        showMessage("Please, provide a valid solution", "challengeAlert", "challege-message");
         return;
     }
+    solution = textarea.value;
     try {
         const response = await fetch(`${API_URL}/api/challenges/${challengeDetails.id}/submissions`, {
             method: 'POST',
@@ -93,8 +57,7 @@ submitButton.addEventListener("click", async () => {
                 Authorization: `Bearer ${token}`
             },
             body: JSON.stringify({
-                type: `${type}`,
-                solution: `${solution}`
+                solution: solution
             })
         })
         const submit = await response.json()
@@ -113,7 +76,6 @@ submitButton.addEventListener("click", async () => {
     //currentUser.submitted = true;
     submitButton.disabled = true;
     textarea.disabled = true;
-    fileInput.disabled = true;
     status.textContent = "SOLUTION SUBMITTED";
     status.style.color = "green";
     sessionStorage.setItem("challengeID", challengeDetails.id);
@@ -167,13 +129,6 @@ function renderParticipants(participants) {
         participantContainer.appendChild(card);
     });
 }
-upload.addEventListener("change", () => {
-    fileName.textContent = upload.files[0]?.name || "No file";
-    if (upload.files[0]) {
-        fileType.classList.add("active");
-        textType.classList.remove("active");
-    }
-});
 const PAIRS = { "(": ")", "[": "]", "{": "}", '"': '"', "'": "'", "`": "`" };
 textarea.addEventListener("input", updateLines);
 textarea.addEventListener("keydown", (event) => {

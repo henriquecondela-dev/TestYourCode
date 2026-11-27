@@ -20,7 +20,6 @@ const timer = document.getElementById("timer");
 const timesrInfo = document.getElementById("challenge-timer");
 const problem = document.getElementById("problem");
 const submitButton = document.getElementById("submitSolution-btn");
-const fileInput = document.getElementById("file");
 const textarea = document.getElementById("code");
 //let running = false;
 let hours;
@@ -58,7 +57,6 @@ function startTimer() {
             timesrInfo.textContent = "Time expired. Evaluating...";
             submitButton.disabled = true;
             textarea.disabled = true;
-            fileInput.disabled = true;
             sessionStorage.setItem("challengeID", challengedetails.id);
             await finishAndEvaluate(challengedetails.id);
             return;

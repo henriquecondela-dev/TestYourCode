@@ -236,7 +236,7 @@ export async function submitAllSolutions(userId, challengeId) {
     return await prisma.result.findMany({ where: { challengeId } });
 }
 export async function submitSolution(submission, challengeid, userid) {
-    const { challengId, userId, type, solution, submitted } = submission;
+    const { solution } = submission;
     const challenge = await prisma.challenge.findUnique({
         where: {
             id: challengeid
@@ -272,7 +272,7 @@ export async function submitSolution(submission, challengeid, userid) {
         data: {
             challengeId: challengeid,
             userId: userid,
-            type: type.toUpperCase(),
+            type: "TEXT",
             solution: solution,
             submitted: true,
         }
