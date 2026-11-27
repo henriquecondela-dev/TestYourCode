@@ -1,6 +1,6 @@
 import prisma from "../lib/prisma.js";
 import { generateProblem } from "./problemService.js"
-import { pickClassic, classicStatement } from "./problemBankService.js";
+import { pickClassic } from "./problemBankService.js";
 import { evaluatePending, evaluateSubmission } from "./submissionService.js";
 
 const MAX_SOLUTION_LENGTH = 20000;
@@ -23,7 +23,7 @@ export async function createChallenge(data, userId) {
             problem = {
                 problemId: classic.id,
                 title: classic.title,
-                problem: classicStatement(classic),
+                problem: classic.statement,
                 referenceSolution: classic.referenceSolution
             };
         } else {
